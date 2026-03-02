@@ -1,135 +1,859 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How to Build an ETL Pipeline with Python and MySQL — N3X1S Intelligence</title><meta name="description" content="How to Build an ETL Pipeline with Python and MySQL - Expert tutorial by N3X1S Intelligence"><link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0;line-height:1.8}.container{max-width:720px;margin:0 auto;padding:40px 20px}.back{color:#00ff88;text-decoration:none;font-size:14px}h1{font-size:36px;font-weight:800;color:#fff;margin:20px 0 10px}.meta{color:#64748b;font-size:14px;margin-bottom:30px}article h2{color:#00ff88;font-size:24px;margin:30px 0 15px}article h3{color:#fff;font-size:20px;margin:25px 0 10px}article p{margin-bottom:16px}article pre{background:#0d1117;border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:20px;overflow-x:auto;margin:20px 0}article code{color:#00ff88;font-family:'Courier New',monospace;font-size:14px}article strong{color:#fff}article a{color:#00ff88}article li{margin-left:20px;margin-bottom:8px}.cta{display:inline-block;background:#00ff88;color:#0a0a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;margin-top:30px}footer{text-align:center;margin-top:60px;color:#64748b;font-size:13px}footer a{color:#00ff88;text-decoration:none}</style></head><body><div class="container"><header><a href="index.html" class="back">← N3X1S Blog</a><h1>How to Build an ETL Pipeline with Python and MySQL</h1><div class="meta">March 2, 2026 · 1399 words · N3X1S Intelligence</div></header><article><p>In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of modern analytics and application development. Whether you’re aggregating customer data, preparing datasets for machine learning, or building a data warehouse, ETL pipelines are the backbone of every robust data infrastructure.</p><p>This tutorial will guide you through building a complete ETL pipeline using <strong>Python</strong> and <strong>MySQL</strong>—two of the most widely used tools in the data ecosystem. By the end of this article, you’ll have a working ETL pipeline that extracts data from a source (like a CSV file), transforms it using Python, and loads it into a MySQL database. We’ll cover everything from setup to implementation, with practical code examples and actionable best practices.</p><p>---</p><h2>Prerequisites</h2><p>Before diving into the tutorial, ensure your environment meets the following requirements:</p><h3>Software and Tools</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Primary Meta Tags -->
+    <title>How to Build an ETL Pipeline with Python and MySQL | N3X1S Intelligence</title>
+    <meta name="title" content="How to Build an ETL Pipeline with Python and MySQL | N3X1S Intelligence">
+    <meta name="description" content="In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of modern analytics and application development. Whether you’...">
+    <meta name="author" content="N3X1S Intelligence">
+    <meta name="keywords" content="web scraping, python, data-engineering, data extraction, automation, tutorial">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+    <link rel="alternate" hreflang="x-default" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+    <meta property="og:title" content="How to Build an ETL Pipeline with Python and MySQL">
+    <meta property="og:description" content="In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of modern analytics and application development. Whether you’...">
+    <meta property="og:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta property="og:site_name" content="N3X1S Intelligence">
+    <meta property="article:published_time" content="2026-03-02T12:00:00Z">
+    <meta property="article:modified_time" content="2026-03-02T13:40:25.633330Z">
+    <meta property="article:author" content="N3X1S Intelligence">
+    <meta property="article:section" content="Data Engineering">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+    <meta name="twitter:title" content="How to Build an ETL Pipeline with Python and MySQL">
+    <meta name="twitter:description" content="In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of modern analytics and application development. Whether you’...">
+    <meta name="twitter:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta name="twitter:site" content="@n3x1s_intel">
+    <meta name="twitter:creator" content="@n3x1s_intel">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Build an ETL Pipeline with Python and MySQL", "description": "In today\u2019s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of modern analytics and application development. Whether you\u2019...", "author": {"@type": "Organization", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog"}, "publisher": {"@type": "Organization", "name": "N3X1S Intelligence", "logo": {"@type": "ImageObject", "url": "https://maxkle1nz.github.io/n3x1s-blog/favicon.svg"}}, "datePublished": "2026-03-02", "dateModified": "2026-03-02", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html"}, "wordCount": 1388, "articleSection": "Data Engineering"}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://maxkle1nz.github.io/n3x1s-blog"}, {"@type": "ListItem", "position": 2, "name": "Data Engineering", "item": "https://maxkle1nz.github.io/n3x1s-blog/category-data-engineering.html"}, {"@type": "ListItem", "position": 3, "name": "How to Build an ETL Pipeline with Python and MySQL"}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is prerequisites?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers prerequisites in detail with code examples and best practices."}}, {"@type": "Question", "name": "What is step 1: understanding the etl pipeline?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers step 1: understanding the etl pipeline in detail with code examples and best practices."}}]}</script>
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        :root {
+            --brand: #00ff88;
+            --bg: #0a0a0a;
+            --bg-secondary: #111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+            --code-bg: #1a1a2e;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover { color: var(--brand); }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb li::after { content: '/'; margin-left: 0.5rem; }
+        .breadcrumb li:last-child::after { content: ''; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+        
+        article { margin-bottom: 3rem; }
+        
+        /* Typography */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--brand);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin: 2.5rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p { margin-bottom: 1.25rem; }
+        
+        a { color: var(--brand); }
+        
+        /* Meta info */
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta span { display: flex; align-items: center; gap: 0.3rem; }
+        
+        /* TOC */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .toc h2 {
+            font-size: 1.1rem;
+            margin: 0 0 1rem;
+            padding: 0;
+            border: none;
+        }
+        
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            color: var(--brand);
+        }
+        
+        /* Code */
+        pre {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        :not(pre) > code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--brand);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .related-articles h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .related-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+        }
+        
+        .related-card a {
+            text-decoration: none;
+        }
+        
+        .related-card h3 {
+            color: var(--brand);
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .read-time {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .faq-section h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        
+        .faq-item h3 {
+            color: var(--brand);
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .faq-item p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+        
+        /* Author Box */
+        .author-box {
+            background: linear-gradient(135deg, var(--bg-secondary), #1a1a2e);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .author-info h4 {
+            color: var(--brand);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #1a1a2e, var(--bg-secondary));
+            border: 2px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-box h3 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--brand);
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+            color: #000;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .footer-section li {
+            margin: 0.5rem 0;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            header { padding: 1rem; }
+            main { padding: 1rem; }
+            .author-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span>🔮</span> N3X1S Intelligence
+            </a>
+            <nav aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category-data-engineering.html">Data Engineering</a></li>
+            <li aria-current="page">How to Build an ETL Pipeline with Python...</li>
+        </ol>
+    </nav>
+    
+    <main>
+        <article itemscope itemtype="https://schema.org/Article">
+            <header>
+                <h1 itemprop="headline">How to Build an ETL Pipeline with Python and MySQL</h1>
+                <div class="meta">
+                    <span>📅 <time datetime="2026-03-02" itemprop="datePublished">March 2, 2026</time></span>
+                    <span>⏱️ 7 min read</span>
+                    <span>📝 1,388 words</span>
+                    <span>📁 <a href="category-data-engineering.html">Data Engineering</a></span>
+                </div>
+            </header>
+            
+            <nav class="toc" aria-label="Table of Contents"><h2>📑 Table of Contents</h2><ul><li><a href="#prerequisites">Prerequisites</a></li>  <li><a href="#software-and-tools">Software and Tools</a></li>  <li><a href="#python-packages">Python Packages</a></li>  <li><a href="#mysql-setup">MySQL Setup</a></li><li><a href="#step-1-understanding-the-etl-pipeline">Step 1: Understanding the ETL Pipeline</a></li>  <li><a href="#extract">**Extract**</a></li>  <li><a href="#transform">**Transform**</a></li>  <li><a href="#load">**Load**</a></li><li><a href="#step-2-setting-up-your-project-structure">Step 2: Setting Up Your Project Structure</a></li><li><a href="#step-3-extracting-data-from-a-csv-file">Step 3: Extracting Data from a CSV File</a></li>  <li><a href="#code-example-extracting-data">Code Example: Extracting Data</a></li><li><a href="#step-4-transforming-the-data">Step 4: Transforming the Data</a></li>  <li><a href="#code-example-transforming-data">Code Example: Transforming Data</a></li><li><a href="#step-5-loading-data-into-mysql">Step 5: Loading Data into MySQL</a></li>  <li><a href="#step-51-configuring-mysql-connection">Step 5.1: Configuring MySQL Connection</a></li>  <li><a href="#step-52-inserting-data-into-mysql">Step 5.2: Inserting Data into MySQL</a></li><li><a href="#step-6-orchestrating-the-etl-pipeline">Step 6: Orchestrating the ETL Pipeline</a></li><li><a href="#step-7-testing-the-pipeline">Step 7: Testing the Pipeline</a></li><li><a href="#best-practices-for-etl-pipelines">Best Practices for ETL Pipelines</a></li>  <li><a href="#1-use-transactions">1. **Use Transactions**</a></li>  <li><a href="#2-handle-large-datasets">2. **Handle Large Datasets**</a></li>  <li><a href="#3-log-progress-and-errors">3. **Log Progress and Errors**</a></li>  <li><a href="#4-parameterize-configuration">4. **Parameterize Configuration**</a></li>  <li><a href="#5-validate-data-early">5. **Validate Data Early**</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li>  <li><a href="#1-automate-with-scheduling-tools">1. **Automate with Scheduling Tools**</a></li>  <li><a href="#2-use-connection-pools">2. **Use Connection Pools**</a></li>  <li><a href="#3-implement-data-quality-checks">3. **Implement Data Quality Checks**</a></li>  <li><a href="#4-explore-cloud-solutions">4. **Explore Cloud Solutions**</a></li>  <li><a href="#5-build-a-dashboard">5. **Build a Dashboard**</a></li><li><a href="#-recommended-tools">🛠️ Recommended Tools</a></li></ul></nav>
+            
+            <div class="content" itemprop="articleBody">
+                <p>In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of modern analytics and application development. Whether you’re aggregating customer data, preparing datasets for machine learning, or building a data warehouse, ETL pipelines are the backbone of every robust data infrastructure.</p>
+<p>This tutorial will guide you through building a complete ETL pipeline using <strong>Python</strong> and <strong>MySQL</strong>—two of the most widely used tools in the data ecosystem. By the end of this article, you’ll have a working ETL pipeline that extracts data from a source (like a CSV file), transforms it using Python, and loads it into a MySQL database. We’ll cover everything from setup to implementation, with practical code examples and actionable best practices.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before diving into the tutorial, ensure your environment meets the following requirements:</p>
+<h3 id="software-and-tools">Software and Tools</h3>
+<ul>
 <li><strong>Python 3.8+</strong> installed on your machine (check with <code>python --version</code>)</li>
-<li><strong>MySQL 8.0+</strong> (you can use <a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="nofollow">MySQL Community Server</a> or a managed service like AWS RDS)</li>
-<li><strong>pip</strong> (Python’s package manager; install via <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="nofollow">get-pip.py</a> if needed)</li><h3>Python Packages</h3>
+<li><strong>MySQL 8.0+</strong> (you can use <a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">MySQL Community Server</a> or a managed service like AWS RDS)</li>
+<li><strong>pip</strong> (Python’s package manager; install via <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">get-pip.py</a> if needed)</li>
+</ul>
+<h3 id="python-packages">Python Packages</h3>
 Install the following Python libraries using <code>pip</code>:
-<pre><code>bash
-pip install mysql-connector-python pandas
-</code></pre><h3>MySQL Setup</h3>
-1. Install and configure MySQL on your machine or cloud provider.
-2. Create a new database (e.g., <code>etl_demo</code>) and a user with access privileges.
-3. Note the <strong>host</strong>, <strong>username</strong>, <strong>password</strong>, and <strong>database name</strong> for later use.<p>---</p><h2>Step 1: Understanding the ETL Pipeline</h2><p>An ETL pipeline consists of three core stages:</p><h3><strong>Extract</strong></h3>
-Retrieve raw data from its source (e.g., CSV, API, or another database). This step focuses on data discovery and retrieval.<h3><strong>Transform</strong></h3>
-Clean, filter, and structure the data into a format suitable for storage or analysis. This might include type conversions, deduplication, or aggregation.<h3><strong>Load</strong></h3>
-Insert the transformed data into the target system—in this case, a MySQL database.<p>---</p><h2>Step 2: Setting Up Your Project Structure</h2><p>Create a project directory with the following files:
-<pre><code>etl_pipeline/
+<pre><code class="language-bash">pip install mysql-connector-python pandas</code></pre>
+<h3 id="mysql-setup">MySQL Setup</h3>
+<ol>
+<li>Install and configure MySQL on your machine or cloud provider.</li>
+<li>Create a new database (e.g., <code>etl_demo</code>) and a user with access privileges.</li>
+<li>Note the <strong>host</strong>, <strong>username</strong>, <strong>password</strong>, and <strong>database name</strong> for later use.</li>
+</ol>
+<hr>
+<h2 id="step-1-understanding-the-etl-pipeline">Step 1: Understanding the ETL Pipeline</h2>
+<p>An ETL pipeline consists of three core stages:</p>
+<h3 id="extract"><strong>Extract</strong></h3>
+Retrieve raw data from its source (e.g., CSV, API, or another database). This step focuses on data discovery and retrieval.
+<h3 id="transform"><strong>Transform</strong></h3>
+Clean, filter, and structure the data into a format suitable for storage or analysis. This might include type conversions, deduplication, or aggregation.
+<h3 id="load"><strong>Load</strong></h3>
+Insert the transformed data into the target system—in this case, a MySQL database.
+<hr>
+<h2 id="step-2-setting-up-your-project-structure">Step 2: Setting Up Your Project Structure</h2>
+<p>Create a project directory with the following files:
+<pre><code class="language-text">etl_pipeline/
 │
 ├── data/
 │   └── raw_data.csv
 ├── transform.py
 ├── load.py
-└── etl_pipeline.py
-</code></pre></p><li><strong>raw_data.csv</strong>: A sample CSV file containing raw data (we’ll create this in the next section).</li>
+└── etl_pipeline.py</code></pre></p>
+<ul>
+<li><strong>raw_data.csv</strong>: A sample CSV file containing raw data (we’ll create this in the next section).</li>
 <li><strong>transform.py</strong>: Handles data transformation logic.</li>
 <li><strong>load.py</strong>: Manages data loading into MySQL.</li>
-<li><strong>etl_pipeline.py</strong>: Orchestrates the ETL process.</li><p>---</p><h2>Step 3: Extracting Data from a CSV File</h2><p>For this tutorial, we’ll use a simple CSV file as the source of raw data. Here’s an example of what <code>data/raw_data.csv</code> might look like:</p><pre><code>csv
-id,name,age,email
+<li><strong>etl_pipeline.py</strong>: Orchestrates the ETL process.</li>
+</ul>
+<hr>
+<h2 id="step-3-extracting-data-from-a-csv-file">Step 3: Extracting Data from a CSV File</h2>
+<p>For this tutorial, we’ll use a simple CSV file as the source of raw data. Here’s an example of what <code>data/raw_data.csv</code> might look like:</p>
+<pre><code class="language-csv">id,name,age,email
 1,John Doe,30,john@example.com
 2,Jane Smith,25,jane@example.com
-3,Bob Johnson,35,bob@example.com
-</code></pre><h3>Code Example: Extracting Data</h3><p>In <code>transform.py</code>, start by reading the CSV file with <strong>Pandas</strong>:</p><pre><code>import pandas as pd<p>def extract_data(file_path):
+3,Bob Johnson,35,bob@example.com</code></pre>
+<h3 id="code-example-extracting-data">Code Example: Extracting Data</h3>
+<p>In <code>transform.py</code>, start by reading the CSV file with <strong>Pandas</strong>:</p>
+<pre><code class="language-python">import pandas as pd
+<p>def extract_data(file_path):
     try:
         # Read CSV into a DataFrame
         df = pd.read_csv(file_path)
-        print("✅ Data extracted successfully.")
+        print(&quot;✅ Data extracted successfully.&quot;)
         return df
     except FileNotFoundError:
-        print("❌ Error: File not found.")
+        print(&quot;❌ Error: File not found.&quot;)
         return None
     except Exception as e:
-        print(f"❌ Error during extraction: {e}")
-        return None
-</code></pre></p><strong>Tip</strong>: Always handle exceptions during extraction to avoid pipeline failures.<p>---</p><h2>Step 4: Transforming the Data</h2><p>Once the data is extracted, we need to clean and prepare it. Common transformations include:</p><li>Removing duplicates</li>
+        print(f&quot;❌ Error during extraction: {e}&quot;)
+        return None</code></pre></p>
+<strong>Tip</strong>: Always handle exceptions during extraction to avoid pipeline failures.
+<hr>
+<h2 id="step-4-transforming-the-data">Step 4: Transforming the Data</h2>
+<p>Once the data is extracted, we need to clean and prepare it. Common transformations include:</p>
+<ul>
+<li>Removing duplicates</li>
 <li>Validating data types</li>
 <li>Filtering out invalid records</li>
-<li>Standardizing formats (e.g., email validation)</li><h3>Code Example: Transforming Data</h3><p>Update <code>transform.py</code> with the following transformation logic:</p><pre><code>import pandas as pd
-import re<p>def transform_data(df):
+<li>Standardizing formats (e.g., email validation)</li>
+</ul>
+<h3 id="code-example-transforming-data">Code Example: Transforming Data</h3>
+<p>Update <code>transform.py</code> with the following transformation logic:</p>
+<pre><code class="language-python">import pandas as pd
+import re
+<p>def transform_data(df):
     if df is None:
-        return None</p><p>try:
+        return None</p>
+<p>try:
         # Remove duplicate entries
-        df.drop_duplicates(subset=['email'], inplace=True)</p><p># Validate and clean email addresses
+        df.drop_duplicates(subset=[&#x27;email&#x27;], inplace=True)</p>
+# Validate and clean email addresses
         def is_valid_email(email):
-            return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None</p><p>df = df[df['email'].apply(is_valid_email)]</p><p># Convert age to integer, filter out invalid values
-        df['age'] = pd.to_numeric(df['age'], errors='coerce')
-        df = df[df['age'].between(18, 100)]</p><p>print("✅ Data transformed successfully.")
+            return re.match(r&quot;[^@]+@[^@]+\.[^@]+&quot;, email) is not None
+<p>df = df[df[&#x27;email&#x27;].apply(is_valid_email)]</p>
+# Convert age to integer, filter out invalid values
+        df[&#x27;age&#x27;] = pd.to_numeric(df[&#x27;age&#x27;], errors=&#x27;coerce&#x27;)
+        df = df[df[&#x27;age&#x27;].between(18, 100)]
+<p>print(&quot;✅ Data transformed successfully.&quot;)
         return df
     except Exception as e:
-        print(f"❌ Error during transformation: {e}")
-        return None
-</code></pre></p><strong>Warning</strong>: Avoid using <code>df.dropna()</code> without understanding the impact on your dataset. Always validate data carefully.<p>---</p><h2>Step 5: Loading Data into MySQL</h2><p>Now that the data is clean, it’s time to load it into a MySQL database. We’ll use the <strong>mysql-connector-python</strong> library to handle this.</p><h3>Step 5.1: Configuring MySQL Connection</h3><p>Create a <code>config.py</code> file to store your database credentials:</p><pre><code>
+        print(f&quot;❌ Error during transformation: {e}&quot;)
+        return None</code></pre></p>
+<strong>Warning</strong>: Avoid using <code>df.dropna()</code> without understanding the impact on your dataset. Always validate data carefully.
+<hr>
+<h2 id="step-5-loading-data-into-mysql">Step 5: Loading Data into MySQL</h2>
+<p>Now that the data is clean, it’s time to load it into a MySQL database. We’ll use the <strong>mysql-connector-python</strong> library to handle this.</p>
+<h3 id="step-51-configuring-mysql-connection">Step 5.1: Configuring MySQL Connection</h3>
+<p>Create a <code>config.py</code> file to store your database credentials:</p>
+<pre><code class="language-python"># config.py
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'your_username',
-    'password': 'your_password',
-    'database': 'etl_demo'
-}
-</code></pre><h3>Step 5.2: Inserting Data into MySQL</h3><p>In <code>load.py</code>, write a function to insert the transformed DataFrame into a MySQL table:</p><pre><code>import mysql.connector
+    &#x27;host&#x27;: &#x27;localhost&#x27;,
+    &#x27;user&#x27;: &#x27;your_username&#x27;,
+    &#x27;password&#x27;: &#x27;your_password&#x27;,
+    &#x27;database&#x27;: &#x27;etl_demo&#x27;
+}</code></pre>
+<h3 id="step-52-inserting-data-into-mysql">Step 5.2: Inserting Data into MySQL</h3>
+<p>In <code>load.py</code>, write a function to insert the transformed DataFrame into a MySQL table:</p>
+<pre><code class="language-python">import mysql.connector
 from mysql.connector import Error
-import config<p>def load_data(df, table_name):
+import config
+<p>def load_data(df, table_name):
     if df is None or df.empty:
-        print("❌ No data to load.")
-        return</p><p>try:
+        print(&quot;❌ No data to load.&quot;)
+        return</p>
+<p>try:
         # Establish database connection
         connection = mysql.connector.connect(**config.DB_CONFIG)
-        cursor = connection.cursor()</p><p># Create table if it doesn't exist
-        create_table_query = f"""
+        cursor = connection.cursor()</p>
+# Create table if it doesn&#x27;t exist
+        create_table_query = f&quot;&quot;&quot;
         CREATE TABLE IF NOT EXISTS {table_name} (
             id INT PRIMARY KEY,
             name VARCHAR(255),
             age INT,
             email VARCHAR(255)
         )
-        """
-        cursor.execute(create_table_query)</p><p># Insert data
+        &quot;&quot;&quot;
+        cursor.execute(create_table_query)
+# Insert data
         for _, row in df.iterrows():
-            insert_query = f"""
+            insert_query = f&quot;&quot;&quot;
             INSERT INTO {table_name} (id, name, age, email)
             VALUES (%s, %s, %s, %s)
-            """
-            cursor.execute(insert_query, tuple(row))</p><p># Commit transaction
+            &quot;&quot;&quot;
+            cursor.execute(insert_query, tuple(row))
+# Commit transaction
         connection.commit()
-        print("✅ Data loaded successfully into MySQL.")</p><p>except Error as e:
-        print(f"❌ MySQL error: {e}")
+        print(&quot;✅ Data loaded successfully into MySQL.&quot;)
+<p>except Error as e:
+        print(f&quot;❌ MySQL error: {e}&quot;)
     except Exception as e:
-        print(f"❌ Error during loading: {e}")
+        print(f&quot;❌ Error during loading: {e}&quot;)
     finally:
         if connection.is_connected():
             cursor.close()
             connection.close()
-            print("🔒 MySQL connection closed.")
-</code></pre></p><strong>Best Practice</strong>: Use parameterized queries (like <code>%s</code>) to prevent SQL injection attacks.<p>---</p><h2>Step 6: Orchestrating the ETL Pipeline</h2><p>Now that all components are in place, create an <code>etl_pipeline.py</code> file to tie them together:</p><pre><code>from transform import extract_data, transform_data
-from load import load_data<p>def main():
+            print(&quot;🔒 MySQL connection closed.&quot;)</code></pre></p>
+<strong>Best Practice</strong>: Use parameterized queries (like <code>%s</code>) to prevent SQL injection attacks.
+<hr>
+<h2 id="step-6-orchestrating-the-etl-pipeline">Step 6: Orchestrating the ETL Pipeline</h2>
+<p>Now that all components are in place, create an <code>etl_pipeline.py</code> file to tie them together:</p>
+<pre><code class="language-python">from transform import extract_data, transform_data
+from load import load_data
+<p>def main():
     # Configuration
-    CSV_FILE_PATH = 'data/raw_data.csv'
-    TABLE_NAME = 'users'</p><p># Extract
+    CSV_FILE_PATH = &#x27;data/raw_data.csv&#x27;
+    TABLE_NAME = &#x27;users&#x27;</p>
+# Extract
     df = extract_data(CSV_FILE_PATH)
     if df is None:
-        return</p><p># Transform
+        return
+# Transform
     df = transform_data(df)
     if df is None:
-        return</p><p># Load
-    load_data(df, TABLE_NAME)</p><p>if __name__ == "__main__":
-    main()
-</code></pre></p><strong>Tip</strong>: For production systems, consider using a task scheduler (e.g., <strong>cron</strong>, <strong>Airflow</strong>) to automate pipeline execution.<p>---</p><h2>Step 7: Testing the Pipeline</h2><p>Run the pipeline by executing:</p><pre><code>bash
-python etl_pipeline.py
-</code></pre><p>If everything works, you should see the following output in your MySQL database:</p><pre><code>sql
-SELECT * FROM users;
-</code></pre><p>| id | name       | age | email              |
+        return
+# Load
+    load_data(df, TABLE_NAME)
+<p>if __name__ == &quot;__main__&quot;:
+    main()</code></pre></p>
+<strong>Tip</strong>: For production systems, consider using a task scheduler (e.g., <strong>cron</strong>, <strong>Airflow</strong>) to automate pipeline execution.
+<hr>
+<h2 id="step-7-testing-the-pipeline">Step 7: Testing the Pipeline</h2>
+<p>Run the pipeline by executing:</p>
+<pre><code class="language-bash">python etl_pipeline.py</code></pre>
+<p>If everything works, you should see the following output in your MySQL database:</p>
+<pre><code class="language-sql">SELECT * FROM users;</code></pre>
+<p>| id | name       | age | email              |
 |----|------------|-----|--------------------|
 | 1  | John Doe   | 30  | john@example.com   |
 | 2  | Jane Smith | 25  | jane@example.com   |
-| 3  | Bob Johnson| 35  | bob@example.com    |</p><strong>Warning</strong>: Always verify the data in MySQL after loading to catch any discrepancies.<p>---</p><h2>Best Practices for ETL Pipelines</h2><p>Here are some essential tips to keep your ETL pipeline robust and scalable:</p><h3>1. <strong>Use Transactions</strong></h3>
-Wrap multiple inserts in a transaction to ensure atomicity (i.e., all-or-nothing operations).<h3>2. <strong>Handle Large Datasets</strong></h3>
-For large files, use <strong>chunking</strong> with <code>chunksize</code> in <code>pd.read_csv()</code> to avoid memory overload.<h3>3. <strong>Log Progress and Errors</strong></h3>
-Implement logging to track pipeline execution and troubleshoot issues quickly.<h3>4. <strong>Parameterize Configuration</strong></h3>
-Store database credentials and file paths in external configuration files instead of hardcoding them.<h3>5. <strong>Validate Data Early</strong></h3>
-Perform data validation during the extraction phase to reduce errors later in the pipeline.<p>---</p><h2>Conclusion</h2><p>You’ve now built a complete ETL pipeline using Python and MySQL! This pipeline can be extended to handle more complex use cases, such as:</p><li>Extracting data from APIs or cloud storage services</li>
+| 3  | Bob Johnson| 35  | bob@example.com    |</p>
+<strong>Warning</strong>: Always verify the data in MySQL after loading to catch any discrepancies.
+<hr>
+<h2 id="best-practices-for-etl-pipelines">Best Practices for ETL Pipelines</h2>
+<p>Here are some essential tips to keep your ETL pipeline robust and scalable:</p>
+<h3 id="1-use-transactions">1. <strong>Use Transactions</strong></h3>
+Wrap multiple inserts in a transaction to ensure atomicity (i.e., all-or-nothing operations).
+<h3 id="2-handle-large-datasets">2. <strong>Handle Large Datasets</strong></h3>
+For large files, use <strong>chunking</strong> with <code>chunksize</code> in <code>pd.read_csv()</code> to avoid memory overload.
+<h3 id="3-log-progress-and-errors">3. <strong>Log Progress and Errors</strong></h3>
+Implement logging to track pipeline execution and troubleshoot issues quickly.
+<h3 id="4-parameterize-configuration">4. <strong>Parameterize Configuration</strong></h3>
+Store database credentials and file paths in external configuration files instead of hardcoding them.
+<h3 id="5-validate-data-early">5. <strong>Validate Data Early</strong></h3>
+Perform data validation during the extraction phase to reduce errors later in the pipeline.
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>You’ve now built a complete ETL pipeline using Python and MySQL! This pipeline can be extended to handle more complex use cases, such as:</p>
+<ul>
+<li>Extracting data from APIs or cloud storage services</li>
 <li>Transforming data using SQL or advanced Python libraries (e.g., <strong>NumPy</strong>, <strong>Dask</strong>)</li>
-<li>Loading data into data warehouses or big data platforms (e.g., <strong>Snowflake</strong>, <strong>BigQuery</strong>)</li><p>This tutorial serves as a foundation for your ETL journey. As you gain experience, you’ll likely want to explore more advanced tools and frameworks.</p><p>---</p><h2>Next Steps</h2><p>Here’s how to take your ETL skills further:</p><h3>1. <strong>Automate with Scheduling Tools</strong></h3>
-Use <strong>Apache Airflow</strong> or <strong>Celery</strong> to schedule and monitor your ETL pipelines.<h3>2. <strong>Use Connection Pools</strong></h3>
-For high-throughput systems, replace <code>mysql-connector-python</code> with <strong>SQLAlchemy</strong> or <strong>PyMySQL</strong> to leverage connection pooling.<h3>3. <strong>Implement Data Quality Checks</strong></h3>
-Integrate tools like <strong>Great Expectations</strong> or <strong>Deeplake</strong> to enforce data quality rules.<h3>4. <strong>Explore Cloud Solutions</strong></h3>
-Migrate your pipeline to cloud platforms like <strong>AWS Glue</strong> or <strong>Google Dataflow</strong> for scalability.<h3>5. <strong>Build a Dashboard</strong></h3>
-Visualize your data using <strong>Tableau</strong>, <strong>Power BI</strong>, or <strong>Dash</strong> to derive actionable insights.<p>---</p><p>By mastering ETL pipelines, you’ll become a more versatile developer capable of handling complex data workflows. Now go build something amazing!</p><p>---</p><h2>🛠️ Recommended Tools</h2><li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
-<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
-<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li><p>*Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow">Hire N3X1S on Fiverr →</a>*</p></article><a href="https://www.fiverr.com/maxklein251" class="cta">🚀 Need web scraping? Hire N3X1S on Fiverr</a><footer><p>© 2026 N3X1S Intelligence · <a href="index.html">All Articles</a></p></footer></div></body></html>
+<li>Loading data into data warehouses or big data platforms (e.g., <strong>Snowflake</strong>, <strong>BigQuery</strong>)</li>
+</ul>
+<p>This tutorial serves as a foundation for your ETL journey. As you gain experience, you’ll likely want to explore more advanced tools and frameworks.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>Here’s how to take your ETL skills further:</p>
+<h3 id="1-automate-with-scheduling-tools">1. <strong>Automate with Scheduling Tools</strong></h3>
+Use <strong>Apache Airflow</strong> or <strong>Celery</strong> to schedule and monitor your ETL pipelines.
+<h3 id="2-use-connection-pools">2. <strong>Use Connection Pools</strong></h3>
+For high-throughput systems, replace <code>mysql-connector-python</code> with <strong>SQLAlchemy</strong> or <strong>PyMySQL</strong> to leverage connection pooling.
+<h3 id="3-implement-data-quality-checks">3. <strong>Implement Data Quality Checks</strong></h3>
+Integrate tools like <strong>Great Expectations</strong> or <strong>Deeplake</strong> to enforce data quality rules.
+<h3 id="4-explore-cloud-solutions">4. <strong>Explore Cloud Solutions</strong></h3>
+Migrate your pipeline to cloud platforms like <strong>AWS Glue</strong> or <strong>Google Dataflow</strong> for scalability.
+<h3 id="5-build-a-dashboard">5. <strong>Build a Dashboard</strong></h3>
+Visualize your data using <strong>Tableau</strong>, <strong>Power BI</strong>, or <strong>Dash</strong> to derive actionable insights.
+<hr>
+<p>By mastering ETL pipelines, you’ll become a more versatile developer capable of handling complex data workflows. Now go build something amazing!</p>
+<hr>
+<h2 id="-recommended-tools">🛠️ Recommended Tools</h2>
+<ul>
+<li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
+<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow sponsored noopener">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
+<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li>
+</ul>
+<em>Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow sponsored noopener">Hire N3X1S on Fiverr →</a></em>
+            </div>
+            
+            <div class="author-box">
+                <div class="author-avatar">🔮</div>
+                <div class="author-info">
+                    <h4>Written by N3X1S Intelligence</h4>
+                    <p itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Data extraction specialists with 8+ years of experience building production-grade scrapers, ETL pipelines, and automation systems. We've processed billions of data points for Fortune 500 companies.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>🚀 Need a Custom Scraper?</h3>
+                <p>Don't have time to build it yourself? We'll create a production-ready scraper tailored to your exact needs.</p>
+                <a href="https://www.fiverr.com/s/LdR6YN4" class="cta-button" target="_blank" rel="nofollow sponsored noopener">Get Your Custom Scraper →</a>
+            </div>
+            
+            <section class="related-articles"><h2>📚 Related Articles</h2><div class="related-grid">
+        <article class="related-card">
+            <a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+                <h3>Building a Price Tracker with Python and BeautifulSoup</h3>
+                <p>In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Wh...</p>
+                <span class="read-time">6 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+                <h3>Data Enrichment: How to Add Value to Raw Scraped Data</h3>
+                <p>Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_data-pipeline-architecture-from-messy-csvs-to-clean-database.html">
+                <h3>Data Pipeline Architecture: From Messy CSVs to Clean Database</h3>
+                <p>Imagine this: You’ve just received a CSV file from a client that’s supposed to contain thousands of ...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article></div></section>
+            
+            <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage"><h2>❓ Frequently Asked Questions</h2>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is prerequisites?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers prerequisites in detail with code examples and best practices.</p>
+            </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is step 1: understanding the etl pipeline?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers step 1: understanding the etl pipeline in detail with code examples and best practices.</p>
+            </div>
+        </div></section>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🔮 N3X1S Intelligence</h4>
+                <p style="color: var(--text-muted);">Expert web scraping tutorials, automation guides, and data extraction techniques.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="category-apis.html">APIs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                    <li><a href="https://github.com/maxkle1nz" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Popular Tutorials</h4>
+                <ul>
+                    <li><a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">Building a Job Scraper: Indeed, Lin...</a></li><li><a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">Building a Price Tracker with Pytho...</a></li><li><a href="20260302_building-a-real-estate-price-tracker-with-python.html">Building a Real Estate Price Tracke...</a></li><li><a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">Data Enrichment: How to Add Value t...</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 N3X1S Intelligence. All rights reserved. Built with 🐍 Python.</p>
+        </div>
+    </footer>
+</body>
+</html>

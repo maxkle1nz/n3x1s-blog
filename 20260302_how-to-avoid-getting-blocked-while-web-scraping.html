@@ -1,56 +1,763 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How to Avoid Getting Blocked While Web Scraping   — N3X1S Intelligence</title><meta name="description" content="How to Avoid Getting Blocked While Web Scraping   - Expert tutorial by N3X1S Intelligence"><link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-avoid-getting-blocked-while-web-scraping.html"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0;line-height:1.8}.container{max-width:720px;margin:0 auto;padding:40px 20px}.back{color:#00ff88;text-decoration:none;font-size:14px}h1{font-size:36px;font-weight:800;color:#fff;margin:20px 0 10px}.meta{color:#64748b;font-size:14px;margin-bottom:30px}article h2{color:#00ff88;font-size:24px;margin:30px 0 15px}article h3{color:#fff;font-size:20px;margin:25px 0 10px}article p{margin-bottom:16px}article pre{background:#0d1117;border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:20px;overflow-x:auto;margin:20px 0}article code{color:#00ff88;font-family:'Courier New',monospace;font-size:14px}article strong{color:#fff}article a{color:#00ff88}article li{margin-left:20px;margin-bottom:8px}.cta{display:inline-block;background:#00ff88;color:#0a0a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;margin-top:30px}footer{text-align:center;margin-top:60px;color:#64748b;font-size:13px}footer a{color:#00ff88;text-decoration:none}</style></head><body><div class="container"><header><a href="index.html" class="back">← N3X1S Blog</a><h1>How to Avoid Getting Blocked While Web Scraping  </h1><div class="meta">March 2, 2026 · 1285 words · N3X1S Intelligence</div></header><article><p>Web scraping is a powerful tool for extracting data from websites, but it comes with a significant challenge: <strong>getting blocked by the target site</strong>. Whether you're scraping product listings, social media profiles, or news articles, the moment you send too many requests or use a bot-like signature, you risk being locked out, banned, or even blacklisted.</p><p>This tutorial will walk you through <strong>practical strategies and code examples</strong> to help you avoid detection and stay under the radar while scraping. Whether you're a beginner or an experienced developer, these techniques will help you scrape more efficiently and responsibly.</p><p>We’ll cover:  
-<li>How websites block scrapers  </li>
-<li>Best practices to avoid detection  </li>
-<li>Real-world Python code examples  </li>
-<li>Tools and libraries to use  </li>
-<li>Legal and ethical considerations  </li></p><p>Let’s dive in.</p><p>---</p><h2>Prerequisites  </h2><p>Before we begin, ensure you have the following:</p><h3>1. <strong>Python Installed</strong>  </h3>
-This tutorial uses Python 3.8+ and relies on popular libraries like <code>requests</code>, <code>BeautifulSoup</code>, and <code>fake_useragent</code>.<h3>2. <strong>Basic Understanding of HTTP Requests</strong>  </h3>
-You should be familiar with concepts like headers, cookies, and status codes.<h3>3. <strong>A Scraping Goal</strong>  </h3>
-Have a clear idea of what data you’re trying to extract and from which website.<h3>4. <strong>Basic Knowledge of Web Scraping</strong>  </h3>
-You should know how to parse HTML with tools like <code>BeautifulSoup</code> or <code>lxml</code>.<p>---</p><h2>Understanding How Websites Block Scrapers  </h2><p>Before learning how to avoid being blocked, it’s important to understand <strong>why websites block scrapers</strong> in the first place. Here are the most common methods:</p><h3>### 1. <strong>CAPTCHA Detection</strong>  </h3>
-Websites like Google, Facebook, or any high-traffic platform often use CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart) to verify that a visitor is human. If a bot is detected, the user is forced to solve a CAPTCHA.<h3>### 2. <strong>IP Blocking</strong>  </h3>
-Websites track IP addresses and may block an IP if it sends too many requests in a short time. This is especially common for sites with limited resources.<h3>### 3. <strong>Rate Limiting</strong>  </h3>
-Many websites enforce rate limits on how many requests can be made per minute or hour. Exceeding these limits can lead to temporary or permanent bans.<h3>### 4. <strong>User-Agent Detection</strong>  </h3>
-Browsers send a <strong>User-Agent string</strong> that identifies the browser, OS, and device. Scrapers often use default User-Agent strings that are easy to detect.<h3>### 5. <strong>JavaScript Rendering Detection</strong>  </h3>
-Some sites use JavaScript to load content dynamically. If your scraper doesn’t render JavaScript, the site might detect it as a bot.<p>---</p><h2>Techniques to Avoid Getting Blocked  </h2><p>Now that we understand how websites block scrapers, let’s explore strategies to avoid detection.</p><h3>### 1. <strong>Use Proxies to Rotate IP Addresses</strong>  </h3><p>One of the easiest ways to avoid IP blocking is to use a <strong>proxy service</strong>. Proxies act as intermediaries between your scraper and the target website, masking your real IP address.</p><p>#### <strong>Types of Proxies</strong>  
-<li><strong>Residential Proxies</strong>: Use real IP addresses from ISPs. These are harder to block.  </li>
-<li><strong>Data Center Proxies</strong>: Cheaper but often flagged as suspicious.  </li></p><p>#### <strong>Code Example: Using Proxies with <code>requests</code></strong></p><pre><code>import requests<p>proxies = {
-    'http': 'http://your-proxy-ip:port',
-    'https': 'http://your-proxy-ip:port'
-}</p><p>headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-}</p><p>response = requests.get('https://example.com', headers=headers, proxies=proxies)
-print(response.text)
-</code></pre></p><p>> <strong>Tip</strong>: Use a proxy rotation service (e.g., BrightData, Luminati) to automatically rotate IPs and avoid detection.</p><p>---</p><h3>### 2. <strong>Rotate User-Agents to Mimic Real Browsers</strong>  </h3><p>Websites often block scrapers by checking the User-Agent string. To avoid this, use a <strong>random User-Agent generator</strong>.</p><p>#### <strong>Code Example: Rotating User-Agents with <code>fake_useragent</code></strong></p><pre><code>from fake_useragent import UserAgent
-import requests<p>ua = UserAgent()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Primary Meta Tags -->
+    <title>How to Avoid Getting Blocked While Web Scraping | N3X1S Intelligence</title>
+    <meta name="title" content="How to Avoid Getting Blocked While Web Scraping | N3X1S Intelligence">
+    <meta name="description" content="Web scraping is a powerful tool for extracting data from websites, but it comes with a significant challenge: getting blocked by the target site. Whether you...">
+    <meta name="author" content="N3X1S Intelligence">
+    <meta name="keywords" content="web scraping, python, web-scraping, data extraction, automation, tutorial">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+    <link rel="alternate" hreflang="x-default" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+    <meta property="og:title" content="How to Avoid Getting Blocked While Web Scraping">
+    <meta property="og:description" content="Web scraping is a powerful tool for extracting data from websites, but it comes with a significant challenge: getting blocked by the target site. Whether you...">
+    <meta property="og:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta property="og:site_name" content="N3X1S Intelligence">
+    <meta property="article:published_time" content="2026-03-02T12:00:00Z">
+    <meta property="article:modified_time" content="2026-03-02T13:40:25.633217Z">
+    <meta property="article:author" content="N3X1S Intelligence">
+    <meta property="article:section" content="Web Scraping">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+    <meta name="twitter:title" content="How to Avoid Getting Blocked While Web Scraping">
+    <meta name="twitter:description" content="Web scraping is a powerful tool for extracting data from websites, but it comes with a significant challenge: getting blocked by the target site. Whether you...">
+    <meta name="twitter:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta name="twitter:site" content="@n3x1s_intel">
+    <meta name="twitter:creator" content="@n3x1s_intel">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Avoid Getting Blocked While Web Scraping", "description": "Web scraping is a powerful tool for extracting data from websites, but it comes with a significant challenge: getting blocked by the target site. Whether you...", "author": {"@type": "Organization", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog"}, "publisher": {"@type": "Organization", "name": "N3X1S Intelligence", "logo": {"@type": "ImageObject", "url": "https://maxkle1nz.github.io/n3x1s-blog/favicon.svg"}}, "datePublished": "2026-03-02", "dateModified": "2026-03-02", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-avoid-getting-blocked-while-web-scraping.html"}, "wordCount": 1276, "articleSection": "Web Scraping"}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://maxkle1nz.github.io/n3x1s-blog"}, {"@type": "ListItem", "position": 2, "name": "Web Scraping", "item": "https://maxkle1nz.github.io/n3x1s-blog/category-web-scraping.html"}, {"@type": "ListItem", "position": 3, "name": "How to Avoid Getting Blocked While Web Scraping"}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is prerequisites?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers prerequisites in detail with code examples and best practices."}}]}</script>
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        :root {
+            --brand: #00ff88;
+            --bg: #0a0a0a;
+            --bg-secondary: #111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+            --code-bg: #1a1a2e;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover { color: var(--brand); }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb li::after { content: '/'; margin-left: 0.5rem; }
+        .breadcrumb li:last-child::after { content: ''; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+        
+        article { margin-bottom: 3rem; }
+        
+        /* Typography */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--brand);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin: 2.5rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p { margin-bottom: 1.25rem; }
+        
+        a { color: var(--brand); }
+        
+        /* Meta info */
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta span { display: flex; align-items: center; gap: 0.3rem; }
+        
+        /* TOC */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .toc h2 {
+            font-size: 1.1rem;
+            margin: 0 0 1rem;
+            padding: 0;
+            border: none;
+        }
+        
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            color: var(--brand);
+        }
+        
+        /* Code */
+        pre {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        :not(pre) > code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--brand);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .related-articles h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .related-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+        }
+        
+        .related-card a {
+            text-decoration: none;
+        }
+        
+        .related-card h3 {
+            color: var(--brand);
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .read-time {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .faq-section h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        
+        .faq-item h3 {
+            color: var(--brand);
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .faq-item p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+        
+        /* Author Box */
+        .author-box {
+            background: linear-gradient(135deg, var(--bg-secondary), #1a1a2e);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .author-info h4 {
+            color: var(--brand);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #1a1a2e, var(--bg-secondary));
+            border: 2px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-box h3 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--brand);
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+            color: #000;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .footer-section li {
+            margin: 0.5rem 0;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            header { padding: 1rem; }
+            main { padding: 1rem; }
+            .author-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span>🔮</span> N3X1S Intelligence
+            </a>
+            <nav aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category-web-scraping.html">Web Scraping</a></li>
+            <li aria-current="page">How to Avoid Getting Blocked While Web S...</li>
+        </ol>
+    </nav>
+    
+    <main>
+        <article itemscope itemtype="https://schema.org/Article">
+            <header>
+                <h1 itemprop="headline">How to Avoid Getting Blocked While Web Scraping</h1>
+                <div class="meta">
+                    <span>📅 <time datetime="2026-03-02" itemprop="datePublished">March 2, 2026</time></span>
+                    <span>⏱️ 6 min read</span>
+                    <span>📝 1,276 words</span>
+                    <span>📁 <a href="category-web-scraping.html">Web Scraping</a></span>
+                </div>
+            </header>
+            
+            <nav class="toc" aria-label="Table of Contents"><h2>📑 Table of Contents</h2><ul><li><a href="#prerequisites">Prerequisites</a></li>  <li><a href="#1-python-installed">1. **Python Installed**</a></li>  <li><a href="#2-basic-understanding-of-http-requests">2. **Basic Understanding of HTTP Requests**</a></li>  <li><a href="#3-a-scraping-goal">3. **A Scraping Goal**</a></li>  <li><a href="#4-basic-knowledge-of-web-scraping">4. **Basic Knowledge of Web Scraping**</a></li><li><a href="#understanding-how-websites-block-scrapers">Understanding How Websites Block Scrapers</a></li>  <li><a href="#-1-captcha-detection">### 1. **CAPTCHA Detection**</a></li>  <li><a href="#-2-ip-blocking">### 2. **IP Blocking**</a></li>  <li><a href="#-3-rate-limiting">### 3. **Rate Limiting**</a></li>  <li><a href="#-4-user-agent-detection">### 4. **User-Agent Detection**</a></li>  <li><a href="#-5-javascript-rendering-detection">### 5. **JavaScript Rendering Detection**</a></li><li><a href="#techniques-to-avoid-getting-blocked">Techniques to Avoid Getting Blocked</a></li>  <li><a href="#-1-use-proxies-to-rotate-ip-addresses">### 1. **Use Proxies to Rotate IP Addresses**</a></li>  <li><a href="#-2-rotate-user-agents-to-mimic-real-browsers">### 2. **Rotate User-Agents to Mimic Real Browsers**</a></li>  <li><a href="#-3-implement-delays-between-requests">### 3. **Implement Delays Between Requests**</a></li>  <li><a href="#-4-handle-captcha-with-bypass-services">### 4. **Handle CAPTCHA with Bypass Services**</a></li>  <li><a href="#-5-use-headless-browsers-with-javascript-rendering">### 5. **Use Headless Browsers with JavaScript Rendering**</a></li><li><a href="#best-practices-for-ethical-scraping">Best Practices for Ethical Scraping</a></li>  <li><a href="#-1-respect-robotstxt">### 1. **Respect `robots.txt`**</a></li>  <li><a href="#-2-avoid-overloading-servers">### 2. **Avoid Overloading Servers**</a></li>  <li><a href="#-3-use-legal-and-ethical-scraping-tools">### 3. **Use Legal and Ethical Scraping Tools**</a></li>  <li><a href="#-4-use-a-user-agent-that-mimics-a-real-browser">### 4. **Use a User-Agent That Mimics a Real Browser**</a></li>  <li><a href="#-5-monitor-your-scraping-activity">### 5. **Monitor Your Scraping Activity**</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li><li><a href="#-recommended-tools">🛠️ Recommended Tools</a></li></ul></nav>
+            
+            <div class="content" itemprop="articleBody">
+                <p>Web scraping is a powerful tool for extracting data from websites, but it comes with a significant challenge: <strong>getting blocked by the target site</strong>. Whether you're scraping product listings, social media profiles, or news articles, the moment you send too many requests or use a bot-like signature, you risk being locked out, banned, or even blacklisted.</p>
+<p>This tutorial will walk you through <strong>practical strategies and code examples</strong> to help you avoid detection and stay under the radar while scraping. Whether you're a beginner or an experienced developer, these techniques will help you scrape more efficiently and responsibly.</p>
+<p>We’ll cover:  
+<ul>
+<li>How websites block scrapers</li>
+<li>Best practices to avoid detection</li>
+<li>Real-world Python code examples</li>
+<li>Tools and libraries to use</li>
+<li>Legal and ethical considerations</li>
+</ul></p>
+<p>Let’s dive in.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before we begin, ensure you have the following:</p>
+<h3 id="1-python-installed">1. <strong>Python Installed</strong></h3>
+This tutorial uses Python 3.8+ and relies on popular libraries like <code>requests</code>, <code>BeautifulSoup</code>, and <code>fake_useragent</code>.
+<h3 id="2-basic-understanding-of-http-requests">2. <strong>Basic Understanding of HTTP Requests</strong></h3>
+You should be familiar with concepts like headers, cookies, and status codes.
+<h3 id="3-a-scraping-goal">3. <strong>A Scraping Goal</strong></h3>
+Have a clear idea of what data you’re trying to extract and from which website.
+<h3 id="4-basic-knowledge-of-web-scraping">4. <strong>Basic Knowledge of Web Scraping</strong></h3>
+You should know how to parse HTML with tools like <code>BeautifulSoup</code> or <code>lxml</code>.
+<hr>
+<h2 id="understanding-how-websites-block-scrapers">Understanding How Websites Block Scrapers</h2>
+<p>Before learning how to avoid being blocked, it’s important to understand <strong>why websites block scrapers</strong> in the first place. Here are the most common methods:</p>
+<h3 id="-1-captcha-detection">### 1. <strong>CAPTCHA Detection</strong></h3>
+Websites like Google, Facebook, or any high-traffic platform often use CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart) to verify that a visitor is human. If a bot is detected, the user is forced to solve a CAPTCHA.
+<h3 id="-2-ip-blocking">### 2. <strong>IP Blocking</strong></h3>
+Websites track IP addresses and may block an IP if it sends too many requests in a short time. This is especially common for sites with limited resources.
+<h3 id="-3-rate-limiting">### 3. <strong>Rate Limiting</strong></h3>
+Many websites enforce rate limits on how many requests can be made per minute or hour. Exceeding these limits can lead to temporary or permanent bans.
+<h3 id="-4-user-agent-detection">### 4. <strong>User-Agent Detection</strong></h3>
+Browsers send a <strong>User-Agent string</strong> that identifies the browser, OS, and device. Scrapers often use default User-Agent strings that are easy to detect.
+<h3 id="-5-javascript-rendering-detection">### 5. <strong>JavaScript Rendering Detection</strong></h3>
+Some sites use JavaScript to load content dynamically. If your scraper doesn’t render JavaScript, the site might detect it as a bot.
+<hr>
+<h2 id="techniques-to-avoid-getting-blocked">Techniques to Avoid Getting Blocked</h2>
+<p>Now that we understand how websites block scrapers, let’s explore strategies to avoid detection.</p>
+<h3 id="-1-use-proxies-to-rotate-ip-addresses">### 1. <strong>Use Proxies to Rotate IP Addresses</strong></h3>
+<p>One of the easiest ways to avoid IP blocking is to use a <strong>proxy service</strong>. Proxies act as intermediaries between your scraper and the target website, masking your real IP address.</p>
+<h4 id="types-of-proxies"><strong>Types of Proxies</strong></h4>
+<ul>
+<li><strong>Residential Proxies</strong>: Use real IP addresses from ISPs. These are harder to block.</li>
+<li><strong>Data Center Proxies</strong>: Cheaper but often flagged as suspicious.</li>
+</ul>
+<h4 id="code-example-using-proxies-with-coderequestscode"><strong>Code Example: Using Proxies with <code>requests</code></strong></h4>
+<pre><code class="language-python">import requests
+# Proxy configuration (replace with your own)
+proxies = {
+    &#x27;http&#x27;: &#x27;http://your-proxy-ip:port&#x27;,
+    &#x27;https&#x27;: &#x27;http://your-proxy-ip:port&#x27;
+}
+<p>headers = {
+    &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36&#x27;
+}</p>
+<p>response = requests.get(&#x27;https://example.com&#x27;, headers=headers, proxies=proxies)
+print(response.text)</code></pre></p>
+<blockquote><strong>Tip</strong>: Use a proxy rotation service (e.g., BrightData, Luminati) to automatically rotate IPs and avoid detection.  </blockquote>
+<hr>
+<h3 id="-2-rotate-user-agents-to-mimic-real-browsers">### 2. <strong>Rotate User-Agents to Mimic Real Browsers</strong></h3>
+<p>Websites often block scrapers by checking the User-Agent string. To avoid this, use a <strong>random User-Agent generator</strong>.</p>
+<h4 id="code-example-rotating-user-agents-with-codefake_useragentcode"><strong>Code Example: Rotating User-Agents with <code>fake_useragent</code></strong></h4>
+<pre><code class="language-python">from fake_useragent import UserAgent
+import requests
+<p>ua = UserAgent()
 headers = {
-    'User-Agent': ua.random
-}</p><p>response = requests.get('https://example.com', headers=headers)
-print(response.status_code)
-</code></pre></p><p>> <strong>Warning</strong>: Some websites block common User-Agent strings like <code>Mozilla/5.0</code>. Always use a variety of agents and rotate them frequently.</p><p>---</p><h3>### 3. <strong>Implement Delays Between Requests</strong>  </h3><p>Sending too many requests in a short time can trigger rate limiting. Use a <strong>random delay</strong> between requests to mimic human behavior.</p><p>#### <strong>Code Example: Adding Delays with <code>time.sleep()</code></strong></p><pre><code>import time
-import requests<p>urls = ['https://example.com/page1', 'https://example.com/page2', 'https://example.com/page3']</p><p>for url in urls:
+    &#x27;User-Agent&#x27;: ua.random
+}</p>
+<p>response = requests.get(&#x27;https://example.com&#x27;, headers=headers)
+print(response.status_code)</code></pre></p>
+<blockquote><strong>Warning</strong>: Some websites block common User-Agent strings like <code>Mozilla/5.0</code>. Always use a variety of agents and rotate them frequently.  </blockquote>
+<hr>
+<h3 id="-3-implement-delays-between-requests">### 3. <strong>Implement Delays Between Requests</strong></h3>
+<p>Sending too many requests in a short time can trigger rate limiting. Use a <strong>random delay</strong> between requests to mimic human behavior.</p>
+<h4 id="code-example-adding-delays-with-codetimesleepcode"><strong>Code Example: Adding Delays with <code>time.sleep()</code></strong></h4>
+<pre><code class="language-python">import time
+import requests
+<p>urls = [&#x27;https://example.com/page1&#x27;, &#x27;https://example.com/page2&#x27;, &#x27;https://example.com/page3&#x27;]</p>
+<p>for url in urls:
     response = requests.get(url)
-    print(f"Scraped {url} with status {response.status_code}")
+    print(f&quot;Scraped {url} with status {response.status_code}&quot;)
     # Random delay between 1 and 3 seconds
-    time.sleep(1 + (3 - 1) * random.random())
-</code></pre></p><p>> <strong>Best Practice</strong>: Use <code>random.uniform(1, 3)</code> instead of fixed delays to avoid predictable patterns.</p><p>---</p><h3>### 4. <strong>Handle CAPTCHA with Bypass Services</strong>  </h3><p>If a site uses CAPTCHA, you’ll need to use a <strong>CAPTCHA-solving service</strong> like 2Captcha or Anti-Captcha. These services use human workers or AI to solve CAPTCHAs on your behalf.</p><p>#### <strong>Example: Using 2Captcha with Python</strong></p><pre><code>from twocaptcha import TwoCaptcha
-import requests<p>solver = TwoCaptcha('your-api-key')</p><p>response = solver.recaptcha(sitekey='sitekey', url='https://example.com/captcha')
-print(f"CAPTCHA solved: {response.text}")
-</code></pre></p><p>> <strong>Warning</strong>: CAPTCHA bypassing is often against the terms of service of the target site. Use this only if absolutely necessary.</p><p>---</p><h3>### 5. <strong>Use Headless Browsers with JavaScript Rendering</strong>  </h3><p>Many modern websites use JavaScript to load content. Tools like <strong>Selenium</strong> or <strong>Playwright</strong> can render JavaScript and mimic real user interactions.</p><p>#### <strong>Code Example: Scraping with Playwright</strong></p><pre><code>from playwright.sync_api import sync_playwright<p>with sync_playwright() as p:
+    time.sleep(1 + (3 - 1) * random.random())</code></pre></p>
+<blockquote><strong>Best Practice</strong>: Use <code>random.uniform(1, 3)</code> instead of fixed delays to avoid predictable patterns.  </blockquote>
+<hr>
+<h3 id="-4-handle-captcha-with-bypass-services">### 4. <strong>Handle CAPTCHA with Bypass Services</strong></h3>
+<p>If a site uses CAPTCHA, you’ll need to use a <strong>CAPTCHA-solving service</strong> like 2Captcha or Anti-Captcha. These services use human workers or AI to solve CAPTCHAs on your behalf.</p>
+<h4 id="example-using-2captcha-with-python"><strong>Example: Using 2Captcha with Python</strong></h4>
+<pre><code class="language-python">from twocaptcha import TwoCaptcha
+import requests
+# Solve CAPTCHA (requires API key)
+solver = TwoCaptcha(&#x27;your-api-key&#x27;)
+<p>response = solver.recaptcha(sitekey=&#x27;sitekey&#x27;, url=&#x27;https://example.com/captcha&#x27;)
+print(f&quot;CAPTCHA solved: {response.text}&quot;)</code></pre></p>
+<blockquote><strong>Warning</strong>: CAPTCHA bypassing is often against the terms of service of the target site. Use this only if absolutely necessary.  </blockquote>
+<hr>
+<h3 id="-5-use-headless-browsers-with-javascript-rendering">### 5. <strong>Use Headless Browsers with JavaScript Rendering</strong></h3>
+<p>Many modern websites use JavaScript to load content. Tools like <strong>Selenium</strong> or <strong>Playwright</strong> can render JavaScript and mimic real user interactions.</p>
+<h4 id="code-example-scraping-with-playwright"><strong>Code Example: Scraping with Playwright</strong></h4>
+<pre><code class="language-python">from playwright.sync_api import sync_playwright
+<p>with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
-    page.goto('https://example.com')
-    print(page.inner_text('body'))
-    browser.close()
-</code></pre></p><p>> <strong>Tip</strong>: Headless browsers are less likely to be blocked than simple <code>requests</code> calls, but they consume more resources.</p><p>---</p><h2>Best Practices for Ethical Scraping  </h2><p>Even with the above techniques, it’s essential to <strong>scrape responsibly</strong>. Here are some key best practices:</p><h3>### 1. <strong>Respect <code>robots.txt</code></strong>  </h3>
-Check the <code>robots.txt</code> file of the target website (e.g., <code>https://example.com/robots.txt</code>) to see which pages are allowed for scraping.<h3>### 2. <strong>Avoid Overloading Servers</strong>  </h3>
-Limit your scraping frequency to avoid crashing the target site’s servers.<h3>### 3. <strong>Use Legal and Ethical Scraping Tools</strong>  </h3>
-Avoid scraping data that violates the site’s terms of service or laws like the <strong>Computer Fraud and Abuse Act (CFAA)</strong> in the U.S.<h3>### 4. <strong>Use a User-Agent That Mimics a Real Browser</strong>  </h3>
-Avoid using generic User-Agent strings. Use the <code>fake_useragent</code> library to generate realistic agents.<h3>### 5. <strong>Monitor Your Scraping Activity</strong>  </h3>
-Use logging and monitoring tools to track your requests and avoid accidental overuse.<p>---</p><h2>Conclusion  </h2><p>Avoiding detection while web scraping is a combination of <strong>technical skills, ethical responsibility, and strategy</strong>. By using proxies, rotating User-Agents, adding delays, and respecting website policies, you can scrape data efficiently without getting blocked.</p><p>Remember: <strong>Scraping is a powerful tool, but it must be used responsibly</strong>. Always check the target site’s terms of service and avoid scraping sensitive or private data.</p><p>---</p><h2>Next Steps  </h2><p>Now that you’ve learned the fundamentals, here are some advanced topics to explore next:</p><p>1. <strong>Build a Proxy Pool</strong>: Learn how to create a rotating proxy pool using services like BrightData or free proxy APIs.  
-2. <strong>Scrape APIs Instead of Websites</strong>: Many sites offer official APIs that are easier to use and less likely to block you.  
-3. <strong>Use Advanced Libraries</strong>: Explore tools like <code>Scrapy</code> for large-scale scraping and built-in proxy support.  
-4. <strong>Automate CAPTCHA Bypassing</strong>: Learn how to integrate CAPTCHA-solving services into your scraping pipeline.  
-5. <strong>Learn Legal Scraping Frameworks</strong>: Study how to scrape data legally using tools like <code>OpenRefine</code> or <code>WebHarvy</code>.</p><p>By continuing to refine your skills, you’ll become a more efficient and responsible web scraper.</p><p>Happy scraping! 🐍</p><p>---</p><h2>🛠️ Recommended Tools</h2><li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
-<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
-<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li><p>*Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow">Hire N3X1S on Fiverr →</a>*</p></article><a href="https://www.fiverr.com/maxklein251" class="cta">🚀 Need web scraping? Hire N3X1S on Fiverr</a><footer><p>© 2026 N3X1S Intelligence · <a href="index.html">All Articles</a></p></footer></div></body></html>
+    page.goto(&#x27;https://example.com&#x27;)
+    print(page.inner_text(&#x27;body&#x27;))
+    browser.close()</code></pre></p>
+<blockquote><strong>Tip</strong>: Headless browsers are less likely to be blocked than simple <code>requests</code> calls, but they consume more resources.  </blockquote>
+<hr>
+<h2 id="best-practices-for-ethical-scraping">Best Practices for Ethical Scraping</h2>
+<p>Even with the above techniques, it’s essential to <strong>scrape responsibly</strong>. Here are some key best practices:</p>
+<h3 id="-1-respect-coderobotstxtcode">### 1. <strong>Respect <code>robots.txt</code></strong></h3>
+Check the <code>robots.txt</code> file of the target website (e.g., <code>https://example.com/robots.txt</code>) to see which pages are allowed for scraping.
+<h3 id="-2-avoid-overloading-servers">### 2. <strong>Avoid Overloading Servers</strong></h3>
+Limit your scraping frequency to avoid crashing the target site’s servers.
+<h3 id="-3-use-legal-and-ethical-scraping-tools">### 3. <strong>Use Legal and Ethical Scraping Tools</strong></h3>
+Avoid scraping data that violates the site’s terms of service or laws like the <strong>Computer Fraud and Abuse Act (CFAA)</strong> in the U.S.
+<h3 id="-4-use-a-user-agent-that-mimics-a-real-browser">### 4. <strong>Use a User-Agent That Mimics a Real Browser</strong></h3>
+Avoid using generic User-Agent strings. Use the <code>fake_useragent</code> library to generate realistic agents.
+<h3 id="-5-monitor-your-scraping-activity">### 5. <strong>Monitor Your Scraping Activity</strong></h3>
+Use logging and monitoring tools to track your requests and avoid accidental overuse.
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>Avoiding detection while web scraping is a combination of <strong>technical skills, ethical responsibility, and strategy</strong>. By using proxies, rotating User-Agents, adding delays, and respecting website policies, you can scrape data efficiently without getting blocked.</p>
+<p>Remember: <strong>Scraping is a powerful tool, but it must be used responsibly</strong>. Always check the target site’s terms of service and avoid scraping sensitive or private data.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you’ve learned the fundamentals, here are some advanced topics to explore next:</p>
+<ol>
+<li><strong>Build a Proxy Pool</strong>: Learn how to create a rotating proxy pool using services like BrightData or free proxy APIs.</li>
+<li><strong>Scrape APIs Instead of Websites</strong>: Many sites offer official APIs that are easier to use and less likely to block you.</li>
+<li><strong>Use Advanced Libraries</strong>: Explore tools like <code>Scrapy</code> for large-scale scraping and built-in proxy support.</li>
+<li><strong>Automate CAPTCHA Bypassing</strong>: Learn how to integrate CAPTCHA-solving services into your scraping pipeline.</li>
+<li><strong>Learn Legal Scraping Frameworks</strong>: Study how to scrape data legally using tools like <code>OpenRefine</code> or <code>WebHarvy</code>.</li>
+</ol>
+<p>By continuing to refine your skills, you’ll become a more efficient and responsible web scraper.</p>
+<p>Happy scraping! 🐍</p>
+<hr>
+<h2 id="-recommended-tools">🛠️ Recommended Tools</h2>
+<ul>
+<li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
+<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow sponsored noopener">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
+<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li>
+</ul>
+<em>Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow sponsored noopener">Hire N3X1S on Fiverr →</a></em>
+            </div>
+            
+            <div class="author-box">
+                <div class="author-avatar">🔮</div>
+                <div class="author-info">
+                    <h4>Written by N3X1S Intelligence</h4>
+                    <p itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Data extraction specialists with 8+ years of experience building production-grade scrapers, ETL pipelines, and automation systems. We've processed billions of data points for Fortune 500 companies.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>🚀 Need a Custom Scraper?</h3>
+                <p>Don't have time to build it yourself? We'll create a production-ready scraper tailored to your exact needs.</p>
+                <a href="https://www.fiverr.com/s/LdR6YN4" class="cta-button" target="_blank" rel="nofollow sponsored noopener">Get Your Custom Scraper →</a>
+            </div>
+            
+            <section class="related-articles"><h2>📚 Related Articles</h2><div class="related-grid">
+        <article class="related-card">
+            <a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+                <h3>Building a Job Scraper: Indeed, LinkedIn, Glassdoor</h3>
+                <p>In today's competitive job market, both job seekers and employers rely on platforms like Indeed, Lin...</p>
+                <span class="read-time">5 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_deploying-python-scrapers-on-linux-vps-complete-setup.html">
+                <h3>Deploying Python Scrapers on Linux VPS: Complete Setup</h3>
+                <p>In today's data-driven world, web scraping is a powerful tool for extracting valuable insights from ...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_how-to-extract-data-from-pdfs-with-python.html">
+                <h3>How to Extract Data from PDFs with Python</h3>
+                <p>In today's data-driven world, PDFs are a common format for sharing documents, reports, and forms. Ho...</p>
+                <span class="read-time">6 min read</span>
+            </a>
+        </article></div></section>
+            
+            <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage"><h2>❓ Frequently Asked Questions</h2>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is prerequisites?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers prerequisites in detail with code examples and best practices.</p>
+            </div>
+        </div></section>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🔮 N3X1S Intelligence</h4>
+                <p style="color: var(--text-muted);">Expert web scraping tutorials, automation guides, and data extraction techniques.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="category-apis.html">APIs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                    <li><a href="https://github.com/maxkle1nz" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Popular Tutorials</h4>
+                <ul>
+                    <li><a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">Building a Job Scraper: Indeed, Lin...</a></li><li><a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">Building a Price Tracker with Pytho...</a></li><li><a href="20260302_building-a-real-estate-price-tracker-with-python.html">Building a Real Estate Price Tracke...</a></li><li><a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">Data Enrichment: How to Add Value t...</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 N3X1S Intelligence. All rights reserved. Built with 🐍 Python.</p>
+        </div>
+    </footer>
+</body>
+</html>

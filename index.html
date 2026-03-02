@@ -1,38 +1,507 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>N3X1S Intelligence — Data Extraction Blog</title>
-<meta name="description" content="Expert tutorials on web scraping, data extraction, Python automation by N3X1S Intelligence.">
-<meta name="google-site-verification" content="">
-<link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0;line-height:1.6}.container{max-width:800px;margin:0 auto;padding:40px 20px}header{text-align:center;margin-bottom:60px}.logo{color:#00ff88;font-size:14px;letter-spacing:6px}h1{font-size:48px;font-weight:900;background:linear-gradient(90deg,#fff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:8px 0}.tagline{color:#64748b;font-size:16px}.cta{display:inline-block;background:#00ff88;color:#0a0a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;margin-top:20px}.articles{display:flex;flex-direction:column;gap:20px}.article{background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:24px;text-decoration:none;color:inherit;transition:border-color 0.2s}.article:hover{border-color:#00ff88}.article h2{font-size:20px;color:#fff;margin-bottom:8px}.article .meta{color:#64748b;font-size:13px}.tools{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:24px;margin-top:40px}.tools h2{color:#00ff88;margin-bottom:12px}.tools a{color:#00ff88}footer{text-align:center;margin-top:60px;color:#64748b;font-size:13px}footer a{color:#00ff88;text-decoration:none}
-</style></head><body><div class="container">
-<header><div class="logo">INTELLIGENCE</div><h1>N3X1S</h1>
-<p class="tagline">Expert tutorials on web scraping, data extraction & Python automation</p>
-<a href="https://www.fiverr.com/maxklein251" class="cta">🚀 Hire Us on Fiverr</a></header>
-<div class="articles">
-<a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html" class="article"><h2>Building a Job Scraper: Indeed, LinkedIn, Glassdoor  </h2><div class="meta">1105 words · March 2, 2026</div></a>
-<a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html" class="article"><h2>Building a Price Tracker with Python and BeautifulSoup</h2><div class="meta">1268 words · March 2, 2026</div></a>
-<a href="20260302_building-a-real-estate-price-tracker-with-python.html" class="article"><h2>Building a Real Estate Price Tracker with Python  </h2><div class="meta">1147 words · March 2, 2026</div></a>
-<a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html" class="article"><h2>Data Enrichment: How to Add Value to Raw Scraped Data</h2><div class="meta">1312 words · March 2, 2026</div></a>
-<a href="20260302_data-pipeline-architecture-from-messy-csvs-to-clean-database.html" class="article"><h2>Data Pipeline Architecture: From Messy CSVs to Clean Database</h2><div class="meta">1334 words · March 2, 2026</div></a>
-<a href="20260302_deploying-python-scrapers-on-linux-vps-complete-setup.html" class="article"><h2>Deploying Python Scrapers on Linux VPS: Complete Setup</h2><div class="meta">1418 words · March 2, 2026</div></a>
-<a href="20260302_fastapi-vs-flask-for-data-apis-which-to-choose-in-2026.html" class="article"><h2>FastAPI vs Flask for Data APIs: Which to Choose in 2026</h2><div class="meta">1509 words · March 2, 2026</div></a>
-<a href="20260302_how-to-avoid-getting-blocked-while-web-scraping.html" class="article"><h2>How to Avoid Getting Blocked While Web Scraping  </h2><div class="meta">1285 words · March 2, 2026</div></a>
-<a href="20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html" class="article"><h2>How to Build an ETL Pipeline with Python and MySQL</h2><div class="meta">1399 words · March 2, 2026</div></a>
-<a href="20260302_how-to-extract-data-from-pdfs-with-python.html" class="article"><h2>How to Extract Data from PDFs with Python</h2><div class="meta">1257 words · March 2, 2026</div></a>
-<a href="20260302_how-to-reverse-engineer-apis-for-data-extraction.html" class="article"><h2>How to Reverse-Engineer APIs for Data Extraction  </h2><div class="meta">1353 words · March 2, 2026</div></a>
-<a href="20260302_how-to-schedule-python-scripts-to-run-automatically.html" class="article"><h2>How to Schedule Python Scripts to Run Automatically  </h2><div class="meta">1102 words · March 2, 2026</div></a>
-<a href="20260302_how-to-scrape-javascript-heavy-websites-with-playwright.html" class="article"><h2>How to Scrape JavaScript-Heavy Websites with Playwright</h2><div class="meta">1397 words · March 2, 2026</div></a>
-<a href="20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html" class="article"><h2>How to Scrape Yelp with Python (Step-by-Step Guide 2026)</h2><div class="meta">1266 words · March 2, 2026</div></a>
-<a href="20260302_how-to-store-scraped-data-csv-vs-json-vs-database.html" class="article"><h2>How to Store Scraped Data: CSV vs JSON vs Database  </h2><div class="meta">1457 words · March 2, 2026</div></a>
-<a href="20260302_python-automation-12-scripts-that-save-hours-every-week.html" class="article"><h2>Python Automation: 12 Scripts That Save Hours Every Week</h2><div class="meta">1324 words · March 2, 2026</div></a>
-<a href="20260302_web-scraping-vs-api-when-to-use-each-with-examples.html" class="article"><h2>Web Scraping vs API: When to Use Each (With Examples)</h2><div class="meta">1301 words · March 2, 2026</div></a>
-</div>
-<div class="tools">
-<h2>🛠️ Recommended Scraping Tools</h2>
-<p>• <a href="https://www.scrapingbee.com?fpr=n3x1s">ScrapingBee</a> — API for web scraping with JS rendering</p>
-<p>• <a href="https://brightdata.com/?a=n3x1s">Bright Data</a> — Premium proxy network</p>
-<p>• <a href="https://www.scraperapi.com?fpr=n3x1s">ScraperAPI</a> — Handle proxies & CAPTCHAs</p>
-</div>
-<footer><p>© 2026 N3X1S Intelligence · <a href="https://www.fiverr.com/maxklein251">Fiverr</a></p></footer></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <title>N3X1S Intelligence — Python Web Scraping Tutorials & Data Extraction Guides</title>
+    <meta name="description" content="Expert Python web scraping tutorials, automation guides, and data extraction techniques. Master web scraping with production-ready code examples.">
+    <meta name="keywords" content="web scraping, python, beautifulsoup, playwright, selenium, data extraction, automation, ETL, tutorials">
+    <meta name="author" content="N3X1S Intelligence">
+    
+    <link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/">
+    <link rel="alternate" hreflang="en" href="https://maxkle1nz.github.io/n3x1s-blog/">
+    <link rel="alternate" hreflang="x-default" href="https://maxkle1nz.github.io/n3x1s-blog/">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maxkle1nz.github.io/n3x1s-blog/">
+    <meta property="og:title" content="N3X1S Intelligence — Python Web Scraping Tutorials">
+    <meta property="og:description" content="Expert Python web scraping tutorials, automation guides, and data extraction techniques. Master web scraping with production-ready code examples.">
+    <meta property="og:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta property="og:site_name" content="N3X1S Intelligence">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxkle1nz.github.io/n3x1s-blog/">
+    <meta name="twitter:title" content="N3X1S Intelligence — Python Web Scraping Tutorials">
+    <meta name="twitter:description" content="Expert Python web scraping tutorials, automation guides, and data extraction techniques. Master web scraping with production-ready code examples.">
+    <meta name="twitter:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta name="twitter:site" content="@n3x1s_intel">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog", "logo": "https://maxkle1nz.github.io/n3x1s-blog/favicon.svg", "description": "Expert Python web scraping tutorials, automation guides, and data extraction techniques. Master web scraping with production-ready code examples.", "sameAs": ["https://github.com/maxkle1nz", "https://www.fiverr.com/s/LdR6YN4"]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog", "description": "Expert Python web scraping tutorials, automation guides, and data extraction techniques. Master web scraping with production-ready code examples.", "publisher": {"@type": "Organization", "name": "N3X1S Intelligence"}}</script>
+    
+    <style>
+        :root {
+            --brand: #00ff88;
+            --bg: #0a0a0a;
+            --bg-secondary: #111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        nav a:hover { color: var(--brand); }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--bg-secondary), #1a1a2e);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: var(--brand);
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+        }
+        
+        .hero-cta.secondary {
+            background: transparent;
+            border: 2px solid var(--brand);
+            color: var(--brand);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .category-section {
+            margin-bottom: 3rem;
+        }
+        
+        .category-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-section h2 a {
+            color: var(--brand);
+            text-decoration: none;
+        }
+        
+        .category-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .article-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .article-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-4px);
+        }
+        
+        .article-card a {
+            text-decoration: none;
+        }
+        
+        .article-card h3 {
+            color: var(--brand);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .article-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin: 0.5rem 0;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+        }
+        
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
+            .hero { padding: 2rem 1rem; }
+            main { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">🔮 N3X1S Intelligence</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <h1>🔮 Master Web Scraping with Python</h1>
+        <p>Expert Python web scraping tutorials, automation guides, and data extraction techniques. Master web scraping with production-ready code examples.</p>
+        <a href="#articles" class="hero-cta">Browse Tutorials</a>
+        <a href="https://www.fiverr.com/s/LdR6YN4" class="hero-cta secondary" target="_blank" rel="noopener">Hire a Scraper Expert</a>
+    </section>
+    
+    <main id="articles">
+        
+        <section class="category-section">
+            <h2><a href="category-web-scraping.html">Web Scraping</a></h2>
+            <p class="category-desc">Learn web scraping techniques with Python. From BeautifulSoup basics to Playwright for JavaScript-heavy sites.</p>
+            <div class="article-grid">
+                <article class="article-card">
+                    <a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+                        <h3>Building a Job Scraper: Indeed, LinkedIn, Glassdoor</h3>
+                        <p>In today's competitive job market, both job seekers and employers rely on platforms like Indeed, LinkedIn, and Glassdoor...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 5 min</span>
+                            <span>📝 1,097 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_deploying-python-scrapers-on-linux-vps-complete-setup.html">
+                        <h3>Deploying Python Scrapers on Linux VPS: Complete Setup</h3>
+                        <p>In today's data-driven world, web scraping is a powerful tool for extracting valuable insights from the web. Whether you...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,409 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+                        <h3>How to Avoid Getting Blocked While Web Scraping</h3>
+                        <p>Web scraping is a powerful tool for extracting data from websites, but it comes with a significant challenge: getting bl...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 6 min</span>
+                            <span>📝 1,276 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-extract-data-from-pdfs-with-python.html">
+                        <h3>How to Extract Data from PDFs with Python</h3>
+                        <p>In today's data-driven world, PDFs are a common format for sharing documents, reports, and forms. However, extracting us...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 6 min</span>
+                            <span>📝 1,248 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-scrape-javascript-heavy-websites-with-playwright.html">
+                        <h3>How to Scrape JavaScript-Heavy Websites with Playwright</h3>
+                        <p>Scraping websites that rely heavily on JavaScript can feel like trying to drink from a firehose. Traditional tools like ...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,389 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html">
+                        <h3>How to Scrape Yelp with Python (Step-by-Step Guide 2026)</h3>
+                        <p>In 2026, the world of web scraping has evolved dramatically. With more businesses relying on platforms like Yelp for rev...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 6 min</span>
+                            <span>📝 1,256 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_web-scraping-vs-api-when-to-use-each-with-examples.html">
+                        <h3>Web Scraping vs API: When to Use Each (With Examples)</h3>
+                        <p>Imagine you're building a data-driven application that needs to pull information from a website or a third-party service...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 6 min</span>
+                            <span>📝 1,290 words</span>
+                        </div>
+                    </a>
+                </article></div></section>
+        <section class="category-section">
+            <h2><a href="category-data-engineering.html">Data Engineering</a></h2>
+            <p class="category-desc">Build robust data pipelines, ETL systems, and storage solutions. CSV, JSON, databases, and data enrichment.</p>
+            <div class="article-grid">
+                <article class="article-card">
+                    <a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+                        <h3>Building a Price Tracker with Python and BeautifulSoup</h3>
+                        <p>In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Whether you're a savvy...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 6 min</span>
+                            <span>📝 1,259 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+                        <h3>Data Enrichment: How to Add Value to Raw Scraped Data</h3>
+                        <p>Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But when you look at th...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,301 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_data-pipeline-architecture-from-messy-csvs-to-clean-database.html">
+                        <h3>Data Pipeline Architecture: From Messy CSVs to Clean Database</h3>
+                        <p>Imagine this: You’ve just received a CSV file from a client that’s supposed to contain thousands of customer records. Bu...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,324 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+                        <h3>How to Build an ETL Pipeline with Python and MySQL</h3>
+                        <p>In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of modern analytics and ...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,388 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-reverse-engineer-apis-for-data-extraction.html">
+                        <h3>How to Reverse-Engineer APIs for Data Extraction</h3>
+                        <p>In today’s data-driven world, APIs (Application Programming Interfaces) are the lifeblood of modern applications. They a...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,345 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-store-scraped-data-csv-vs-json-vs-database.html">
+                        <h3>How to Store Scraped Data: CSV vs JSON vs Database</h3>
+                        <p>Web scraping is a powerful tool for extracting valuable information from the web, but the real challenge lies in what ha...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,446 words</span>
+                        </div>
+                    </a>
+                </article></div></section>
+        <section class="category-section">
+            <h2><a href="category-automation.html">Python Automation</a></h2>
+            <p class="category-desc">Automate repetitive tasks with Python. Scheduling, deployment, and production-ready scripts.</p>
+            <div class="article-grid">
+                <article class="article-card">
+                    <a href="20260302_building-a-real-estate-price-tracker-with-python.html">
+                        <h3>Building a Real Estate Price Tracker with Python</h3>
+                        <p>The real estate market is a dynamic, ever-changing landscape. Whether you're an investor, a homebuyer, or a data analyst...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 6 min</span>
+                            <span>📝 1,138 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_how-to-schedule-python-scripts-to-run-automatically.html">
+                        <h3>How to Schedule Python Scripts to Run Automatically</h3>
+                        <p>Automating repetitive tasks is one of the most powerful ways to boost productivity, reduce errors, and free up time for ...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 5 min</span>
+                            <span>📝 1,093 words</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="article-card">
+                    <a href="20260302_python-automation-12-scripts-that-save-hours-every-week.html">
+                        <h3>Python Automation: 12 Scripts That Save Hours Every Week</h3>
+                        <p>Imagine spending 10 hours a week manually renaming files, formatting spreadsheets, or copying data between applications....</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,314 words</span>
+                        </div>
+                    </a>
+                </article></div></section>
+        <section class="category-section">
+            <h2><a href="category-apis.html">APIs & Integration</a></h2>
+            <p class="category-desc">Work with APIs, reverse engineering, and choosing between scraping vs API approaches.</p>
+            <div class="article-grid">
+                <article class="article-card">
+                    <a href="20260302_fastapi-vs-flask-for-data-apis-which-to-choose-in-2026.html">
+                        <h3>FastAPI vs Flask for Data APIs: Which to Choose in 2026</h3>
+                        <p>In 2026, the demand for high-performance, scalable data APIs has never been higher. Whether you're building a real-time ...</p>
+                        <div class="card-meta">
+                            <span>⏱️ 7 min</span>
+                            <span>📝 1,497 words</span>
+                        </div>
+                    </a>
+                </article></div></section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🔮 N3X1S Intelligence</h4>
+                <p style="color: var(--text-muted);">Expert Python web scraping tutorials, automation guides, and data extraction techniques. Master web scraping with production-ready code examples.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li><li><a href="category-data-engineering.html">Data Engineering</a></li><li><a href="category-automation.html">Python Automation</a></li><li><a href="category-apis.html">APIs & Integration</a></li><li><a href="category-tutorials.html">Step-by-Step Tutorials</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank">Hire Us</a></li>
+                    <li><a href="https://github.com/maxkle1nz" target="_blank">GitHub</a></li>
+                    <li><a href="sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 N3X1S Intelligence. Built with 🐍 Python.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,94 +1,795 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How to Scrape Yelp with Python (Step-by-Step Guide 2026) — N3X1S Intelligence</title><meta name="description" content="How to Scrape Yelp with Python (Step-by-Step Guide 2026) - Expert tutorial by N3X1S Intelligence"><link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0;line-height:1.8}.container{max-width:720px;margin:0 auto;padding:40px 20px}.back{color:#00ff88;text-decoration:none;font-size:14px}h1{font-size:36px;font-weight:800;color:#fff;margin:20px 0 10px}.meta{color:#64748b;font-size:14px;margin-bottom:30px}article h2{color:#00ff88;font-size:24px;margin:30px 0 15px}article h3{color:#fff;font-size:20px;margin:25px 0 10px}article p{margin-bottom:16px}article pre{background:#0d1117;border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:20px;overflow-x:auto;margin:20px 0}article code{color:#00ff88;font-family:'Courier New',monospace;font-size:14px}article strong{color:#fff}article a{color:#00ff88}article li{margin-left:20px;margin-bottom:8px}.cta{display:inline-block;background:#00ff88;color:#0a0a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;margin-top:30px}footer{text-align:center;margin-top:60px;color:#64748b;font-size:13px}footer a{color:#00ff88;text-decoration:none}</style></head><body><div class="container"><header><a href="index.html" class="back">← N3X1S Blog</a><h1>How to Scrape Yelp with Python (Step-by-Step Guide 2026)</h1><div class="meta">March 2, 2026 · 1266 words · N3X1S Intelligence</div></header><article><p>In 2026, the world of web scraping has evolved dramatically. With more businesses relying on platforms like Yelp for reviews, listings, and customer insights, the ability to extract this data programmatically has become a valuable skill. Whether you're a developer building a competitive analysis tool, a data scientist gathering market trends, or a small business owner optimizing your Yelp presence, scraping Yelp with Python can unlock a treasure trove of information. However, modern websites like Yelp are increasingly complex, using JavaScript to dynamically load content and sophisticated anti-scraping measures. This tutorial will guide you through the process of scraping Yelp with Python in 2026, covering everything from setup to advanced techniques.</p><p>---</p><h2>Prerequisites</h2><p>Before diving into the tutorial, ensure you have the following tools and knowledge:</p><h3>Software Requirements</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Primary Meta Tags -->
+    <title>How to Scrape Yelp with Python (Step-by-Step Guide 2026) | N3X1S Intelligence</title>
+    <meta name="title" content="How to Scrape Yelp with Python (Step-by-Step Guide 2026) | N3X1S Intelligence">
+    <meta name="description" content="In 2026, the world of web scraping has evolved dramatically. With more businesses relying on platforms like Yelp for reviews, listings, and customer insights...">
+    <meta name="author" content="N3X1S Intelligence">
+    <meta name="keywords" content="web scraping, python, web-scraping, data extraction, automation, tutorial">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html">
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html">
+    <link rel="alternate" hreflang="x-default" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html">
+    <meta property="og:title" content="How to Scrape Yelp with Python (Step-by-Step Guide 2026)">
+    <meta property="og:description" content="In 2026, the world of web scraping has evolved dramatically. With more businesses relying on platforms like Yelp for reviews, listings, and customer insights...">
+    <meta property="og:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta property="og:site_name" content="N3X1S Intelligence">
+    <meta property="article:published_time" content="2026-03-02T12:00:00Z">
+    <meta property="article:modified_time" content="2026-03-02T13:40:25.633901Z">
+    <meta property="article:author" content="N3X1S Intelligence">
+    <meta property="article:section" content="Web Scraping">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html">
+    <meta name="twitter:title" content="How to Scrape Yelp with Python (Step-by-Step Guide 2026)">
+    <meta name="twitter:description" content="In 2026, the world of web scraping has evolved dramatically. With more businesses relying on platforms like Yelp for reviews, listings, and customer insights...">
+    <meta name="twitter:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta name="twitter:site" content="@n3x1s_intel">
+    <meta name="twitter:creator" content="@n3x1s_intel">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Scrape Yelp with Python (Step-by-Step Guide 2026)", "description": "In 2026, the world of web scraping has evolved dramatically. With more businesses relying on platforms like Yelp for reviews, listings, and customer insights...", "author": {"@type": "Organization", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog"}, "publisher": {"@type": "Organization", "name": "N3X1S Intelligence", "logo": {"@type": "ImageObject", "url": "https://maxkle1nz.github.io/n3x1s-blog/favicon.svg"}}, "datePublished": "2026-03-02", "dateModified": "2026-03-02", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://maxkle1nz.github.io/n3x1s-blog/20260302_how-to-scrape-yelp-with-python-step-by-step-guide-2026.html"}, "wordCount": 1256, "articleSection": "Web Scraping"}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://maxkle1nz.github.io/n3x1s-blog"}, {"@type": "ListItem", "position": 2, "name": "Web Scraping", "item": "https://maxkle1nz.github.io/n3x1s-blog/category-web-scraping.html"}, {"@type": "ListItem", "position": 3, "name": "How to Scrape Yelp with Python (Step-by-Step Guide 2026)"}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is prerequisites?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers prerequisites in detail with code examples and best practices."}}, {"@type": "Question", "name": "What is step 1: setting up your python environment?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers step 1: setting up your python environment in detail with code examples and best practices."}}]}</script>
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        :root {
+            --brand: #00ff88;
+            --bg: #0a0a0a;
+            --bg-secondary: #111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+            --code-bg: #1a1a2e;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover { color: var(--brand); }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb li::after { content: '/'; margin-left: 0.5rem; }
+        .breadcrumb li:last-child::after { content: ''; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+        
+        article { margin-bottom: 3rem; }
+        
+        /* Typography */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--brand);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin: 2.5rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p { margin-bottom: 1.25rem; }
+        
+        a { color: var(--brand); }
+        
+        /* Meta info */
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta span { display: flex; align-items: center; gap: 0.3rem; }
+        
+        /* TOC */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .toc h2 {
+            font-size: 1.1rem;
+            margin: 0 0 1rem;
+            padding: 0;
+            border: none;
+        }
+        
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            color: var(--brand);
+        }
+        
+        /* Code */
+        pre {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        :not(pre) > code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--brand);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .related-articles h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .related-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+        }
+        
+        .related-card a {
+            text-decoration: none;
+        }
+        
+        .related-card h3 {
+            color: var(--brand);
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .read-time {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .faq-section h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        
+        .faq-item h3 {
+            color: var(--brand);
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .faq-item p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+        
+        /* Author Box */
+        .author-box {
+            background: linear-gradient(135deg, var(--bg-secondary), #1a1a2e);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .author-info h4 {
+            color: var(--brand);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #1a1a2e, var(--bg-secondary));
+            border: 2px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-box h3 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--brand);
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+            color: #000;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .footer-section li {
+            margin: 0.5rem 0;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            header { padding: 1rem; }
+            main { padding: 1rem; }
+            .author-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span>🔮</span> N3X1S Intelligence
+            </a>
+            <nav aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category-web-scraping.html">Web Scraping</a></li>
+            <li aria-current="page">How to Scrape Yelp with Python (Step-by-...</li>
+        </ol>
+    </nav>
+    
+    <main>
+        <article itemscope itemtype="https://schema.org/Article">
+            <header>
+                <h1 itemprop="headline">How to Scrape Yelp with Python (Step-by-Step Guide 2026)</h1>
+                <div class="meta">
+                    <span>📅 <time datetime="2026-03-02" itemprop="datePublished">March 2, 2026</time></span>
+                    <span>⏱️ 6 min read</span>
+                    <span>📝 1,256 words</span>
+                    <span>📁 <a href="category-web-scraping.html">Web Scraping</a></span>
+                </div>
+            </header>
+            
+            <nav class="toc" aria-label="Table of Contents"><h2>📑 Table of Contents</h2><ul><li><a href="#prerequisites">Prerequisites</a></li>  <li><a href="#software-requirements">Software Requirements</a></li>  <li><a href="#python-libraries">Python Libraries</a></li>  <li><a href="#legal-and-ethical-considerations">Legal and Ethical Considerations</a></li><li><a href="#step-1-setting-up-your-python-environment">Step 1: Setting Up Your Python Environment</a></li><li><a href="#step-2-sending-http-requests-to-yelp">Step 2: Sending HTTP Requests to Yelp</a></li><li><a href="#step-3-parsing-html-with-beautifulsoup">Step 3: Parsing HTML with BeautifulSoup</a></li><li><a href="#step-4-handling-javascript-rendered-content">Step 4: Handling JavaScript-Rendered Content</a></li><li><a href="#step-5-scraping-multiple-pages-and-pagination">Step 5: Scraping Multiple Pages and Pagination</a></li><li><a href="#step-6-storing-scraped-data">Step 6: Storing Scraped Data</a></li><li><a href="#step-7-advanced-techniques-optional">Step 7: Advanced Techniques (Optional)</a></li>  <li><a href="#using-proxies">Using Proxies</a></li>  <li><a href="#rotating-user-agents">Rotating User-Agents</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li><li><a href="#-recommended-tools">🛠️ Recommended Tools</a></li></ul></nav>
+            
+            <div class="content" itemprop="articleBody">
+                <p>In 2026, the world of web scraping has evolved dramatically. With more businesses relying on platforms like Yelp for reviews, listings, and customer insights, the ability to extract this data programmatically has become a valuable skill. Whether you're a developer building a competitive analysis tool, a data scientist gathering market trends, or a small business owner optimizing your Yelp presence, scraping Yelp with Python can unlock a treasure trove of information. However, modern websites like Yelp are increasingly complex, using JavaScript to dynamically load content and sophisticated anti-scraping measures. This tutorial will guide you through the process of scraping Yelp with Python in 2026, covering everything from setup to advanced techniques.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before diving into the tutorial, ensure you have the following tools and knowledge:</p>
+<h3 id="software-requirements">Software Requirements</h3>
+<ul>
 <li><strong>Python 3.10+</strong> (Python 3.10 or later is recommended for compatibility with modern libraries)</li>
 <li><strong>pip</strong> (Python's package installer, used to install libraries)</li>
-<li><strong>A text editor or IDE</strong> (e.g., VS Code, PyCharm, or Jupyter Notebook)</li><h3>Python Libraries</h3>
-Install the following libraries using <code>pip</code>:<pre><code>bash
-pip install requests beautifulsoup4 lxml pandas selenium
-</code></pre><li><strong><code>requests</code></strong>: For sending HTTP requests to Yelp's servers.</li>
+<li><strong>A text editor or IDE</strong> (e.g., VS Code, PyCharm, or Jupyter Notebook)</li>
+</ul>
+<h3 id="python-libraries">Python Libraries</h3>
+Install the following libraries using <code>pip</code>:
+<pre><code class="language-bash">pip install requests beautifulsoup4 lxml pandas selenium</code></pre>
+<ul>
+<li><strong><code>requests</code></strong>: For sending HTTP requests to Yelp's servers.</li>
 <li><strong><code>BeautifulSoup</code></strong> (with <code>lxml</code> parser): For parsing HTML content.</li>
 <li><strong><code>pandas</code></strong>: For organizing and storing scraped data in structured formats (e.g., CSV or Excel).</li>
-<li><strong><code>selenium</code></strong>: For handling JavaScript-rendered content, which is common on modern websites like Yelp.</li><h3>Legal and Ethical Considerations</h3>
-Before scraping Yelp (or any website), <strong>check Yelp's robots.txt file</strong> (e.g., <a href="https://www.yelp.com/robots.txt" target="_blank" rel="nofollow">https://www.yelp.com/robots.txt</a>) and <strong>terms of service</strong>. Scraping may violate their policies, and excessive scraping can lead to IP blocking or legal action. Always respect website terms and use scraping tools responsibly.<p>> <strong>Tip:</strong> If you're scraping for a commercial project, consider using Yelp's official API instead. It provides a legal and efficient way to access data without risking your IP address or violating terms of service.</p><p>---</p><h2>Step 1: Setting Up Your Python Environment</h2><p>Start by creating a new Python file (e.g., <code>yelp_scraper.py</code>) and importing the necessary libraries:</p><pre><code>import requests
+<li><strong><code>selenium</code></strong>: For handling JavaScript-rendered content, which is common on modern websites like Yelp.</li>
+</ul>
+<h3 id="legal-and-ethical-considerations">Legal and Ethical Considerations</h3>
+Before scraping Yelp (or any website), <strong>check Yelp's robots.txt file</strong> (e.g., <a href="https://www.yelp.com/robots.txt" target="_blank" rel="noopener">https://www.yelp.com/robots.txt</a>) and <strong>terms of service</strong>. Scraping may violate their policies, and excessive scraping can lead to IP blocking or legal action. Always respect website terms and use scraping tools responsibly.
+<blockquote><strong>Tip:</strong> If you're scraping for a commercial project, consider using Yelp's official API instead. It provides a legal and efficient way to access data without risking your IP address or violating terms of service.</blockquote>
+<hr>
+<h2 id="step-1-setting-up-your-python-environment">Step 1: Setting Up Your Python Environment</h2>
+<p>Start by creating a new Python file (e.g., <code>yelp_scraper.py</code>) and importing the necessary libraries:</p>
+<pre><code class="language-python">import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-import time
-</code></pre><p>> <strong>Warning:</strong> Selenium requires a compatible browser driver (e.g., ChromeDriver). Ensure your browser and driver versions match, and keep them updated.</p><p>---</p><h2>Step 2: Sending HTTP Requests to Yelp</h2><p>To scrape Yelp, you'll first need to fetch HTML content from a Yelp page. For example, let's scrape a search result page for "restaurants in San Francisco":</p><pre><code>url = "https://www.yelp.com/search?find_desc=Restaurants&find_loc=San+Francisco"
+import time</code></pre>
+<blockquote><strong>Warning:</strong> Selenium requires a compatible browser driver (e.g., ChromeDriver). Ensure your browser and driver versions match, and keep them updated.</blockquote>
+<hr>
+<h2 id="step-2-sending-http-requests-to-yelp">Step 2: Sending HTTP Requests to Yelp</h2>
+<p>To scrape Yelp, you'll first need to fetch HTML content from a Yelp page. For example, let's scrape a search result page for "restaurants in San Francisco":</p>
+<pre><code class="language-python">url = &quot;https://www.yelp.com/search?find_desc=Restaurants&amp;find_loc=San+Francisco&quot;
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-}<p>response = requests.get(url, headers=headers)</p><p>if response.status_code == 200:
-    print("Successfully fetched page content")
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;
+}
+<p>response = requests.get(url, headers=headers)</p>
+<p>if response.status_code == 200:
+    print(&quot;Successfully fetched page content&quot;)
     html_content = response.text
 else:
-    print(f"Failed to fetch page. Status code: {response.status_code}")
-</code></pre></p><p>> <strong>Tip:</strong> Use a <code>User-Agent</code> header to mimic a real browser. Without it, Yelp may block your request or return a robots.txt-compliant error.</p><p>---</p><h2>Step 3: Parsing HTML with BeautifulSoup</h2><p>Once you have the HTML content, use <code>BeautifulSoup</code> to extract data. Here's how to extract restaurant names, ratings, and addresses:</p><pre><code>soup = BeautifulSoup(html_content, "lxml")<p>businesses = soup.find_all("div", class_="business-identifier")</p><p>data = []
+    print(f&quot;Failed to fetch page. Status code: {response.status_code}&quot;)</code></pre></p>
+<blockquote><strong>Tip:</strong> Use a <code>User-Agent</code> header to mimic a real browser. Without it, Yelp may block your request or return a robots.txt-compliant error.</blockquote>
+<hr>
+<h2 id="step-3-parsing-html-with-beautifulsoup">Step 3: Parsing HTML with BeautifulSoup</h2>
+<p>Once you have the HTML content, use <code>BeautifulSoup</code> to extract data. Here's how to extract restaurant names, ratings, and addresses:</p>
+<pre><code class="language-python">soup = BeautifulSoup(html_content, &quot;lxml&quot;)
+<p>businesses = soup.find_all(&quot;div&quot;, class_=&quot;business-identifier&quot;)</p>
+<p>data = []
 for business in businesses:
-    name = business.find("h2", class_="business-name").text.strip()
-    rating = business.find("div", class_="i-stars")
+    name = business.find(&quot;h2&quot;, class_=&quot;business-name&quot;).text.strip()
+    rating = business.find(&quot;div&quot;, class_=&quot;i-stars&quot;)
     if rating:
-        rating = rating["aria-label"].split(" ")[0]
+        rating = rating[&quot;aria-label&quot;].split(&quot; &quot;)[0]
     else:
-        rating = "N/A"
-    address = business.find("span", class_="address").text.strip()
+        rating = &quot;N/A&quot;
+    address = business.find(&quot;span&quot;, class_=&quot;address&quot;).text.strip()
     
     data.append({
-        "Name": name,
-        "Rating": rating,
-        "Address": address
-    })</p><p>df = pd.DataFrame(data)
-print(df.head())
-</code></pre></p><p>> <strong>Best Practice:</strong> Use <code>lxml</code> as the parser for faster performance. If <code>lxml</code> is unavailable, <code>html.parser</code> is a fallback option.</p><p>---</p><h2>Step 4: Handling JavaScript-Rendered Content</h2><p>Yelp heavily relies on JavaScript to load reviews, maps, and other dynamic content. The <code>requests</code> library may not capture this data, as it only fetches static HTML. For JavaScript-heavy pages, use <strong>Selenium</strong> to control a real browser:</p><pre><code>
-service = Service(executable_path="/path/to/chromedriver")  # Update this path
-driver = webdriver.Chrome(service=service)<p>driver.get("https://www.yelp.com/search?find_desc=Restaurants&find_loc=San+Francisco")</p><p>time.sleep(5)  # Adjust sleep time as needed</p><p>soup = BeautifulSoup(driver.page_source, "lxml")
-businesses = soup.find_all("div", class_="business-identifier")</p><p>data = []
+        &quot;Name&quot;: name,
+        &quot;Rating&quot;: rating,
+        &quot;Address&quot;: address
+    })</p>
+# Convert to a pandas DataFrame
+df = pd.DataFrame(data)
+print(df.head())</code></pre>
+<blockquote><strong>Best Practice:</strong> Use <code>lxml</code> as the parser for faster performance. If <code>lxml</code> is unavailable, <code>html.parser</code> is a fallback option.</blockquote>
+<hr>
+<h2 id="step-4-handling-javascript-rendered-content">Step 4: Handling JavaScript-Rendered Content</h2>
+<p>Yelp heavily relies on JavaScript to load reviews, maps, and other dynamic content. The <code>requests</code> library may not capture this data, as it only fetches static HTML. For JavaScript-heavy pages, use <strong>Selenium</strong> to control a real browser:</p>
+<pre><code class="language-python"># Set up Selenium WebDriver
+service = Service(executable_path=&quot;/path/to/chromedriver&quot;)  # Update this path
+driver = webdriver.Chrome(service=service)
+# Navigate to Yelp page
+driver.get(&quot;https://www.yelp.com/search?find_desc=Restaurants&amp;find_loc=San+Francisco&quot;)
+# Wait for JavaScript to load
+time.sleep(5)  # Adjust sleep time as needed
+# Extract JavaScript-rendered data
+soup = BeautifulSoup(driver.page_source, &quot;lxml&quot;)
+businesses = soup.find_all(&quot;div&quot;, class_=&quot;business-identifier&quot;)
+<p>data = []
 for business in businesses:
-    name = business.find("h2", class_="business-name").text.strip()
-    rating = business.find("div", class_="i-stars")["aria-label"].split(" ")[0]
-    address = business.find("span", class_="address").text.strip()
-    data.append({"Name": name, "Rating": rating, "Address": address})</p><p>driver.quit()  # Always close the browser
-</code></pre></p><p>> <strong>Warning:</strong> Selenium is resource-intensive. Use it only when necessary, and avoid overloading Yelp's servers with too many requests.</p><p>---</p><h2>Step 5: Scraping Multiple Pages and Pagination</h2><p>Yelp search results are paginated. To scrape all pages, extract the "Next" button's URL and loop through each page:</p><pre><code>base_url = "https://www.yelp.com/search?find_desc=Restaurants&find_loc=San+Francisco"
-page_number = 1<p>all_data = []</p><p>while True:
-    url = f"{base_url}&start={page_number * 10}"
+    name = business.find(&quot;h2&quot;, class_=&quot;business-name&quot;).text.strip()
+    rating = business.find(&quot;div&quot;, class_=&quot;i-stars&quot;)[&quot;aria-label&quot;].split(&quot; &quot;)[0]
+    address = business.find(&quot;span&quot;, class_=&quot;address&quot;).text.strip()
+    data.append({&quot;Name&quot;: name, &quot;Rating&quot;: rating, &quot;Address&quot;: address})</p>
+<p>driver.quit()  # Always close the browser</code></pre></p>
+<blockquote><strong>Warning:</strong> Selenium is resource-intensive. Use it only when necessary, and avoid overloading Yelp's servers with too many requests.</blockquote>
+<hr>
+<h2 id="step-5-scraping-multiple-pages-and-pagination">Step 5: Scraping Multiple Pages and Pagination</h2>
+<p>Yelp search results are paginated. To scrape all pages, extract the "Next" button's URL and loop through each page:</p>
+<pre><code class="language-python">base_url = &quot;https://www.yelp.com/search?find_desc=Restaurants&amp;find_loc=San+Francisco&quot;
+page_number = 1
+<p>all_data = []</p>
+<p>while True:
+    url = f&quot;{base_url}&amp;start={page_number * 10}&quot;
     response = requests.get(url, headers=headers)
     
     if response.status_code != 200:
         break  # Stop if the page is not found
     
-    soup = BeautifulSoup(response.text, "lxml")
-    businesses = soup.find_all("div", class_="business-identifier")
+    soup = BeautifulSoup(response.text, &quot;lxml&quot;)
+    businesses = soup.find_all(&quot;div&quot;, class_=&quot;business-identifier&quot;)
     
     for business in businesses:
         # Extract data as before...
         pass
     
-    # Check for "Next" button
-    next_button = soup.find("a", class_="next")
+    # Check for &quot;Next&quot; button
+    next_button = soup.find(&quot;a&quot;, class_=&quot;next&quot;)
     if not next_button:
         break
     
-    page_number += 1</p></code></pre><p>> <strong>Best Practice:</strong> Add a <code>time.sleep(2)</code> between requests to avoid being rate-limited. Use <code>proxies</code> or <code>user-agent rotation</code> for large-scale scraping.</p><p>---</p><h2>Step 6: Storing Scraped Data</h2><p>Once you've collected data, save it to a file for analysis. Here's how to save it as a CSV:</p><pre><code>df.to_csv("yelp_restaurants.csv", index=False)
-print("Data saved to yelp_restaurants.csv")
-</code></pre><p>For JSON format:</p><pre><code>df.to_json("yelp_restaurants.json", orient="records", lines=True)
-</code></pre><p>> <strong>Tip:</strong> Use <code>pandas</code> for structured data. For unstructured data (e.g., raw HTML), save to a text file or database like SQLite.</p><p>---</p><h2>Step 7: Advanced Techniques (Optional)</h2><h3>Using Proxies</h3>
-To avoid IP blocking, use proxy services like <a href="https://www.brightdata.com/" target="_blank" rel="nofollow">BrightData</a> or <a href="https://luminati.io/" target="_blank" rel="nofollow">Luminati</a>. Example with <code>requests</code>:<pre><code>proxies = {
-    "http": "http://username:password@proxy_ip:port",
-    "https": "http://username:password@proxy_ip:port"
+    page_number += 1</p>
+# Save all_data to a DataFrame or file</code></pre>
+<blockquote><strong>Best Practice:</strong> Add a <code>time.sleep(2)</code> between requests to avoid being rate-limited. Use <code>proxies</code> or <code>user-agent rotation</code> for large-scale scraping.</blockquote>
+<hr>
+<h2 id="step-6-storing-scraped-data">Step 6: Storing Scraped Data</h2>
+<p>Once you've collected data, save it to a file for analysis. Here's how to save it as a CSV:</p>
+<pre><code class="language-python">df.to_csv(&quot;yelp_restaurants.csv&quot;, index=False)
+print(&quot;Data saved to yelp_restaurants.csv&quot;)</code></pre>
+<p>For JSON format:</p>
+<pre><code class="language-python">df.to_json(&quot;yelp_restaurants.json&quot;, orient=&quot;records&quot;, lines=True)</code></pre>
+<blockquote><strong>Tip:</strong> Use <code>pandas</code> for structured data. For unstructured data (e.g., raw HTML), save to a text file or database like SQLite.</blockquote>
+<hr>
+<h2 id="step-7-advanced-techniques-optional">Step 7: Advanced Techniques (Optional)</h2>
+<h3 id="using-proxies">Using Proxies</h3>
+To avoid IP blocking, use proxy services like <a href="https://www.brightdata.com/" target="_blank" rel="nofollow sponsored noopener">BrightData</a> or <a href="https://luminati.io/" target="_blank" rel="noopener">Luminati</a>. Example with <code>requests</code>:
+<pre><code class="language-python">proxies = {
+    &quot;http&quot;: &quot;http://username:password@proxy_ip:port&quot;,
+    &quot;https&quot;: &quot;http://username:password@proxy_ip:port&quot;
 }
-response = requests.get(url, headers=headers, proxies=proxies)
-</code></pre><h3>Rotating User-Agents</h3>
-Use a list of user-agents and rotate them for each request:<pre><code>import random<p>user_agents = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+response = requests.get(url, headers=headers, proxies=proxies)</code></pre>
+<h3 id="rotating-user-agents">Rotating User-Agents</h3>
+Use a list of user-agents and rotate them for each request:
+<pre><code class="language-python">import random
+<p>user_agents = [
+    &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;,
+    &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;,
     # Add more user-agents...
-]</p><p>headers = {
-    "User-Agent": random.choice(user_agents)
-}
-</code></pre></p><p>---</p><h2>Conclusion</h2><p>Scraping Yelp with Python in 2026 is a powerful way to gather valuable business data, but it requires a blend of technical skills, ethical awareness, and patience. By following this guide, you've learned how to use <code>requests</code> and <code>BeautifulSoup</code> for static content, <code>Selenium</code> for JavaScript-rendered data, and <code>pandas</code> for organizing results. Remember to always respect Yelp's terms of service, avoid overloading their servers, and consider using their official API if possible.</p><p>---</p><h2>Next Steps</h2><p>Now that you've mastered the basics, here are some ideas for further exploration:</p><p>1. <strong>Automate Data Collection</strong>: Build a script that runs daily to monitor Yelp for new reviews or competitors.
-2. <strong>Integrate with a Database</strong>: Store scraped data in a PostgreSQL or MongoDB database for advanced analysis.
-3. <strong>Use Scrapy</strong>: Explore the <strong>Scrapy</strong> framework for large-scale web scraping projects.
-4. <strong>Learn API Usage</strong>: Switch to Yelp's official API for legal and efficient data access.
-5. <strong>Explore Rate Limiting</strong>: Implement advanced techniques like token bucket algorithms to manage request rates.</p><p>By continuing to refine your skills, you'll be well-equipped to tackle any web scraping challenge in 2026 and beyond. Happy coding! 🚀</p><p>---</p><h2>🛠️ Recommended Tools</h2><li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
-<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
-<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li><p>*Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow">Hire N3X1S on Fiverr →</a>*</p></article><a href="https://www.fiverr.com/maxklein251" class="cta">🚀 Need web scraping? Hire N3X1S on Fiverr</a><footer><p>© 2026 N3X1S Intelligence · <a href="index.html">All Articles</a></p></footer></div></body></html>
+]</p>
+<p>headers = {
+    &quot;User-Agent&quot;: random.choice(user_agents)
+}</code></pre></p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>Scraping Yelp with Python in 2026 is a powerful way to gather valuable business data, but it requires a blend of technical skills, ethical awareness, and patience. By following this guide, you've learned how to use <code>requests</code> and <code>BeautifulSoup</code> for static content, <code>Selenium</code> for JavaScript-rendered data, and <code>pandas</code> for organizing results. Remember to always respect Yelp's terms of service, avoid overloading their servers, and consider using their official API if possible.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you've mastered the basics, here are some ideas for further exploration:</p>
+<ol>
+<li><strong>Automate Data Collection</strong>: Build a script that runs daily to monitor Yelp for new reviews or competitors.</li>
+<li><strong>Integrate with a Database</strong>: Store scraped data in a PostgreSQL or MongoDB database for advanced analysis.</li>
+<li><strong>Use Scrapy</strong>: Explore the <strong>Scrapy</strong> framework for large-scale web scraping projects.</li>
+<li><strong>Learn API Usage</strong>: Switch to Yelp's official API for legal and efficient data access.</li>
+<li><strong>Explore Rate Limiting</strong>: Implement advanced techniques like token bucket algorithms to manage request rates.</li>
+</ol>
+<p>By continuing to refine your skills, you'll be well-equipped to tackle any web scraping challenge in 2026 and beyond. Happy coding! 🚀</p>
+<hr>
+<h2 id="-recommended-tools">🛠️ Recommended Tools</h2>
+<ul>
+<li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
+<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow sponsored noopener">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
+<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li>
+</ul>
+<em>Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow sponsored noopener">Hire N3X1S on Fiverr →</a></em>
+            </div>
+            
+            <div class="author-box">
+                <div class="author-avatar">🔮</div>
+                <div class="author-info">
+                    <h4>Written by N3X1S Intelligence</h4>
+                    <p itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Data extraction specialists with 8+ years of experience building production-grade scrapers, ETL pipelines, and automation systems. We've processed billions of data points for Fortune 500 companies.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>🚀 Need a Custom Scraper?</h3>
+                <p>Don't have time to build it yourself? We'll create a production-ready scraper tailored to your exact needs.</p>
+                <a href="https://www.fiverr.com/s/LdR6YN4" class="cta-button" target="_blank" rel="nofollow sponsored noopener">Get Your Custom Scraper →</a>
+            </div>
+            
+            <section class="related-articles"><h2>📚 Related Articles</h2><div class="related-grid">
+        <article class="related-card">
+            <a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+                <h3>Building a Job Scraper: Indeed, LinkedIn, Glassdoor</h3>
+                <p>In today's competitive job market, both job seekers and employers rely on platforms like Indeed, Lin...</p>
+                <span class="read-time">5 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_deploying-python-scrapers-on-linux-vps-complete-setup.html">
+                <h3>Deploying Python Scrapers on Linux VPS: Complete Setup</h3>
+                <p>In today's data-driven world, web scraping is a powerful tool for extracting valuable insights from ...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+                <h3>How to Avoid Getting Blocked While Web Scraping</h3>
+                <p>Web scraping is a powerful tool for extracting data from websites, but it comes with a significant c...</p>
+                <span class="read-time">6 min read</span>
+            </a>
+        </article></div></section>
+            
+            <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage"><h2>❓ Frequently Asked Questions</h2>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is prerequisites?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers prerequisites in detail with code examples and best practices.</p>
+            </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is step 1: setting up your python environment?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers step 1: setting up your python environment in detail with code examples and best practices.</p>
+            </div>
+        </div></section>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🔮 N3X1S Intelligence</h4>
+                <p style="color: var(--text-muted);">Expert web scraping tutorials, automation guides, and data extraction techniques.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="category-apis.html">APIs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                    <li><a href="https://github.com/maxkle1nz" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Popular Tutorials</h4>
+                <ul>
+                    <li><a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">Building a Job Scraper: Indeed, Lin...</a></li><li><a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">Building a Price Tracker with Pytho...</a></li><li><a href="20260302_building-a-real-estate-price-tracker-with-python.html">Building a Real Estate Price Tracke...</a></li><li><a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">Data Enrichment: How to Add Value t...</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 N3X1S Intelligence. All rights reserved. Built with 🐍 Python.</p>
+        </div>
+    </footer>
+</body>
+</html>

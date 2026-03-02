@@ -1,65 +1,799 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Data Enrichment: How to Add Value to Raw Scraped Data — N3X1S Intelligence</title><meta name="description" content="Data Enrichment: How to Add Value to Raw Scraped Data - Expert tutorial by N3X1S Intelligence"><link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0;line-height:1.8}.container{max-width:720px;margin:0 auto;padding:40px 20px}.back{color:#00ff88;text-decoration:none;font-size:14px}h1{font-size:36px;font-weight:800;color:#fff;margin:20px 0 10px}.meta{color:#64748b;font-size:14px;margin-bottom:30px}article h2{color:#00ff88;font-size:24px;margin:30px 0 15px}article h3{color:#fff;font-size:20px;margin:25px 0 10px}article p{margin-bottom:16px}article pre{background:#0d1117;border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:20px;overflow-x:auto;margin:20px 0}article code{color:#00ff88;font-family:'Courier New',monospace;font-size:14px}article strong{color:#fff}article a{color:#00ff88}article li{margin-left:20px;margin-bottom:8px}.cta{display:inline-block;background:#00ff88;color:#0a0a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;margin-top:30px}footer{text-align:center;margin-top:60px;color:#64748b;font-size:13px}footer a{color:#00ff88;text-decoration:none}</style></head><body><div class="container"><header><a href="index.html" class="back">← N3X1S Blog</a><h1>Data Enrichment: How to Add Value to Raw Scraped Data</h1><div class="meta">March 2, 2026 · 1312 words · N3X1S Intelligence</div></header><article><p>Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But when you look at the dataset, it feels incomplete. Prices are missing, product categories are ambiguous, and there’s no context about where the products are sold. This is the reality of <strong>raw scraped data</strong>: useful, but limited. To unlock its full potential, you need <strong>data enrichment</strong>—a process that adds context, depth, and value to your dataset.</p><p>In this tutorial, we’ll walk you through the art of data enrichment, from understanding its importance to implementing practical techniques using Python. Whether you’re a data analyst, a developer, or a researcher, this guide will equip you with the tools to turn raw data into actionable insights.</p><p>---</p><h2>Prerequisites</h2><p>Before diving into data enrichment, ensure you have the following:</p><li><strong>Python 3.x</strong> installed on your system.</li>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Primary Meta Tags -->
+    <title>Data Enrichment: How to Add Value to Raw Scraped Data | N3X1S Intelligence</title>
+    <meta name="title" content="Data Enrichment: How to Add Value to Raw Scraped Data | N3X1S Intelligence">
+    <meta name="description" content="Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But when you look at the dataset, it feels incomplete. Price...">
+    <meta name="author" content="N3X1S Intelligence">
+    <meta name="keywords" content="web scraping, python, data-engineering, data extraction, automation, tutorial">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+    <link rel="alternate" hreflang="x-default" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+    <meta property="og:title" content="Data Enrichment: How to Add Value to Raw Scraped Data">
+    <meta property="og:description" content="Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But when you look at the dataset, it feels incomplete. Price...">
+    <meta property="og:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta property="og:site_name" content="N3X1S Intelligence">
+    <meta property="article:published_time" content="2026-03-02T12:00:00Z">
+    <meta property="article:modified_time" content="2026-03-02T13:40:25.632722Z">
+    <meta property="article:author" content="N3X1S Intelligence">
+    <meta property="article:section" content="Data Engineering">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+    <meta name="twitter:title" content="Data Enrichment: How to Add Value to Raw Scraped Data">
+    <meta name="twitter:description" content="Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But when you look at the dataset, it feels incomplete. Price...">
+    <meta name="twitter:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta name="twitter:site" content="@n3x1s_intel">
+    <meta name="twitter:creator" content="@n3x1s_intel">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Data Enrichment: How to Add Value to Raw Scraped Data", "description": "Imagine you've spent hours scraping data from a website\u2014product names, prices, and descriptions. But when you look at the dataset, it feels incomplete. Price...", "author": {"@type": "Organization", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog"}, "publisher": {"@type": "Organization", "name": "N3X1S Intelligence", "logo": {"@type": "ImageObject", "url": "https://maxkle1nz.github.io/n3x1s-blog/favicon.svg"}}, "datePublished": "2026-03-02", "dateModified": "2026-03-02", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://maxkle1nz.github.io/n3x1s-blog/20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html"}, "wordCount": 1301, "articleSection": "Data Engineering"}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://maxkle1nz.github.io/n3x1s-blog"}, {"@type": "ListItem", "position": 2, "name": "Data Engineering", "item": "https://maxkle1nz.github.io/n3x1s-blog/category-data-engineering.html"}, {"@type": "ListItem", "position": 3, "name": "Data Enrichment: How to Add Value to Raw Scraped Data"}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is prerequisites?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers prerequisites in detail with code examples and best practices."}}, {"@type": "Question", "name": "What Is Data Enrichment?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers what is data enrichment? in detail with code examples and best practices."}}, {"@type": "Question", "name": "What is data enrichment techniques?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers data enrichment techniques in detail with code examples and best practices."}}]}</script>
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        :root {
+            --brand: #00ff88;
+            --bg: #0a0a0a;
+            --bg-secondary: #111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+            --code-bg: #1a1a2e;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover { color: var(--brand); }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb li::after { content: '/'; margin-left: 0.5rem; }
+        .breadcrumb li:last-child::after { content: ''; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+        
+        article { margin-bottom: 3rem; }
+        
+        /* Typography */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--brand);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin: 2.5rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p { margin-bottom: 1.25rem; }
+        
+        a { color: var(--brand); }
+        
+        /* Meta info */
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta span { display: flex; align-items: center; gap: 0.3rem; }
+        
+        /* TOC */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .toc h2 {
+            font-size: 1.1rem;
+            margin: 0 0 1rem;
+            padding: 0;
+            border: none;
+        }
+        
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            color: var(--brand);
+        }
+        
+        /* Code */
+        pre {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        :not(pre) > code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--brand);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .related-articles h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .related-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+        }
+        
+        .related-card a {
+            text-decoration: none;
+        }
+        
+        .related-card h3 {
+            color: var(--brand);
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .read-time {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .faq-section h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        
+        .faq-item h3 {
+            color: var(--brand);
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .faq-item p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+        
+        /* Author Box */
+        .author-box {
+            background: linear-gradient(135deg, var(--bg-secondary), #1a1a2e);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .author-info h4 {
+            color: var(--brand);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #1a1a2e, var(--bg-secondary));
+            border: 2px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-box h3 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--brand);
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+            color: #000;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .footer-section li {
+            margin: 0.5rem 0;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            header { padding: 1rem; }
+            main { padding: 1rem; }
+            .author-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span>🔮</span> N3X1S Intelligence
+            </a>
+            <nav aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category-data-engineering.html">Data Engineering</a></li>
+            <li aria-current="page">Data Enrichment: How to Add Value to Raw...</li>
+        </ol>
+    </nav>
+    
+    <main>
+        <article itemscope itemtype="https://schema.org/Article">
+            <header>
+                <h1 itemprop="headline">Data Enrichment: How to Add Value to Raw Scraped Data</h1>
+                <div class="meta">
+                    <span>📅 <time datetime="2026-03-02" itemprop="datePublished">March 2, 2026</time></span>
+                    <span>⏱️ 7 min read</span>
+                    <span>📝 1,301 words</span>
+                    <span>📁 <a href="category-data-engineering.html">Data Engineering</a></span>
+                </div>
+            </header>
+            
+            <nav class="toc" aria-label="Table of Contents"><h2>📑 Table of Contents</h2><ul><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#what-is-data-enrichment">What Is Data Enrichment?</a></li>  <li><a href="#why-enrich-data">Why Enrich Data?</a></li><li><a href="#data-enrichment-techniques">Data Enrichment Techniques</a></li>  <li><a href="#1-appending-data-from-apis">1. **Appending Data from APIs**</a></li>  <li><a href="#2-geocoding-and-location-based-enrichment">2. **Geocoding and Location-Based Enrichment**</a></li>  <li><a href="#3-merging-datasets-using-keys">3. **Merging Datasets Using Keys**</a></li><li><a href="#practical-example-enriching-scraped-product-data">Practical Example: Enriching Scraped Product Data</a></li>  <li><a href="#step-1-install-required-libraries">Step 1: Install Required Libraries</a></li>  <li><a href="#step-2-scrape-or-load-raw-data">Step 2: Scrape or Load Raw Data</a></li>  <li><a href="#step-3-enrich-with-product-categories">Step 3: Enrich with Product Categories</a></li>  <li><a href="#step-4-add-brand-names-using-another-api">Step 4: Add Brand Names Using Another API</a></li>  <li><a href="#step-5-save-the-enriched-data">Step 5: Save the Enriched Data</a></li><li><a href="#enriching-with-geolocation-data">Enriching with Geolocation Data</a></li>  <li><a href="#example-geocoding-with-google-maps-api">Example: Geocoding with Google Maps API</a></li><li><a href="#merging-datasets-with-pandas">Merging Datasets with Pandas</a></li><li><a href="#best-practices-for-data-enrichment">Best Practices for Data Enrichment</a></li>  <li><a href="#1-validate-your-data-before-and-after-enrichment">1. **Validate Your Data Before and After Enrichment**</a></li>  <li><a href="#2-handle-api-rate-limits-and-errors">2. **Handle API Rate Limits and Errors**</a></li>  <li><a href="#3-use-caching-to-avoid-redundant-calls">3. **Use Caching to Avoid Redundant Calls**</a></li>  <li><a href="#4-respect-privacy-and-legal-boundaries">4. **Respect Privacy and Legal Boundaries**</a></li><li><a href="#common-pitfalls-to-avoid">Common Pitfalls to Avoid</a></li>  <li><a href="#1-overloading-your-dataset">1. **Overloading Your Dataset**</a></li>  <li><a href="#2-ignoring-data-quality">2. **Ignoring Data Quality**</a></li>  <li><a href="#3-not-documenting-your-process">3. **Not Documenting Your Process**</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li><li><a href="#-recommended-tools">🛠️ Recommended Tools</a></li></ul></nav>
+            
+            <div class="content" itemprop="articleBody">
+                <p>Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But when you look at the dataset, it feels incomplete. Prices are missing, product categories are ambiguous, and there’s no context about where the products are sold. This is the reality of <strong>raw scraped data</strong>: useful, but limited. To unlock its full potential, you need <strong>data enrichment</strong>—a process that adds context, depth, and value to your dataset.</p>
+<p>In this tutorial, we’ll walk you through the art of data enrichment, from understanding its importance to implementing practical techniques using Python. Whether you’re a data analyst, a developer, or a researcher, this guide will equip you with the tools to turn raw data into actionable insights.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before diving into data enrichment, ensure you have the following:</p>
+<ul>
+<li><strong>Python 3.x</strong> installed on your system.</li>
 <li>Basic familiarity with <strong>Python programming</strong>, including data structures and libraries like <code>pandas</code> and <code>requests</code>.</li>
 <li>Experience with <strong>web scraping</strong> (e.g., using <code>BeautifulSoup</code> or <code>Scrapy</code>).</li>
 <li>Access to <strong>external APIs</strong> (e.g., Google Maps, OpenWeather, or product databases) for enrichment.</li>
-<li>A <strong>text editor or IDE</strong> (e.g., VS Code, PyCharm) for writing and testing code.</li><strong>Tip:</strong> If you’re new to web scraping, consider reading a beginner’s guide to scraping with Python first.<p>---</p><h2>What Is Data Enrichment?</h2><p>Data enrichment is the process of enhancing raw data by adding relevant information from external sources. This could involve:</p><li><strong>Geocoding</strong> addresses to get latitude/longitude.</li>
+<li>A <strong>text editor or IDE</strong> (e.g., VS Code, PyCharm) for writing and testing code.</li>
+</ul>
+<strong>Tip:</strong> If you’re new to web scraping, consider reading a beginner’s guide to scraping with Python first.
+<hr>
+<h2 id="what-is-data-enrichment">What Is Data Enrichment?</h2>
+<p>Data enrichment is the process of enhancing raw data by adding relevant information from external sources. This could involve:</p>
+<ul>
+<li><strong>Geocoding</strong> addresses to get latitude/longitude.</li>
 <li><strong>Appending</strong> product categories using a database.</li>
 <li><strong>Validating</strong> email formats with regex or external tools.</li>
-<li><strong>Enhancing</strong> user profiles with demographic data from third-party APIs.</li><p>The goal is to make your dataset <strong>more complete, accurate, and actionable</strong>.</p><h3>Why Enrich Data?</h3><p>Here’s why data enrichment matters:</p><li><strong>Improves decision-making</strong>: Enriched data provides context (e.g., customer location, product availability).</li>
+<li><strong>Enhancing</strong> user profiles with demographic data from third-party APIs.</li>
+</ul>
+<p>The goal is to make your dataset <strong>more complete, accurate, and actionable</strong>.</p>
+<h3 id="why-enrich-data">Why Enrich Data?</h3>
+<p>Here’s why data enrichment matters:</p>
+<ul>
+<li><strong>Improves decision-making</strong>: Enriched data provides context (e.g., customer location, product availability).</li>
 <li><strong>Reduces errors</strong>: Cleaning and validating data early prevents downstream issues.</li>
 <li><strong>Boosts machine learning models</strong>: Feature-rich datasets yield better predictions.</li>
-<li><strong>Unlocks new insights</strong>: Merging datasets can reveal patterns you never noticed before.</li><p>---</p><h2>Data Enrichment Techniques</h2><p>There are multiple ways to enrich data, depending on your goals and resources. Here are three common techniques:</p><h3>1. <strong>Appending Data from APIs</strong></h3><p>External APIs are a goldmine for enrichment. For example, if you’ve scraped a list of product names, you might use an API like <strong>Amazon Product API</strong> or <strong>Google Shopping API</strong> to fetch prices, ratings, or descriptions.</p><h3>2. <strong>Geocoding and Location-Based Enrichment</strong></h3><p>If your dataset includes addresses, geocoding (e.g., via Google Maps API) can add latitude, longitude, and even city/state information.</p><h3>3. <strong>Merging Datasets Using Keys</strong></h3><p>If you have multiple datasets (e.g., customer data and purchase history), you can merge them using common keys like <code>customer_id</code> or <code>product_id</code>.</p><p>---</p><h2>Practical Example: Enriching Scraped Product Data</h2><p>Let’s walk through a real-world example. Assume you’ve scraped a list of products from an e-commerce site, and your raw data looks like this:</p><p>| Product Name       | Price | Category |
+<li><strong>Unlocks new insights</strong>: Merging datasets can reveal patterns you never noticed before.</li>
+</ul>
+<hr>
+<h2 id="data-enrichment-techniques">Data Enrichment Techniques</h2>
+<p>There are multiple ways to enrich data, depending on your goals and resources. Here are three common techniques:</p>
+<h3 id="1-appending-data-from-apis">1. <strong>Appending Data from APIs</strong></h3>
+<p>External APIs are a goldmine for enrichment. For example, if you’ve scraped a list of product names, you might use an API like <strong>Amazon Product API</strong> or <strong>Google Shopping API</strong> to fetch prices, ratings, or descriptions.</p>
+<h3 id="2-geocoding-and-location-based-enrichment">2. <strong>Geocoding and Location-Based Enrichment</strong></h3>
+<p>If your dataset includes addresses, geocoding (e.g., via Google Maps API) can add latitude, longitude, and even city/state information.</p>
+<h3 id="3-merging-datasets-using-keys">3. <strong>Merging Datasets Using Keys</strong></h3>
+<p>If you have multiple datasets (e.g., customer data and purchase history), you can merge them using common keys like <code>customer_id</code> or <code>product_id</code>.</p>
+<hr>
+<h2 id="practical-example-enriching-scraped-product-data">Practical Example: Enriching Scraped Product Data</h2>
+<p>Let’s walk through a real-world example. Assume you’ve scraped a list of products from an e-commerce site, and your raw data looks like this:</p>
+<p>| Product Name       | Price | Category |
 |--------------------|-------|----------|
 | Wireless Headphones | $59   |          |
-| Bluetooth Speaker  | $89   |          |</p><p>Your goal: enrich this data with <strong>categories</strong> and <strong>brand names</strong>.</p><h3>Step 1: Install Required Libraries</h3><p>Ensure you have these libraries installed:</p><pre><code>bash
-pip install pandas requests
-</code></pre><h3>Step 2: Scrape or Load Raw Data</h3><p>For simplicity, let’s assume you’ve already scraped the data and stored it in a CSV file named <code>products.csv</code>.</p><pre><code>import pandas as pd<p>df = pd.read_csv("products.csv")
-print(df.head())
-</code></pre></p><h3>Step 3: Enrich with Product Categories</h3><p>Suppose you have access to an API that returns product categories based on the product name. Here’s a mock example using a placeholder API:</p><pre><code>import requests<p>def get_category(product_name):
+| Bluetooth Speaker  | $89   |          |</p>
+<p>Your goal: enrich this data with <strong>categories</strong> and <strong>brand names</strong>.</p>
+<h3 id="step-1-install-required-libraries">Step 1: Install Required Libraries</h3>
+<p>Ensure you have these libraries installed:</p>
+<pre><code class="language-bash">pip install pandas requests</code></pre>
+<h3 id="step-2-scrape-or-load-raw-data">Step 2: Scrape or Load Raw Data</h3>
+<p>For simplicity, let’s assume you’ve already scraped the data and stored it in a CSV file named <code>products.csv</code>.</p>
+<pre><code class="language-python">import pandas as pd
+# Load raw data
+df = pd.read_csv(&quot;products.csv&quot;)
+print(df.head())</code></pre>
+<h3 id="step-3-enrich-with-product-categories">Step 3: Enrich with Product Categories</h3>
+<p>Suppose you have access to an API that returns product categories based on the product name. Here’s a mock example using a placeholder API:</p>
+<pre><code class="language-python">import requests
+<p>def get_category(product_name):
     # Replace with a real API endpoint
-    url = "https://api.example.com/product-category"
-    payload = {"product_name": product_name}
+    url = &quot;https://api.example.com/product-category&quot;
+    payload = {&quot;product_name&quot;: product_name}
     response = requests.post(url, json=payload)
     if response.status_code == 200:
-        return response.json().get("category", "Unknown")
-    return "Unknown"</p><p>df["Category"] = df["Product Name"].apply(get_category)
-print(df.head())
-</code></pre></p><strong>Warning:</strong> Real APIs may require authentication (e.g., API keys). Always check the documentation and handle errors gracefully.<h3>Step 4: Add Brand Names Using Another API</h3><p>Now, let’s add brand names using a different API:</p><pre><code>def get_brand(product_name):
-    url = "https://api.example.com/product-brand"
-    payload = {"product_name": product_name}
+        return response.json().get(&quot;category&quot;, &quot;Unknown&quot;)
+    return &quot;Unknown&quot;</p>
+# Apply function to enrich the dataset
+df[&quot;Category&quot;] = df[&quot;Product Name&quot;].apply(get_category)
+print(df.head())</code></pre>
+<strong>Warning:</strong> Real APIs may require authentication (e.g., API keys). Always check the documentation and handle errors gracefully.
+<h3 id="step-4-add-brand-names-using-another-api">Step 4: Add Brand Names Using Another API</h3>
+<p>Now, let’s add brand names using a different API:</p>
+<pre><code class="language-python">def get_brand(product_name):
+    url = &quot;https://api.example.com/product-brand&quot;
+    payload = {&quot;product_name&quot;: product_name}
     response = requests.post(url, json=payload)
     if response.status_code == 200:
-        return response.json().get("brand", "Unknown")
-    return "Unknown"<p>df["Brand"] = df["Product Name"].apply(get_brand)
-print(df.head())
-</code></pre></p><h3>Step 5: Save the Enriched Data</h3><p>Finally, save the enriched dataset:</p><pre><code>df.to_csv("enriched_products.csv", index=False)
-</code></pre><p>---</p><h2>Enriching with Geolocation Data</h2><p>Another common use case is <strong>geocoding</strong>. Suppose you’ve scraped a list of store addresses and want to add latitude and longitude.</p><h3>Example: Geocoding with Google Maps API</h3><p>Google Maps API requires an API key. Replace <code>YOUR_API_KEY</code> with your actual key:</p><pre><code>import googlemaps<p>gmaps = googlemaps.Client(key="YOUR_API_KEY")</p><p>def geocode_address(address):
+        return response.json().get(&quot;brand&quot;, &quot;Unknown&quot;)
+    return &quot;Unknown&quot;
+<p>df[&quot;Brand&quot;] = df[&quot;Product Name&quot;].apply(get_brand)
+print(df.head())</code></pre></p>
+<h3 id="step-5-save-the-enriched-data">Step 5: Save the Enriched Data</h3>
+<p>Finally, save the enriched dataset:</p>
+<pre><code class="language-python">df.to_csv(&quot;enriched_products.csv&quot;, index=False)</code></pre>
+<hr>
+<h2 id="enriching-with-geolocation-data">Enriching with Geolocation Data</h2>
+<p>Another common use case is <strong>geocoding</strong>. Suppose you’ve scraped a list of store addresses and want to add latitude and longitude.</p>
+<h3 id="example-geocoding-with-google-maps-api">Example: Geocoding with Google Maps API</h3>
+<p>Google Maps API requires an API key. Replace <code>YOUR_API_KEY</code> with your actual key:</p>
+<pre><code class="language-python">import googlemaps
+# Initialize the Google Maps client
+gmaps = googlemaps.Client(key=&quot;YOUR_API_KEY&quot;)
+<p>def geocode_address(address):
     geocode_result = gmaps.geocode(address)
     if geocode_result:
-        lat = geocode_result[0]["geometry"]["location"]["lat"]
-        lng = geocode_result[0]["geometry"]["location"]["lng"]
+        lat = geocode_result[0][&quot;geometry&quot;][&quot;location&quot;][&quot;lat&quot;]
+        lng = geocode_result[0][&quot;geometry&quot;][&quot;location&quot;][&quot;lng&quot;]
         return lat, lng
-    return None, None</p><p>address = "1600 Amphitheatre Parkway, Mountain View, CA"
+    return None, None</p>
+# Example usage
+address = &quot;1600 Amphitheatre Parkway, Mountain View, CA&quot;
 lat, lng = geocode_address(address)
-print(f"Latitude: {lat}, Longitude: {lng}")
-</code></pre></p><strong>Tip:</strong> Google Maps API has rate limits. Consider using a proxy or caching results to avoid hitting limits.<p>---</p><h2>Merging Datasets with Pandas</h2><p>Sometimes, data enrichment involves merging datasets. For example, you might have a CSV of customer emails and another of customer demographics.</p><pre><code>
-customers = pd.read_csv("customers.csv")
-demographics = pd.read_csv("demographics.csv")<p>merged_data = pd.merge(customers, demographics, on="email", how="left")
-print(merged_data.head())
-</code></pre></p><strong>Best Practice:</strong> Always check for missing values after merging. Use <code>merged_data.isnull().sum()</code> to identify gaps.<p>---</p><h2>Best Practices for Data Enrichment</h2><h3>1. <strong>Validate Your Data Before and After Enrichment</strong></h3><p>Use <code>pandas</code> to check for duplicates, missing values, or inconsistencies:</p><pre><code>print(df.isnull().sum())
-print(df.duplicated().sum())
-</code></pre><h3>2. <strong>Handle API Rate Limits and Errors</strong></h3><p>Wrap API calls in try-except blocks:</p><pre><code>def safe_api_call(function, *args):
+print(f&quot;Latitude: {lat}, Longitude: {lng}&quot;)</code></pre>
+<strong>Tip:</strong> Google Maps API has rate limits. Consider using a proxy or caching results to avoid hitting limits.
+<hr>
+<h2 id="merging-datasets-with-pandas">Merging Datasets with Pandas</h2>
+<p>Sometimes, data enrichment involves merging datasets. For example, you might have a CSV of customer emails and another of customer demographics.</p>
+<pre><code class="language-python"># Load two datasets
+customers = pd.read_csv(&quot;customers.csv&quot;)
+demographics = pd.read_csv(&quot;demographics.csv&quot;)
+# Merge on a common key (e.g., email)
+merged_data = pd.merge(customers, demographics, on=&quot;email&quot;, how=&quot;left&quot;)
+print(merged_data.head())</code></pre>
+<strong>Best Practice:</strong> Always check for missing values after merging. Use <code>merged_data.isnull().sum()</code> to identify gaps.
+<hr>
+<h2 id="best-practices-for-data-enrichment">Best Practices for Data Enrichment</h2>
+<h3 id="1-validate-your-data-before-and-after-enrichment">1. <strong>Validate Your Data Before and After Enrichment</strong></h3>
+<p>Use <code>pandas</code> to check for duplicates, missing values, or inconsistencies:</p>
+<pre><code class="language-python">print(df.isnull().sum())
+print(df.duplicated().sum())</code></pre>
+<h3 id="2-handle-api-rate-limits-and-errors">2. <strong>Handle API Rate Limits and Errors</strong></h3>
+<p>Wrap API calls in try-except blocks:</p>
+<pre><code class="language-python">def safe_api_call(function, *args):
     try:
         return function(*args)
     except Exception as e:
-        print(f"Error: {e}")
-        return None
-</code></pre><h3>3. <strong>Use Caching to Avoid Redundant Calls</strong></h3><p>If you’re enriching data from APIs, cache results to reduce load and speed up processing.</p><pre><code>from functools import lru_cache<p>@lru_cache(maxsize=1000)
+        print(f&quot;Error: {e}&quot;)
+        return None</code></pre>
+<h3 id="3-use-caching-to-avoid-redundant-calls">3. <strong>Use Caching to Avoid Redundant Calls</strong></h3>
+<p>If you’re enriching data from APIs, cache results to reduce load and speed up processing.</p>
+<pre><code class="language-python">from functools import lru_cache
+<p>@lru_cache(maxsize=1000)
 def get_category(product_name):
-    # API call logic here
-</code></pre></p><h3>4. <strong>Respect Privacy and Legal Boundaries</strong></h3><p>Ensure that any data you enrich (especially from third parties) complies with regulations like GDPR or CCPA.</p><p>---</p><h2>Common Pitfalls to Avoid</h2><h3>1. <strong>Overloading Your Dataset</strong></h3><p>Adding too many enrichments can bloat your dataset and slow down analysis. Prioritize the most impactful enrichments first.</p><h3>2. <strong>Ignoring Data Quality</strong></h3><p>If the external API returns inconsistent data, your enriched dataset will inherit those flaws. Always validate and clean results.</p><h3>3. <strong>Not Documenting Your Process</strong></h3><p>Keep track of how you enriched your data. This is crucial for reproducibility and debugging.</p><p>---</p><h2>Conclusion</h2><p>Data enrichment is a powerful technique that transforms raw scraped data into a valuable asset. By appending information from APIs, adding geolocation data, and merging datasets, you can unlock deeper insights and improve the quality of your analyses.</p><p>Remember, the key to successful data enrichment lies in <strong>careful planning, validation, and iterative refinement</strong>. Whether you’re building a machine learning model, optimizing a marketing campaign, or enhancing a database, enriched data is your foundation.</p><p>---</p><h2>Next Steps</h2><p>Now that you’ve mastered the basics, here’s what to explore next:</p><li><strong>Automate your enrichment pipeline</strong> using tools like Apache Airflow or Prefect.</li>
+    # API call logic here</code></pre></p>
+<h3 id="4-respect-privacy-and-legal-boundaries">4. <strong>Respect Privacy and Legal Boundaries</strong></h3>
+<p>Ensure that any data you enrich (especially from third parties) complies with regulations like GDPR or CCPA.</p>
+<hr>
+<h2 id="common-pitfalls-to-avoid">Common Pitfalls to Avoid</h2>
+<h3 id="1-overloading-your-dataset">1. <strong>Overloading Your Dataset</strong></h3>
+<p>Adding too many enrichments can bloat your dataset and slow down analysis. Prioritize the most impactful enrichments first.</p>
+<h3 id="2-ignoring-data-quality">2. <strong>Ignoring Data Quality</strong></h3>
+<p>If the external API returns inconsistent data, your enriched dataset will inherit those flaws. Always validate and clean results.</p>
+<h3 id="3-not-documenting-your-process">3. <strong>Not Documenting Your Process</strong></h3>
+<p>Keep track of how you enriched your data. This is crucial for reproducibility and debugging.</p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>Data enrichment is a powerful technique that transforms raw scraped data into a valuable asset. By appending information from APIs, adding geolocation data, and merging datasets, you can unlock deeper insights and improve the quality of your analyses.</p>
+<p>Remember, the key to successful data enrichment lies in <strong>careful planning, validation, and iterative refinement</strong>. Whether you’re building a machine learning model, optimizing a marketing campaign, or enhancing a database, enriched data is your foundation.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you’ve mastered the basics, here’s what to explore next:</p>
+<ul>
+<li><strong>Automate your enrichment pipeline</strong> using tools like Apache Airflow or Prefect.</li>
 <li><strong>Explore advanced APIs</strong> like OpenWeather, Yelp, or LinkedIn for more enrichments.</li>
 <li><strong>Learn ETL (Extract, Transform, Load) processes</strong> to handle large-scale data workflows.</li>
-<li><strong>Dive into data validation libraries</strong> like <code>pydantic</code> or <code>jsonschema</code> for stricter data checks.</li><p>Stay curious, and keep building!</p><p>---</p><h2>🛠️ Recommended Tools</h2><li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
-<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
-<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li><p>*Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow">Hire N3X1S on Fiverr →</a>*</p></article><a href="https://www.fiverr.com/maxklein251" class="cta">🚀 Need web scraping? Hire N3X1S on Fiverr</a><footer><p>© 2026 N3X1S Intelligence · <a href="index.html">All Articles</a></p></footer></div></body></html>
+<li><strong>Dive into data validation libraries</strong> like <code>pydantic</code> or <code>jsonschema</code> for stricter data checks.</li>
+</ul>
+<p>Stay curious, and keep building!</p>
+<hr>
+<h2 id="-recommended-tools">🛠️ Recommended Tools</h2>
+<ul>
+<li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
+<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow sponsored noopener">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
+<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li>
+</ul>
+<em>Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow sponsored noopener">Hire N3X1S on Fiverr →</a></em>
+            </div>
+            
+            <div class="author-box">
+                <div class="author-avatar">🔮</div>
+                <div class="author-info">
+                    <h4>Written by N3X1S Intelligence</h4>
+                    <p itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Data extraction specialists with 8+ years of experience building production-grade scrapers, ETL pipelines, and automation systems. We've processed billions of data points for Fortune 500 companies.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>🚀 Need a Custom Scraper?</h3>
+                <p>Don't have time to build it yourself? We'll create a production-ready scraper tailored to your exact needs.</p>
+                <a href="https://www.fiverr.com/s/LdR6YN4" class="cta-button" target="_blank" rel="nofollow sponsored noopener">Get Your Custom Scraper →</a>
+            </div>
+            
+            <section class="related-articles"><h2>📚 Related Articles</h2><div class="related-grid">
+        <article class="related-card">
+            <a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+                <h3>Building a Price Tracker with Python and BeautifulSoup</h3>
+                <p>In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Wh...</p>
+                <span class="read-time">6 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_data-pipeline-architecture-from-messy-csvs-to-clean-database.html">
+                <h3>Data Pipeline Architecture: From Messy CSVs to Clean Database</h3>
+                <p>Imagine this: You’ve just received a CSV file from a client that’s supposed to contain thousands of ...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+                <h3>How to Build an ETL Pipeline with Python and MySQL</h3>
+                <p>In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of m...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article></div></section>
+            
+            <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage"><h2>❓ Frequently Asked Questions</h2>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is prerequisites?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers prerequisites in detail with code examples and best practices.</p>
+            </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What Is Data Enrichment?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers what is data enrichment? in detail with code examples and best practices.</p>
+            </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is data enrichment techniques?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers data enrichment techniques in detail with code examples and best practices.</p>
+            </div>
+        </div></section>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🔮 N3X1S Intelligence</h4>
+                <p style="color: var(--text-muted);">Expert web scraping tutorials, automation guides, and data extraction techniques.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="category-apis.html">APIs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                    <li><a href="https://github.com/maxkle1nz" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Popular Tutorials</h4>
+                <ul>
+                    <li><a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">Building a Job Scraper: Indeed, Lin...</a></li><li><a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">Building a Price Tracker with Pytho...</a></li><li><a href="20260302_building-a-real-estate-price-tracker-with-python.html">Building a Real Estate Price Tracke...</a></li><li><a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">Data Enrichment: How to Add Value t...</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 N3X1S Intelligence. All rights reserved. Built with 🐍 Python.</p>
+        </div>
+    </footer>
+</body>
+</html>

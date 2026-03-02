@@ -1,0 +1,11 @@
+# robots.txt for N3X1S Intelligence
+# https://maxkle1nz.github.io/n3x1s-blog
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://maxkle1nz.github.io/n3x1s-blog/sitemap.xml
+
+# Crawl-delay (optional, be nice to servers)
+Crawl-delay: 1

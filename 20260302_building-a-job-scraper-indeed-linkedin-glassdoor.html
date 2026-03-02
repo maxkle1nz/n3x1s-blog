@@ -1,107 +1,807 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Building a Job Scraper: Indeed, LinkedIn, Glassdoor   — N3X1S Intelligence</title><meta name="description" content="Building a Job Scraper: Indeed, LinkedIn, Glassdoor   - Expert tutorial by N3X1S Intelligence"><link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0;line-height:1.8}.container{max-width:720px;margin:0 auto;padding:40px 20px}.back{color:#00ff88;text-decoration:none;font-size:14px}h1{font-size:36px;font-weight:800;color:#fff;margin:20px 0 10px}.meta{color:#64748b;font-size:14px;margin-bottom:30px}article h2{color:#00ff88;font-size:24px;margin:30px 0 15px}article h3{color:#fff;font-size:20px;margin:25px 0 10px}article p{margin-bottom:16px}article pre{background:#0d1117;border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:20px;overflow-x:auto;margin:20px 0}article code{color:#00ff88;font-family:'Courier New',monospace;font-size:14px}article strong{color:#fff}article a{color:#00ff88}article li{margin-left:20px;margin-bottom:8px}.cta{display:inline-block;background:#00ff88;color:#0a0a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;margin-top:30px}footer{text-align:center;margin-top:60px;color:#64748b;font-size:13px}footer a{color:#00ff88;text-decoration:none}</style></head><body><div class="container"><header><a href="index.html" class="back">← N3X1S Blog</a><h1>Building a Job Scraper: Indeed, LinkedIn, Glassdoor  </h1><div class="meta">March 2, 2026 · 1105 words · N3X1S Intelligence</div></header><article><p>In today's competitive job market, both job seekers and employers rely on platforms like Indeed, LinkedIn, and Glassdoor to find opportunities and talent. However, manually sifting through thousands of listings or profiles is time-consuming and inefficient. Enter <strong>web scraping</strong>—a powerful technique that automates data extraction from websites.</p><p>This tutorial will guide you through building a <strong>job scraper</strong> that extracts job listings from Indeed, LinkedIn, and Glassdoor using Python. You'll learn how to handle dynamic content, avoid anti-scraping measures, and structure your code for scalability. By the end, you’ll have a working script that can be expanded to suit your needs, whether you're automating job searches or building a talent pipeline.</p><p>Let’s dive in!</p><p>---</p><h2>Prerequisites  </h2><p>Before we begin, ensure you have the following tools and knowledge:</p><h3><strong>Software Requirements</strong>  </h3>
-<li><strong>Python 3.8+</strong>  </li>
-<li><strong>pip</strong> (Python’s package installer)  </li>
-<li>A code editor (e.g., VS Code, PyCharm)  </li><h3><strong>Libraries</strong>  </h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Primary Meta Tags -->
+    <title>Building a Job Scraper: Indeed, LinkedIn, Glassdoor | N3X1S Intelligence</title>
+    <meta name="title" content="Building a Job Scraper: Indeed, LinkedIn, Glassdoor | N3X1S Intelligence">
+    <meta name="description" content="In today's competitive job market, both job seekers and employers rely on platforms like Indeed, LinkedIn, and Glassdoor to find opportunities and talent. Ho...">
+    <meta name="author" content="N3X1S Intelligence">
+    <meta name="keywords" content="web scraping, python, web-scraping, data extraction, automation, tutorial">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+    <link rel="alternate" hreflang="x-default" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+    <meta property="og:title" content="Building a Job Scraper: Indeed, LinkedIn, Glassdoor">
+    <meta property="og:description" content="In today's competitive job market, both job seekers and employers rely on platforms like Indeed, LinkedIn, and Glassdoor to find opportunities and talent. Ho...">
+    <meta property="og:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta property="og:site_name" content="N3X1S Intelligence">
+    <meta property="article:published_time" content="2026-03-02T12:00:00Z">
+    <meta property="article:modified_time" content="2026-03-02T13:40:25.632199Z">
+    <meta property="article:author" content="N3X1S Intelligence">
+    <meta property="article:section" content="Web Scraping">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">
+    <meta name="twitter:title" content="Building a Job Scraper: Indeed, LinkedIn, Glassdoor">
+    <meta name="twitter:description" content="In today's competitive job market, both job seekers and employers rely on platforms like Indeed, LinkedIn, and Glassdoor to find opportunities and talent. Ho...">
+    <meta name="twitter:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta name="twitter:site" content="@n3x1s_intel">
+    <meta name="twitter:creator" content="@n3x1s_intel">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Building a Job Scraper: Indeed, LinkedIn, Glassdoor", "description": "In today's competitive job market, both job seekers and employers rely on platforms like Indeed, LinkedIn, and Glassdoor to find opportunities and talent. Ho...", "author": {"@type": "Organization", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog"}, "publisher": {"@type": "Organization", "name": "N3X1S Intelligence", "logo": {"@type": "ImageObject", "url": "https://maxkle1nz.github.io/n3x1s-blog/favicon.svg"}}, "datePublished": "2026-03-02", "dateModified": "2026-03-02", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html"}, "wordCount": 1097, "articleSection": "Web Scraping"}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://maxkle1nz.github.io/n3x1s-blog"}, {"@type": "ListItem", "position": 2, "name": "Web Scraping", "item": "https://maxkle1nz.github.io/n3x1s-blog/category-web-scraping.html"}, {"@type": "ListItem", "position": 3, "name": "Building a Job Scraper: Indeed, LinkedIn, Glassdoor"}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is prerequisites?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers prerequisites in detail with code examples and best practices."}}, {"@type": "Question", "name": "What is scraping indeed: static content with beautifulsoup?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers scraping indeed: static content with beautifulsoup in detail with code examples and best practices."}}]}</script>
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        :root {
+            --brand: #00ff88;
+            --bg: #0a0a0a;
+            --bg-secondary: #111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+            --code-bg: #1a1a2e;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover { color: var(--brand); }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb li::after { content: '/'; margin-left: 0.5rem; }
+        .breadcrumb li:last-child::after { content: ''; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+        
+        article { margin-bottom: 3rem; }
+        
+        /* Typography */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--brand);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin: 2.5rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p { margin-bottom: 1.25rem; }
+        
+        a { color: var(--brand); }
+        
+        /* Meta info */
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta span { display: flex; align-items: center; gap: 0.3rem; }
+        
+        /* TOC */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .toc h2 {
+            font-size: 1.1rem;
+            margin: 0 0 1rem;
+            padding: 0;
+            border: none;
+        }
+        
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            color: var(--brand);
+        }
+        
+        /* Code */
+        pre {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        :not(pre) > code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--brand);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .related-articles h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .related-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+        }
+        
+        .related-card a {
+            text-decoration: none;
+        }
+        
+        .related-card h3 {
+            color: var(--brand);
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .read-time {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .faq-section h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        
+        .faq-item h3 {
+            color: var(--brand);
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .faq-item p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+        
+        /* Author Box */
+        .author-box {
+            background: linear-gradient(135deg, var(--bg-secondary), #1a1a2e);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .author-info h4 {
+            color: var(--brand);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #1a1a2e, var(--bg-secondary));
+            border: 2px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-box h3 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--brand);
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+            color: #000;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .footer-section li {
+            margin: 0.5rem 0;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            header { padding: 1rem; }
+            main { padding: 1rem; }
+            .author-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span>🔮</span> N3X1S Intelligence
+            </a>
+            <nav aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category-web-scraping.html">Web Scraping</a></li>
+            <li aria-current="page">Building a Job Scraper: Indeed, LinkedIn...</li>
+        </ol>
+    </nav>
+    
+    <main>
+        <article itemscope itemtype="https://schema.org/Article">
+            <header>
+                <h1 itemprop="headline">Building a Job Scraper: Indeed, LinkedIn, Glassdoor</h1>
+                <div class="meta">
+                    <span>📅 <time datetime="2026-03-02" itemprop="datePublished">March 2, 2026</time></span>
+                    <span>⏱️ 5 min read</span>
+                    <span>📝 1,097 words</span>
+                    <span>📁 <a href="category-web-scraping.html">Web Scraping</a></span>
+                </div>
+            </header>
+            
+            <nav class="toc" aria-label="Table of Contents"><h2>📑 Table of Contents</h2><ul><li><a href="#prerequisites">Prerequisites</a></li>  <li><a href="#software-requirements">**Software Requirements**</a></li>  <li><a href="#libraries">**Libraries**</a></li>  <li><a href="#legal-and-ethical-considerations">**Legal and Ethical Considerations**</a></li><li><a href="#scraping-indeed-static-content-with-beautifulsoup">Scraping Indeed: Static Content with BeautifulSoup</a></li>  <li><a href="#step-1-send-an-http-request">**Step 1: Send an HTTP Request**</a></li>  <li><a href="#step-2-parse-html-with-beautifulsoup">**Step 2: Parse HTML with BeautifulSoup**</a></li>  <li><a href="#output-example">**Output Example**</a></li><li><a href="#scraping-linkedin-dynamic-content-with-selenium">Scraping LinkedIn: Dynamic Content with Selenium</a></li>  <li><a href="#step-1-set-up-selenium-with-undetected-chromedriver">**Step 1: Set Up Selenium with undetected-chromedriver**</a></li>  <li><a href="#handling-anti-scraping-measures">**Handling Anti-Scraping Measures**</a></li><li><a href="#scraping-glassdoor-javascript-and-anti-scraping-challenges">Scraping Glassdoor: JavaScript and Anti-Scraping Challenges</a></li>  <li><a href="#step-1-configure-selenium-with-proxy">**Step 1: Configure Selenium with Proxy**</a></li><li><a href="#best-practices-for-building-a-job-scraper">Best Practices for Building a Job Scraper</a></li>  <li><a href="#1-respect-robotstxt-and-terms-of-service">**1. Respect Robots.txt and Terms of Service**</a></li>  <li><a href="#2-add-delays-between-requests">**2. Add Delays Between Requests**</a></li>  <li><a href="#3-handle-captcha-and-javascript">**3. Handle CAPTCHA and JavaScript**</a></li>  <li><a href="#4-store-data-efficiently">**4. Store Data Efficiently**</a></li>  <li><a href="#5-rotate-user-agents-and-ips">**5. Rotate User Agents and IPs**</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li><li><a href="#-recommended-tools">🛠️ Recommended Tools</a></li></ul></nav>
+            
+            <div class="content" itemprop="articleBody">
+                <p>In today's competitive job market, both job seekers and employers rely on platforms like Indeed, LinkedIn, and Glassdoor to find opportunities and talent. However, manually sifting through thousands of listings or profiles is time-consuming and inefficient. Enter <strong>web scraping</strong>—a powerful technique that automates data extraction from websites.</p>
+<p>This tutorial will guide you through building a <strong>job scraper</strong> that extracts job listings from Indeed, LinkedIn, and Glassdoor using Python. You'll learn how to handle dynamic content, avoid anti-scraping measures, and structure your code for scalability. By the end, you’ll have a working script that can be expanded to suit your needs, whether you're automating job searches or building a talent pipeline.</p>
+<p>Let’s dive in!</p>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before we begin, ensure you have the following tools and knowledge:</p>
+<h3 id="software-requirements"><strong>Software Requirements</strong></h3>
+<ul>
+<li><strong>Python 3.8+</strong></li>
+<li><strong>pip</strong> (Python’s package installer)</li>
+<li>A code editor (e.g., VS Code, PyCharm)</li>
+</ul>
+<h3 id="libraries"><strong>Libraries</strong></h3>
 Install the following Python libraries using <code>pip</code>:  
-<pre><code>bash
-pip install requests beautifulsoup4 selenium undetected-chromedriver
-</code></pre>  
-<li><strong><code>requests</code></strong>: For sending HTTP requests to static websites (e.g., Indeed).  </li>
-<li><strong><code>BeautifulSoup</code></strong>: For parsing HTML content.  </li>
-<li><strong><code>selenium</code></strong>: For interacting with dynamic websites (e.g., LinkedIn, Glassdoor).  </li>
-<li><strong><code>undetected-chromedriver</code></strong>: To avoid detection by anti-scraping tools.  </li><h3><strong>Legal and Ethical Considerations</strong>  </h3>
-<li><strong>Respect robots.txt</strong>: Check each site’s <code>robots.txt</code> file (e.g., <code>https://www.indeed.com/robots.txt</code>) to ensure compliance.  </li>
-<li><strong>Rate limits</strong>: Avoid overwhelming servers by adding delays between requests.  </li>
-<li><strong>Terms of service</strong>: Review each site’s policies to avoid legal issues.  </li><p>> ⚠️ <strong>Warning</strong>: Scraping may violate a site’s terms of service. Always use this knowledge responsibly and consider using official APIs (e.g., LinkedIn’s Jobs API) when available.</p><p>---</p><h2>Scraping Indeed: Static Content with BeautifulSoup  </h2><p>Indeed is a great starting point because its job listings are rendered statically, making it easier to scrape without JavaScript.</p><h3><strong>Step 1: Send an HTTP Request</strong>  </h3>
+<pre><code class="language-bash">pip install requests beautifulsoup4 selenium undetected-chromedriver</code></pre>  
+<ul>
+<li><strong><code>requests</code></strong>: For sending HTTP requests to static websites (e.g., Indeed).</li>
+<li><strong><code>BeautifulSoup</code></strong>: For parsing HTML content.</li>
+<li><strong><code>selenium</code></strong>: For interacting with dynamic websites (e.g., LinkedIn, Glassdoor).</li>
+<li><strong><code>undetected-chromedriver</code></strong>: To avoid detection by anti-scraping tools.</li>
+</ul>
+<h3 id="legal-and-ethical-considerations"><strong>Legal and Ethical Considerations</strong></h3>
+<ul>
+<li><strong>Respect robots.txt</strong>: Check each site’s <code>robots.txt</code> file (e.g., <code>https://www.indeed.com/robots.txt</code>) to ensure compliance.</li>
+<li><strong>Rate limits</strong>: Avoid overwhelming servers by adding delays between requests.</li>
+<li><strong>Terms of service</strong>: Review each site’s policies to avoid legal issues.</li>
+</ul>
+<blockquote>⚠️ <strong>Warning</strong>: Scraping may violate a site’s terms of service. Always use this knowledge responsibly and consider using official APIs (e.g., LinkedIn’s Jobs API) when available.  </blockquote>
+<hr>
+<h2 id="scraping-indeed-static-content-with-beautifulsoup">Scraping Indeed: Static Content with BeautifulSoup</h2>
+<p>Indeed is a great starting point because its job listings are rendered statically, making it easier to scrape without JavaScript.</p>
+<h3 id="step-1-send-an-http-request"><strong>Step 1: Send an HTTP Request</strong></h3>
 Use <code>requests</code> to fetch the HTML of a job search page. For example, to search for "Python developer" in New York:  
-<pre><code>import requests<p>url = "https://www.indeed.com/jobs?q=Python+Developer&l=New+York"
+<pre><code class="language-python">import requests
+<p>url = &quot;https://www.indeed.com/jobs?q=Python+Developer&amp;l=New+York&quot;
 response = requests.get(url)
-html_content = response.text
-</code></pre></p><h3><strong>Step 2: Parse HTML with BeautifulSoup</strong>  </h3>
+html_content = response.text</code></pre></p>
+<h3 id="step-2-parse-html-with-beautifulsoup"><strong>Step 2: Parse HTML with BeautifulSoup</strong></h3>
 Extract job titles, company names, and links using CSS selectors:  
-<pre><code>from bs4 import BeautifulSoup<p>soup = BeautifulSoup(html_content, "html.parser")</p><p>job_cards = soup.find_all("div", class_="job_seen_beacon")</p><p>for card in job_cards:
-    title = card.find("h2", class_="jobTitle").text.strip()
-    company = card.find("span", class_="companyName").text.strip()
-    link = card.find("a")["href"]
-    print(f"Title: {title}\nCompany: {company}\nLink: https://www.indeed.com{link}\n")
-</code></pre></p><h3><strong>Output Example</strong>  </h3>
-<pre><code>Title: Python Developer
+<pre><code class="language-python">from bs4 import BeautifulSoup
+<p>soup = BeautifulSoup(html_content, &quot;html.parser&quot;)</p>
+<p>job_cards = soup.find_all(&quot;div&quot;, class_=&quot;job_seen_beacon&quot;)</p>
+<p>for card in job_cards:
+    title = card.find(&quot;h2&quot;, class_=&quot;jobTitle&quot;).text.strip()
+    company = card.find(&quot;span&quot;, class_=&quot;companyName&quot;).text.strip()
+    link = card.find(&quot;a&quot;)[&quot;href&quot;]
+    print(f&quot;Title: {title}\nCompany: {company}\nLink: https://www.indeed.com{link}\n&quot;)</code></pre></p>
+<h3 id="output-example"><strong>Output Example</strong></h3>
+<pre><code class="language-text">Title: Python Developer
 Company: Tech Corp
-Link: https://www.indeed.com/viewjob?jk=12345
-</code></pre><p>> ✅ <strong>Tip</strong>: Use <code>find_all</code> with specific classes to avoid over-capturing elements.</p><p>---</p><h2>Scraping LinkedIn: Dynamic Content with Selenium  </h2><p>LinkedIn uses JavaScript heavily, making it challenging to scrape without a browser automation tool like <strong>Selenium</strong>.</p><h3><strong>Step 1: Set Up Selenium with undetected-chromedriver</strong>  </h3>
+Link: https://www.indeed.com/viewjob?jk=12345</code></pre>
+<blockquote>✅ <strong>Tip</strong>: Use <code>find_all</code> with specific classes to avoid over-capturing elements.  </blockquote>
+<hr>
+<h2 id="scraping-linkedin-dynamic-content-with-selenium">Scraping LinkedIn: Dynamic Content with Selenium</h2>
+<p>LinkedIn uses JavaScript heavily, making it challenging to scrape without a browser automation tool like <strong>Selenium</strong>.</p>
+<h3 id="step-1-set-up-selenium-with-undetected-chromedriver"><strong>Step 1: Set Up Selenium with undetected-chromedriver</strong></h3>
 Install the required packages:  
-<pre><code>bash
-pip install selenium undetected-chromedriver
-</code></pre><p>Use the following code to launch a headless browser:  
-<pre><code>import undetected_chromedriver as uc
+<pre><code class="language-bash">pip install selenium undetected-chromedriver</code></pre>
+<p>Use the following code to launch a headless browser:  
+<pre><code class="language-python">import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC</p><p>driver = uc.Chrome()
-driver.get("https://www.linkedin.com/jobs/search/?keywords=Python%20Developer&location=New%20York")</p><p>wait = WebDriverWait(driver, 10)
-job_cards = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".job-card-container")))</p><p>for card in job_cards:
-    title = card.find_element(By.CSS_SELECTOR, ".job-card-title").text
-    company = card.find_element(By.CSS_SELECTOR, ".company-name").text
-    link = card.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
-    print(f"Title: {title}\nCompany: {company}\nLink: {link}\n")
-</code></pre></p><h3><strong>Handling Anti-Scraping Measures</strong>  </h3>
+from selenium.webdriver.support import expected_conditions as EC</p>
+<p>driver = uc.Chrome()
+driver.get(&quot;https://www.linkedin.com/jobs/search/?keywords=Python%20Developer&amp;location=New%20York&quot;)</p>
+# Wait for job cards to load
+wait = WebDriverWait(driver, 10)
+job_cards = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, &quot;.job-card-container&quot;)))
+<p>for card in job_cards:
+    title = card.find_element(By.CSS_SELECTOR, &quot;.job-card-title&quot;).text
+    company = card.find_element(By.CSS_SELECTOR, &quot;.company-name&quot;).text
+    link = card.find_element(By.CSS_SELECTOR, &quot;a&quot;).get_attribute(&quot;href&quot;)
+    print(f&quot;Title: {title}\nCompany: {company}\nLink: {link}\n&quot;)</code></pre></p>
+<h3 id="handling-anti-scraping-measures"><strong>Handling Anti-Scraping Measures</strong></h3>
 LinkedIn blocks scrapers aggressively. To reduce detection:  
-<li><strong>Use a proxy</strong> (e.g., <code>selenium-wire</code> for rotating IPs).  </li>
-<li><strong>Add delays</strong> between requests:  </li>
-  <pre><code>  import time
-  time.sleep(2)  # Wait 2 seconds between interactions
-  </code></pre>  
-<li><strong>Rotate user agents</strong> using <code>selenium-user-agents</code> or custom headers.  </li><p>> ⚠️ <strong>Warning</strong>: LinkedIn may ban your IP or account if detected. Always use this for research or personal use only.</p><p>---</p><h2>Scraping Glassdoor: JavaScript and Anti-Scraping Challenges  </h2><p>Glassdoor employs complex anti-scraping techniques, including CAPTCHA and IP blocking. Use <strong>Selenium</strong> with proxies and user-agent rotation to bypass these.</p><h3><strong>Step 1: Configure Selenium with Proxy</strong>  </h3>
+<ul>
+<li><strong>Use a proxy</strong> (e.g., <code>selenium-wire</code> for rotating IPs).</li>
+<li><strong>Add delays</strong> between requests:</li>
+</ul>
+  <pre><code class="language-python">import time
+  time.sleep(2)  # Wait 2 seconds between interactions</code></pre>  
+<ul>
+<li><strong>Rotate user agents</strong> using <code>selenium-user-agents</code> or custom headers.</li>
+</ul>
+<blockquote>⚠️ <strong>Warning</strong>: LinkedIn may ban your IP or account if detected. Always use this for research or personal use only.  </blockquote>
+<hr>
+<h2 id="scraping-glassdoor-javascript-and-anti-scraping-challenges">Scraping Glassdoor: JavaScript and Anti-Scraping Challenges</h2>
+<p>Glassdoor employs complex anti-scraping techniques, including CAPTCHA and IP blocking. Use <strong>Selenium</strong> with proxies and user-agent rotation to bypass these.</p>
+<h3 id="step-1-configure-selenium-with-proxy"><strong>Step 1: Configure Selenium with Proxy</strong></h3>
 Install <code>selenium-wire</code> for proxy support:  
-<pre><code>bash
-pip install selenium-wire
-</code></pre><p>Example code with proxy and user-agent rotation:  
-<pre><code>from seleniumwire.undetectedChrome import Chrome
+<pre><code class="language-bash">pip install selenium-wire</code></pre>
+<p>Example code with proxy and user-agent rotation:  
+<pre><code class="language-python">from seleniumwire.undetectedChrome import Chrome
 import random
-import time</p><p>user_agents = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15",
-]</p><p>proxy_options = {
-    'proxy': {
-        'http': 'http://your-proxy-ip:port',
-        'https': 'http://your-proxy-ip:port',
+import time</p>
+# List of user agents
+user_agents = [
+    &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36&quot;,
+    &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15&quot;,
+]
+# Proxy configuration (replace with your own)
+proxy_options = {
+    &#x27;proxy&#x27;: {
+        &#x27;http&#x27;: &#x27;http://your-proxy-ip:port&#x27;,
+        &#x27;https&#x27;: &#x27;http://your-proxy-ip:port&#x27;,
     }
-}</p><p>driver = Chrome(options=proxy_options)
+}
+<p>driver = Chrome(options=proxy_options)
 driver.header_overrides = {
-    'User-Agent': random.choice(user_agents),
-    'Accept-Language': 'en-US,en;q=0.9',
-}</p><p>driver.get("https://www.glassdoor.com/Job/python-developer-jobs-SRCH_IL.0,5_1.htm")</p><p>time.sleep(5)</p><p>job_cards = driver.find_elements(By.CSS_SELECTOR, ".jobCard_mainContent")</p><p>for card in job_cards:
-    title = card.find_element(By.CSS_SELECTOR, ".jobTitle").text
-    company = card.find_element(By.CSS_SELECTOR, ". employerName").text
-    link = card.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
-    print(f"Title: {title}\nCompany: {company}\nLink: {link}\n")
-</code></pre></p><p>> ✅ <strong>Tip</strong>: Use a <strong>paid proxy service</strong> (e.g., BrightData, Luminati) to avoid IP bans. Free proxies are often unreliable.</p><p>---</p><h2>Best Practices for Building a Job Scraper  </h2><h3><strong>1. Respect Robots.txt and Terms of Service</strong>  </h3>
+    &#x27;User-Agent&#x27;: random.choice(user_agents),
+    &#x27;Accept-Language&#x27;: &#x27;en-US,en;q=0.9&#x27;,
+}</p>
+<p>driver.get(&quot;https://www.glassdoor.com/Job/python-developer-jobs-SRCH_IL.0,5_1.htm&quot;)</p>
+# Wait for job listings to load
+time.sleep(5)
+<p>job_cards = driver.find_elements(By.CSS_SELECTOR, &quot;.jobCard_mainContent&quot;)</p>
+<p>for card in job_cards:
+    title = card.find_element(By.CSS_SELECTOR, &quot;.jobTitle&quot;).text
+    company = card.find_element(By.CSS_SELECTOR, &quot;. employerName&quot;).text
+    link = card.find_element(By.CSS_SELECTOR, &quot;a&quot;).get_attribute(&quot;href&quot;)
+    print(f&quot;Title: {title}\nCompany: {company}\nLink: {link}\n&quot;)</code></pre></p>
+<blockquote>✅ <strong>Tip</strong>: Use a <strong>paid proxy service</strong> (e.g., BrightData, Luminati) to avoid IP bans. Free proxies are often unreliable.  </blockquote>
+<hr>
+<h2 id="best-practices-for-building-a-job-scraper">Best Practices for Building a Job Scraper</h2>
+<h3 id="1-respect-robotstxt-and-terms-of-service"><strong>1. Respect Robots.txt and Terms of Service</strong></h3>
 Always check a site’s <code>robots.txt</code> file before scraping. For example:  
-<li>Indeed: https://www.indeed.com/robots.txt  </li>
-<li>LinkedIn: https://www.linkedin.com/robots.txt  </li>
-<li>Glassdoor: https://www.glassdoor.com/robots.txt  </li><h3><strong>2. Add Delays Between Requests</strong>  </h3>
+<ul>
+<li>Indeed: https://www.indeed.com/robots.txt</li>
+<li>LinkedIn: https://www.linkedin.com/robots.txt</li>
+<li>Glassdoor: https://www.glassdoor.com/robots.txt</li>
+</ul>
+<h3 id="2-add-delays-between-requests"><strong>2. Add Delays Between Requests</strong></h3>
 Avoid overwhelming servers by adding delays:  
-<pre><code>import time
-time.sleep(2)  # Wait 2 seconds between requests
-</code></pre><h3><strong>3. Handle CAPTCHA and JavaScript</strong>  </h3>
-<li>Use <strong>headless browsers</strong> (Selenium, Puppeteer).  </li>
-<li>Implement <strong>CAPTCHA-solving services</strong> (e.g., 2Captcha) if needed.  </li><h3><strong>4. Store Data Efficiently</strong>  </h3>
+<pre><code class="language-python">import time
+time.sleep(2)  # Wait 2 seconds between requests</code></pre>
+<h3 id="3-handle-captcha-and-javascript"><strong>3. Handle CAPTCHA and JavaScript</strong></h3>
+<ul>
+<li>Use <strong>headless browsers</strong> (Selenium, Puppeteer).</li>
+<li>Implement <strong>CAPTCHA-solving services</strong> (e.g., 2Captcha) if needed.</li>
+</ul>
+<h3 id="4-store-data-efficiently"><strong>4. Store Data Efficiently</strong></h3>
 Save extracted data in a structured format like JSON or CSV:  
-<pre><code>import json<p>jobs = []
+<pre><code class="language-python">import json
+<p>jobs = []
 for card in job_cards:
     jobs.append({
-        "title": title,
-        "company": company,
-        "link": link,
-    })</p><p>with open("jobs.json", "w") as f:
-    json.dump(jobs, f, indent=2)
-</code></pre></p><h3><strong>5. Rotate User Agents and IPs</strong>  </h3>
-Use libraries like <code>fake_useragent</code> or <code>selenium-wire</code> to mimic real user behavior.<p>---</p><h2>Conclusion  </h2><p>You’ve now built a job scraper that extracts listings from Indeed, LinkedIn, and Glassdoor. This tool can be extended to:  
-<li>Automate job searches for specific keywords or locations.  </li>
-<li>Monitor salary trends or company reviews.  </li>
-<li>Feed data into a dashboard or database.  </li></p><p>However, always prioritize <strong>ethical scraping</strong> and compliance with each site’s policies.</p><p>---</p><h2>Next Steps  </h2><p>Here’s how to take your scraper further:  
-1. <strong>Expand to other platforms</strong>: Try scraping Monster, CareerBuilder, or company career pages.  
-2. <strong>Use APIs</strong>: Explore official APIs (e.g., LinkedIn Jobs API, Indeed API) for more reliable data.  
-3. <strong>Build a GUI</strong>: Use <code>Tkinter</code> or <code>Streamlit</code> to create a user-friendly interface.  
-4. <strong>Add Machine Learning</strong>: Classify job listings by industry or seniority using NLP.</p><p>By combining scraping, automation, and data analysis, you can unlock powerful insights for both job seekers and employers.</p><p>Happy coding! 🚀</p><p>---</p><h2>🛠️ Recommended Tools</h2><li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
-<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
-<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li><p>*Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow">Hire N3X1S on Fiverr →</a>*</p></article><a href="https://www.fiverr.com/maxklein251" class="cta">🚀 Need web scraping? Hire N3X1S on Fiverr</a><footer><p>© 2026 N3X1S Intelligence · <a href="index.html">All Articles</a></p></footer></div></body></html>
+        &quot;title&quot;: title,
+        &quot;company&quot;: company,
+        &quot;link&quot;: link,
+    })</p>
+<p>with open(&quot;jobs.json&quot;, &quot;w&quot;) as f:
+    json.dump(jobs, f, indent=2)</code></pre></p>
+<h3 id="5-rotate-user-agents-and-ips"><strong>5. Rotate User Agents and IPs</strong></h3>
+Use libraries like <code>fake_useragent</code> or <code>selenium-wire</code> to mimic real user behavior.
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>You’ve now built a job scraper that extracts listings from Indeed, LinkedIn, and Glassdoor. This tool can be extended to:  
+<ul>
+<li>Automate job searches for specific keywords or locations.</li>
+<li>Monitor salary trends or company reviews.</li>
+<li>Feed data into a dashboard or database.</li>
+</ul></p>
+<p>However, always prioritize <strong>ethical scraping</strong> and compliance with each site’s policies.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>Here’s how to take your scraper further:  
+<ol>
+<li><strong>Expand to other platforms</strong>: Try scraping Monster, CareerBuilder, or company career pages.</li>
+<li><strong>Use APIs</strong>: Explore official APIs (e.g., LinkedIn Jobs API, Indeed API) for more reliable data.</li>
+<li><strong>Build a GUI</strong>: Use <code>Tkinter</code> or <code>Streamlit</code> to create a user-friendly interface.</li>
+<li><strong>Add Machine Learning</strong>: Classify job listings by industry or seniority using NLP.</li>
+</ol></p>
+<p>By combining scraping, automation, and data analysis, you can unlock powerful insights for both job seekers and employers.</p>
+<p>Happy coding! 🚀</p>
+<hr>
+<h2 id="-recommended-tools">🛠️ Recommended Tools</h2>
+<ul>
+<li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
+<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow sponsored noopener">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
+<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li>
+</ul>
+<em>Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow sponsored noopener">Hire N3X1S on Fiverr →</a></em>
+            </div>
+            
+            <div class="author-box">
+                <div class="author-avatar">🔮</div>
+                <div class="author-info">
+                    <h4>Written by N3X1S Intelligence</h4>
+                    <p itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Data extraction specialists with 8+ years of experience building production-grade scrapers, ETL pipelines, and automation systems. We've processed billions of data points for Fortune 500 companies.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>🚀 Need a Custom Scraper?</h3>
+                <p>Don't have time to build it yourself? We'll create a production-ready scraper tailored to your exact needs.</p>
+                <a href="https://www.fiverr.com/s/LdR6YN4" class="cta-button" target="_blank" rel="nofollow sponsored noopener">Get Your Custom Scraper →</a>
+            </div>
+            
+            <section class="related-articles"><h2>📚 Related Articles</h2><div class="related-grid">
+        <article class="related-card">
+            <a href="20260302_deploying-python-scrapers-on-linux-vps-complete-setup.html">
+                <h3>Deploying Python Scrapers on Linux VPS: Complete Setup</h3>
+                <p>In today's data-driven world, web scraping is a powerful tool for extracting valuable insights from ...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_how-to-avoid-getting-blocked-while-web-scraping.html">
+                <h3>How to Avoid Getting Blocked While Web Scraping</h3>
+                <p>Web scraping is a powerful tool for extracting data from websites, but it comes with a significant c...</p>
+                <span class="read-time">6 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_how-to-extract-data-from-pdfs-with-python.html">
+                <h3>How to Extract Data from PDFs with Python</h3>
+                <p>In today's data-driven world, PDFs are a common format for sharing documents, reports, and forms. Ho...</p>
+                <span class="read-time">6 min read</span>
+            </a>
+        </article></div></section>
+            
+            <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage"><h2>❓ Frequently Asked Questions</h2>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is prerequisites?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers prerequisites in detail with code examples and best practices.</p>
+            </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is scraping indeed: static content with beautifulsoup?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers scraping indeed: static content with beautifulsoup in detail with code examples and best practices.</p>
+            </div>
+        </div></section>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🔮 N3X1S Intelligence</h4>
+                <p style="color: var(--text-muted);">Expert web scraping tutorials, automation guides, and data extraction techniques.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="category-apis.html">APIs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                    <li><a href="https://github.com/maxkle1nz" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Popular Tutorials</h4>
+                <ul>
+                    <li><a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">Building a Job Scraper: Indeed, Lin...</a></li><li><a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">Building a Price Tracker with Pytho...</a></li><li><a href="20260302_building-a-real-estate-price-tracker-with-python.html">Building a Real Estate Price Tracke...</a></li><li><a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">Data Enrichment: How to Add Value t...</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 N3X1S Intelligence. All rights reserved. Built with 🐍 Python.</p>
+        </div>
+    </footer>
+</body>
+</html>

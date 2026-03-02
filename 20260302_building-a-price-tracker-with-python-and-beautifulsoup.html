@@ -1,124 +1,824 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Building a Price Tracker with Python and BeautifulSoup — N3X1S Intelligence</title><meta name="description" content="Building a Price Tracker with Python and BeautifulSoup - Expert tutorial by N3X1S Intelligence"><link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-price-tracker-with-python-and-beautifulsoup.html"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0;line-height:1.8}.container{max-width:720px;margin:0 auto;padding:40px 20px}.back{color:#00ff88;text-decoration:none;font-size:14px}h1{font-size:36px;font-weight:800;color:#fff;margin:20px 0 10px}.meta{color:#64748b;font-size:14px;margin-bottom:30px}article h2{color:#00ff88;font-size:24px;margin:30px 0 15px}article h3{color:#fff;font-size:20px;margin:25px 0 10px}article p{margin-bottom:16px}article pre{background:#0d1117;border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:20px;overflow-x:auto;margin:20px 0}article code{color:#00ff88;font-family:'Courier New',monospace;font-size:14px}article strong{color:#fff}article a{color:#00ff88}article li{margin-left:20px;margin-bottom:8px}.cta{display:inline-block;background:#00ff88;color:#0a0a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;margin-top:30px}footer{text-align:center;margin-top:60px;color:#64748b;font-size:13px}footer a{color:#00ff88;text-decoration:none}</style></head><body><div class="container"><header><a href="index.html" class="back">← N3X1S Blog</a><h1>Building a Price Tracker with Python and BeautifulSoup</h1><div class="meta">March 2, 2026 · 1268 words · N3X1S Intelligence</div></header><article><p>In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Whether you're a savvy shopper, an e-commerce entrepreneur, or a data analyst, the ability to track product prices in real time can save you money, optimize inventory, and uncover market trends. But manually checking prices across dozens of websites is tedious, error-prone, and time-consuming. What if you could automate this process with a few lines of code? That’s where <strong>Python</strong> and <strong>BeautifulSoup</strong> come into play. In this tutorial, we’ll walk you through building a <strong>price tracker</strong> that scrapes product prices from e-commerce sites, stores them securely, and even visualizes trends over time. By the end, you’ll have a powerful tool that works seamlessly in the background, freeing you up to focus on what matters most.</p><p>---</p><h2>Prerequisites</h2><p>Before diving into the code, ensure your environment is set up correctly. Here’s what you’ll need:</p><h3>Software Requirements</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Primary Meta Tags -->
+    <title>Building a Price Tracker with Python and BeautifulSoup | N3X1S Intelligence</title>
+    <meta name="title" content="Building a Price Tracker with Python and BeautifulSoup | N3X1S Intelligence">
+    <meta name="description" content="In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Whether you're a savvy shopper, an e-commerce entrepreneur,...">
+    <meta name="author" content="N3X1S Intelligence">
+    <meta name="keywords" content="web scraping, python, data-engineering, data extraction, automation, tutorial">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+    <link rel="alternate" hreflang="x-default" href="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+    <meta property="og:title" content="Building a Price Tracker with Python and BeautifulSoup">
+    <meta property="og:description" content="In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Whether you're a savvy shopper, an e-commerce entrepreneur,...">
+    <meta property="og:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta property="og:site_name" content="N3X1S Intelligence">
+    <meta property="article:published_time" content="2026-03-02T12:00:00Z">
+    <meta property="article:modified_time" content="2026-03-02T13:40:25.632454Z">
+    <meta property="article:author" content="N3X1S Intelligence">
+    <meta property="article:section" content="Data Engineering">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">
+    <meta name="twitter:title" content="Building a Price Tracker with Python and BeautifulSoup">
+    <meta name="twitter:description" content="In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Whether you're a savvy shopper, an e-commerce entrepreneur,...">
+    <meta name="twitter:image" content="https://maxkle1nz.github.io/n3x1s-blog/og-image.png">
+    <meta name="twitter:site" content="@n3x1s_intel">
+    <meta name="twitter:creator" content="@n3x1s_intel">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Building a Price Tracker with Python and BeautifulSoup", "description": "In today\u2019s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Whether you're a savvy shopper, an e-commerce entrepreneur,...", "author": {"@type": "Organization", "name": "N3X1S Intelligence", "url": "https://maxkle1nz.github.io/n3x1s-blog"}, "publisher": {"@type": "Organization", "name": "N3X1S Intelligence", "logo": {"@type": "ImageObject", "url": "https://maxkle1nz.github.io/n3x1s-blog/favicon.svg"}}, "datePublished": "2026-03-02", "dateModified": "2026-03-02", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://maxkle1nz.github.io/n3x1s-blog/20260302_building-a-price-tracker-with-python-and-beautifulsoup.html"}, "wordCount": 1259, "articleSection": "Data Engineering"}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://maxkle1nz.github.io/n3x1s-blog"}, {"@type": "ListItem", "position": 2, "name": "Data Engineering", "item": "https://maxkle1nz.github.io/n3x1s-blog/category-data-engineering.html"}, {"@type": "ListItem", "position": 3, "name": "Building a Price Tracker with Python and BeautifulSoup"}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is prerequisites?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers prerequisites in detail with code examples and best practices."}}, {"@type": "Question", "name": "What is setting up your project?", "acceptedAnswer": {"@type": "Answer", "text": "This section covers setting up your project in detail with code examples and best practices."}}]}</script>
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        :root {
+            --brand: #00ff88;
+            --bg: #0a0a0a;
+            --bg-secondary: #111;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --border: #222;
+            --code-bg: #1a1a2e;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover { color: var(--brand); }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb li::after { content: '/'; margin-left: 0.5rem; }
+        .breadcrumb li:last-child::after { content: ''; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+        
+        article { margin-bottom: 3rem; }
+        
+        /* Typography */
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--brand);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin: 2.5rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p { margin-bottom: 1.25rem; }
+        
+        a { color: var(--brand); }
+        
+        /* Meta info */
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta span { display: flex; align-items: center; gap: 0.3rem; }
+        
+        /* TOC */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .toc h2 {
+            font-size: 1.1rem;
+            margin: 0 0 1rem;
+            padding: 0;
+            border: none;
+        }
+        
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            color: var(--brand);
+        }
+        
+        /* Code */
+        pre {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        :not(pre) > code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--brand);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .related-articles h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .related-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+        }
+        
+        .related-card a {
+            text-decoration: none;
+        }
+        
+        .related-card h3 {
+            color: var(--brand);
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .read-time {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .faq-section h2 {
+            border: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        
+        .faq-item h3 {
+            color: var(--brand);
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .faq-item p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+        
+        /* Author Box */
+        .author-box {
+            background: linear-gradient(135deg, var(--bg-secondary), #1a1a2e);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .author-info h4 {
+            color: var(--brand);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #1a1a2e, var(--bg-secondary));
+            border: 2px solid var(--brand);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-box h3 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--brand);
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+            color: #000;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .footer-section li {
+            margin: 0.5rem 0;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            header { padding: 1rem; }
+            main { padding: 1rem; }
+            .author-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span>🔮</span> N3X1S Intelligence
+            </a>
+            <nav aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="category-data-engineering.html">Data Engineering</a></li>
+            <li aria-current="page">Building a Price Tracker with Python and...</li>
+        </ol>
+    </nav>
+    
+    <main>
+        <article itemscope itemtype="https://schema.org/Article">
+            <header>
+                <h1 itemprop="headline">Building a Price Tracker with Python and BeautifulSoup</h1>
+                <div class="meta">
+                    <span>📅 <time datetime="2026-03-02" itemprop="datePublished">March 2, 2026</time></span>
+                    <span>⏱️ 6 min read</span>
+                    <span>📝 1,259 words</span>
+                    <span>📁 <a href="category-data-engineering.html">Data Engineering</a></span>
+                </div>
+            </header>
+            
+            <nav class="toc" aria-label="Table of Contents"><h2>📑 Table of Contents</h2><ul><li><a href="#prerequisites">Prerequisites</a></li>  <li><a href="#software-requirements">Software Requirements</a></li>  <li><a href="#python-libraries">Python Libraries</a></li>  <li><a href="#web-scraping-ethics">Web Scraping Ethics</a></li><li><a href="#setting-up-your-project">Setting Up Your Project</a></li><li><a href="#step-1-scraping-product-prices-with-beautifulsoup">Step 1: Scraping Product Prices with BeautifulSoup</a></li>  <li><a href="#example-scraping-a-product-page">Example: Scraping a Product Page</a></li>  <li><a href="#key-notes">Key Notes</a></li><li><a href="#step-2-handling-dynamic-content-advanced">Step 2: Handling Dynamic Content (Advanced)</a></li>  <li><a href="#option-1-use-selenium-for-javascript-heavy-sites">Option 1: Use Selenium (For JavaScript-Heavy Sites)</a></li>  <li><a href="#option-2-use-api-endpoints-if-available">Option 2: Use API Endpoints (If Available)</a></li><li><a href="#step-3-storing-data-in-a-database">Step 3: Storing Data in a Database</a></li>  <li><a href="#example-saving-to-sqlite">Example: Saving to SQLite</a></li>  <li><a href="#alternative-using-pandas">Alternative: Using Pandas</a></li><li><a href="#step-4-automating-the-price-tracker">Step 4: Automating the Price Tracker</a></li>  <li><a href="#example-using-apscheduler">Example: Using APScheduler</a></li>  <li><a href="#tips">Tips</a></li><li><a href="#step-5-visualizing-price-trends">Step 5: Visualizing Price Trends</a></li>  <li><a href="#example-plotting-historical-prices">Example: Plotting Historical Prices</a></li>  <li><a href="#enhancements">Enhancements</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li><li><a href="#-recommended-tools">🛠️ Recommended Tools</a></li></ul></nav>
+            
+            <div class="content" itemprop="articleBody">
+                <p>In today’s fast-paced digital marketplace, staying ahead of price fluctuations is a game-changer. Whether you're a savvy shopper, an e-commerce entrepreneur, or a data analyst, the ability to track product prices in real time can save you money, optimize inventory, and uncover market trends. But manually checking prices across dozens of websites is tedious, error-prone, and time-consuming. What if you could automate this process with a few lines of code? That’s where <strong>Python</strong> and <strong>BeautifulSoup</strong> come into play. In this tutorial, we’ll walk you through building a <strong>price tracker</strong> that scrapes product prices from e-commerce sites, stores them securely, and even visualizes trends over time. By the end, you’ll have a powerful tool that works seamlessly in the background, freeing you up to focus on what matters most.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before diving into the code, ensure your environment is set up correctly. Here’s what you’ll need:</p>
+<h3 id="software-requirements">Software Requirements</h3>
+<ul>
 <li><strong>Python 3.x</strong> installed on your machine (preferably 3.7 or newer).</li>
 <li>A code editor or IDE (e.g., VS Code, PyCharm, or Jupyter Notebook).</li>
-<li>A modern web browser (for inspecting HTML elements during scraping).</li><h3>Python Libraries</h3>
-Install the following Python packages using <code>pip</code>:<pre><code>bash
-pip install beautifulsoup4 requests pandas matplotlib
-</code></pre><li><strong>BeautifulSoup</strong>: For parsing HTML and XML documents.</li>
+<li>A modern web browser (for inspecting HTML elements during scraping).</li>
+</ul>
+<h3 id="python-libraries">Python Libraries</h3>
+Install the following Python packages using <code>pip</code>:
+<pre><code class="language-bash">pip install beautifulsoup4 requests pandas matplotlib</code></pre>
+<ul>
+<li><strong>BeautifulSoup</strong>: For parsing HTML and XML documents.</li>
 <li><strong>Requests</strong>: For sending HTTP requests to fetch web pages.</li>
 <li><strong>Pandas</strong>: For organizing and storing scraped data.</li>
-<li><strong>Matplotlib</strong>: For visualizing price trends (optional but recommended).</li><h3>Web Scraping Ethics</h3>
+<li><strong>Matplotlib</strong>: For visualizing price trends (optional but recommended).</li>
+</ul>
+<h3 id="web-scraping-ethics">Web Scraping Ethics</h3>
+<ul>
 <li><strong>Respect website terms of service</strong> and robots.txt files.</li>
 <li>Avoid overloading servers with excessive requests (use rate limiting).</li>
-<li>Use <strong>headers</strong> to mimic a real browser (see tips below).</li><p>---</p><h2>Setting Up Your Project</h2><p>Create a new directory for your project and initialize it with a <code>requirements.txt</code> file:</p><pre><code>bash
-mkdir price-tracker
+<li>Use <strong>headers</strong> to mimic a real browser (see tips below).</li>
+</ul>
+<hr>
+<h2 id="setting-up-your-project">Setting Up Your Project</h2>
+<p>Create a new directory for your project and initialize it with a <code>requirements.txt</code> file:</p>
+<pre><code class="language-bash">mkdir price-tracker
 cd price-tracker
-touch requirements.txt
-</code></pre><p>Add the required libraries to <code>requirements.txt</code>:</p><pre><code>beautifulsoup4
+touch requirements.txt</code></pre>
+<p>Add the required libraries to <code>requirements.txt</code>:</p>
+<pre><code class="language-text">beautifulsoup4
 requests
 pandas
-matplotlib
-</code></pre><p>Now, create a Python file (e.g., <code>price_tracker.py</code>) and import the necessary modules:</p><pre><code>import requests
+matplotlib</code></pre>
+<p>Now, create a Python file (e.g., <code>price_tracker.py</code>) and import the necessary modules:</p>
+<pre><code class="language-python">import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import matplotlib.pyplot as plt
-import time
-</code></pre><p>This setup will form the backbone of your price tracker.</p><p>---</p><h2>Step 1: Scraping Product Prices with BeautifulSoup</h2><p>Let’s start by scraping a product page. We’ll use a fictional e-commerce site for this example, but the same principles apply to real websites like Amazon, eBay, or any HTML-based store.</p><h3>Example: Scraping a Product Page</h3><pre><code>def fetch_product_price(url):
+import time</code></pre>
+<p>This setup will form the backbone of your price tracker.</p>
+<hr>
+<h2 id="step-1-scraping-product-prices-with-beautifulsoup">Step 1: Scraping Product Prices with BeautifulSoup</h2>
+<p>Let’s start by scraping a product page. We’ll use a fictional e-commerce site for this example, but the same principles apply to real websites like Amazon, eBay, or any HTML-based store.</p>
+<h3 id="example-scraping-a-product-page">Example: Scraping a Product Page</h3>
+<pre><code class="language-python">def fetch_product_price(url):
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36&quot;
     }
     try:
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
     except requests.RequestException as e:
-        print(f"Error fetching {url}: {e}")
-        return None<p>soup = BeautifulSoup(response.text, "html.parser")</p><p># Example: Extract product name and price
-    product_name = soup.find("h1", class_="product-title").text.strip()
-    price_element = soup.find("span", class_="price")
+        print(f&quot;Error fetching {url}: {e}&quot;)
+        return None
+<p>soup = BeautifulSoup(response.text, &quot;html.parser&quot;)</p>
+# Example: Extract product name and price
+    product_name = soup.find(&quot;h1&quot;, class_=&quot;product-title&quot;).text.strip()
+    price_element = soup.find(&quot;span&quot;, class_=&quot;price&quot;)
     if price_element:
         price = price_element.text.strip()
         # Clean price by removing non-numeric characters
-        cleaned_price = float(price.replace("$", "").replace(",", ""))
-        return {"name": product_name, "price": cleaned_price}
+        cleaned_price = float(price.replace(&quot;$&quot;, &quot;&quot;).replace(&quot;,&quot;, &quot;&quot;))
+        return {&quot;name&quot;: product_name, &quot;price&quot;: cleaned_price}
     else:
-        print("Price not found on the page.")
-        return None
-</code></pre></p><h3>Key Notes</h3>
+        print(&quot;Price not found on the page.&quot;)
+        return None</code></pre>
+<h3 id="key-notes">Key Notes</h3>
+<ul>
 <li><strong>User-Agent Headers</strong>: Websites often block scrapers by detecting bot traffic. Use a browser’s User-Agent string to mimic a real user.</li>
 <li><strong>Error Handling</strong>: Always handle exceptions for network errors, timeouts, or malformed HTML.</li>
-<li><strong>CSS Selectors</strong>: Inspect the HTML of the target site (using browser dev tools) to identify the correct CSS classes or IDs for price and product name.</li><p>---</p><h2>Step 2: Handling Dynamic Content (Advanced)</h2><p>While BeautifulSoup is great for <strong>static HTML</strong>, many modern websites load content dynamically using JavaScript (e.g., React, Vue, or Angular). In such cases, BeautifulSoup alone won’t work. Here’s how to handle it:</p><h3>Option 1: Use Selenium (For JavaScript-Heavy Sites)</h3>
-Install Selenium:<pre><code>bash
-pip install selenium
-</code></pre><p>Then, use it to render JavaScript:</p><pre><code>from selenium import webdriver
+<li><strong>CSS Selectors</strong>: Inspect the HTML of the target site (using browser dev tools) to identify the correct CSS classes or IDs for price and product name.</li>
+</ul>
+<hr>
+<h2 id="step-2-handling-dynamic-content-advanced">Step 2: Handling Dynamic Content (Advanced)</h2>
+<p>While BeautifulSoup is great for <strong>static HTML</strong>, many modern websites load content dynamically using JavaScript (e.g., React, Vue, or Angular). In such cases, BeautifulSoup alone won’t work. Here’s how to handle it:</p>
+<h3 id="option-1-use-selenium-for-javascript-heavy-sites">Option 1: Use Selenium (For JavaScript-Heavy Sites)</h3>
+Install Selenium:
+<pre><code class="language-bash">pip install selenium</code></pre>
+<p>Then, use it to render JavaScript:</p>
+<pre><code class="language-python">from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager<p>def fetch_dynamic_price(url):
+from webdriver_manager.chrome import ChromeDriverManager
+<p>def fetch_dynamic_price(url):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get(url)
     time.sleep(5)  # Wait for JavaScript to load
-    price = driver.find_element("css selector", ".price").text
+    price = driver.find_element(&quot;css selector&quot;, &quot;.price&quot;).text
     driver.quit()
-    return price
-</code></pre></p><p>> 🚨 <strong>Warning</strong>: Selenium is slower and resource-heavy. Use it only when necessary.</p><h3>Option 2: Use API Endpoints (If Available)</h3>
-Some sites expose price data via REST APIs. Check the site’s network traffic in dev tools for API endpoints and use <code>requests</code> to fetch JSON data directly.<p>---</p><h2>Step 3: Storing Data in a Database</h2><p>Storing scraped data ensures you can track prices over time. We’ll use <strong>SQLite</strong> for simplicity, but you could also use PostgreSQL, MySQL, or even a CSV file.</p><h3>Example: Saving to SQLite</h3><pre><code>import sqlite3<p>def save_to_database(product_data):
-    conn = sqlite3.connect("prices.db")
-    c = conn.cursor()</p><p># Create table if it doesn't exist
-    c.execute('''
+    return price</code></pre></p>
+<blockquote>🚨 <strong>Warning</strong>: Selenium is slower and resource-heavy. Use it only when necessary.</blockquote>
+<h3 id="option-2-use-api-endpoints-if-available">Option 2: Use API Endpoints (If Available)</h3>
+Some sites expose price data via REST APIs. Check the site’s network traffic in dev tools for API endpoints and use <code>requests</code> to fetch JSON data directly.
+<hr>
+<h2 id="step-3-storing-data-in-a-database">Step 3: Storing Data in a Database</h2>
+<p>Storing scraped data ensures you can track prices over time. We’ll use <strong>SQLite</strong> for simplicity, but you could also use PostgreSQL, MySQL, or even a CSV file.</p>
+<h3 id="example-saving-to-sqlite">Example: Saving to SQLite</h3>
+<pre><code class="language-python">import sqlite3
+<p>def save_to_database(product_data):
+    conn = sqlite3.connect(&quot;prices.db&quot;)
+    c = conn.cursor()</p>
+# Create table if it doesn&#x27;t exist
+    c.execute(&#x27;&#x27;&#x27;
         CREATE TABLE IF NOT EXISTS product_prices (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             product_name TEXT,
             price REAL,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
         )
-    ''')</p><p># Insert data
-    c.execute('''
+    &#x27;&#x27;&#x27;)
+# Insert data
+    c.execute(&#x27;&#x27;&#x27;
         INSERT INTO product_prices (product_name, price)
         VALUES (?, ?)
-    ''', (product_data["name"], product_data["price"]))</p><p>conn.commit()
-    conn.close()
-</code></pre></p><h3>Alternative: Using Pandas</h3>
-You can also store data in CSV or JSON format:<pre><code>def save_to_csv(product_data):
+    &#x27;&#x27;&#x27;, (product_data[&quot;name&quot;], product_data[&quot;price&quot;]))
+<p>conn.commit()
+    conn.close()</code></pre></p>
+<h3 id="alternative-using-pandas">Alternative: Using Pandas</h3>
+You can also store data in CSV or JSON format:
+<pre><code class="language-python">def save_to_csv(product_data):
     df = pd.DataFrame([product_data])
-    df.to_csv("product_prices.csv", mode="a", header=not pd.io.common.file_exists("product_prices.csv"), index=False)
-</code></pre><p>---</p><h2>Step 4: Automating the Price Tracker</h2><p>To keep your tracker running continuously, use a <strong>scheduler</strong> or <strong>cron job</strong>.</p><h3>Example: Using APScheduler</h3>
-Install APScheduler:<pre><code>bash
-pip install apscheduler
-</code></pre><p>Then, set up a recurring job:</p><pre><code>from apscheduler.schedulers.blocking import BlockingScheduler<p>def job():
-    product_url = "https://example.com/product/123"
+    df.to_csv(&quot;product_prices.csv&quot;, mode=&quot;a&quot;, header=not pd.io.common.file_exists(&quot;product_prices.csv&quot;), index=False)</code></pre>
+<hr>
+<h2 id="step-4-automating-the-price-tracker">Step 4: Automating the Price Tracker</h2>
+<p>To keep your tracker running continuously, use a <strong>scheduler</strong> or <strong>cron job</strong>.</p>
+<h3 id="example-using-apscheduler">Example: Using APScheduler</h3>
+Install APScheduler:
+<pre><code class="language-bash">pip install apscheduler</code></pre>
+<p>Then, set up a recurring job:</p>
+<pre><code class="language-python">from apscheduler.schedulers.blocking import BlockingScheduler
+<p>def job():
+    product_url = &quot;https://example.com/product/123&quot;
     product_data = fetch_product_price(product_url)
     if product_data:
         save_to_database(product_data)
-        print("Data saved successfully.")</p><p>if __name__ == "__main__":
+        print(&quot;Data saved successfully.&quot;)</p>
+<p>if __name__ == &quot;__main__&quot;:
     scheduler = BlockingScheduler()
-    scheduler.add_job(job, 'interval', hours=1)  # Run every hour
+    scheduler.add_job(job, &#x27;interval&#x27;, hours=1)  # Run every hour
     try:
         scheduler.start()
     except KeyboardInterrupt:
-        print("Scheduler stopped.")
-</code></pre></p><h3>Tips</h3>
+        print(&quot;Scheduler stopped.&quot;)</code></pre></p>
+<h3 id="tips">Tips</h3>
+<ul>
 <li><strong>Rate Limiting</strong>: Add a <code>time.sleep()</code> delay between requests to avoid being blocked.</li>
 <li><strong>Logging</strong>: Use Python’s <code>logging</code> module to track errors and success messages.</li>
-<li><strong>Configuration</strong>: Store URLs and database settings in a config file or environment variables.</li><p>---</p><h2>Step 5: Visualizing Price Trends</h2><p>Now that we’re collecting data, let’s visualize it. We’ll use <strong>Matplotlib</strong> to plot price trends over time.</p><h3>Example: Plotting Historical Prices</h3><pre><code>def plot_price_history(product_name):
-    conn = sqlite3.connect("prices.db")
-    df = pd.read_sql_query("SELECT * FROM product_prices WHERE product_name = ?", conn, params=(product_name,))
-    conn.close()<p>if not df.empty:
+<li><strong>Configuration</strong>: Store URLs and database settings in a config file or environment variables.</li>
+</ul>
+<hr>
+<h2 id="step-5-visualizing-price-trends">Step 5: Visualizing Price Trends</h2>
+<p>Now that we’re collecting data, let’s visualize it. We’ll use <strong>Matplotlib</strong> to plot price trends over time.</p>
+<h3 id="example-plotting-historical-prices">Example: Plotting Historical Prices</h3>
+<pre><code class="language-python">def plot_price_history(product_name):
+    conn = sqlite3.connect(&quot;prices.db&quot;)
+    df = pd.read_sql_query(&quot;SELECT * FROM product_prices WHERE product_name = ?&quot;, conn, params=(product_name,))
+    conn.close()
+<p>if not df.empty:
         plt.figure(figsize=(10, 5))
-        plt.plot(df["timestamp"], df["price"], marker="o")
-        plt.title(f"Price Trend for {product_name}")
-        plt.xlabel("Date")
-        plt.ylabel("Price ($)")
+        plt.plot(df[&quot;timestamp&quot;], df[&quot;price&quot;], marker=&quot;o&quot;)
+        plt.title(f&quot;Price Trend for {product_name}&quot;)
+        plt.xlabel(&quot;Date&quot;)
+        plt.ylabel(&quot;Price ($)&quot;)
         plt.grid(True)
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
     else:
-        print(f"No data found for {product_name}.")
-</code></pre></p><h3>Enhancements</h3>
+        print(f&quot;No data found for {product_name}.&quot;)</code></pre></p>
+<h3 id="enhancements">Enhancements</h3>
+<ul>
 <li>Use <strong>Pandas</strong> to aggregate data by day or week.</li>
 <li>Add <strong>interactivity</strong> with <strong>Plotly</strong> for web-based dashboards.</li>
-<li>Export charts as PNG or PDF for reports.</li><p>---</p><h2>Conclusion</h2><p>You’ve now built a <strong>fully functional price tracker</strong> using Python and BeautifulSoup! This tool can monitor product prices in real time, store historical data, and even visualize trends. Whether you’re tracking competitors, optimizing your pricing strategy, or just saving money on your next purchase, this script is a powerful ally.</p><p>---</p><h2>Next Steps</h2><p>Ready to take your price tracker to the next level? Here are some ideas:</p><p>1. <strong>Add Email Alerts</strong>: Use <strong>SMTP</strong> or services like SendGrid to notify you when prices drop.
-2. <strong>Deploy as a Web App</strong>: Use <strong>Flask</strong> or <strong>Django</strong> to create a dashboard for viewing price trends.
-3. <strong>Scrape Multiple Products</strong>: Loop through a list of URLs and store data in a structured format.
-4. <strong>Integrate with APIs</strong>: Use <strong>Stripe</strong> or <strong>Shopify</strong> APIs to sync data with your e-commerce platform.
-5. <strong>Use Cloud Storage</strong>: Store data in <strong>AWS S3</strong>, <strong>Google Cloud</strong>, or <strong>MongoDB</strong> for scalability.</p><p>As you explore these enhancements, always remember to <strong>respect website policies</strong> and <strong>avoid unethical scraping practices</strong>. Happy coding!</p><p>---</p><h2>🛠️ Recommended Tools</h2><li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
-<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
-<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li><p>*Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow">Hire N3X1S on Fiverr →</a>*</p></article><a href="https://www.fiverr.com/maxklein251" class="cta">🚀 Need web scraping? Hire N3X1S on Fiverr</a><footer><p>© 2026 N3X1S Intelligence · <a href="index.html">All Articles</a></p></footer></div></body></html>
+<li>Export charts as PNG or PDF for reports.</li>
+</ul>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>You’ve now built a <strong>fully functional price tracker</strong> using Python and BeautifulSoup! This tool can monitor product prices in real time, store historical data, and even visualize trends. Whether you’re tracking competitors, optimizing your pricing strategy, or just saving money on your next purchase, this script is a powerful ally.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<p>Ready to take your price tracker to the next level? Here are some ideas:</p>
+<ol>
+<li><strong>Add Email Alerts</strong>: Use <strong>SMTP</strong> or services like SendGrid to notify you when prices drop.</li>
+<li><strong>Deploy as a Web App</strong>: Use <strong>Flask</strong> or <strong>Django</strong> to create a dashboard for viewing price trends.</li>
+<li><strong>Scrape Multiple Products</strong>: Loop through a list of URLs and store data in a structured format.</li>
+<li><strong>Integrate with APIs</strong>: Use <strong>Stripe</strong> or <strong>Shopify</strong> APIs to sync data with your e-commerce platform.</li>
+<li><strong>Use Cloud Storage</strong>: Store data in <strong>AWS S3</strong>, <strong>Google Cloud</strong>, or <strong>MongoDB</strong> for scalability.</li>
+</ol>
+<p>As you explore these enhancements, always remember to <strong>respect website policies</strong> and <strong>avoid unethical scraping practices</strong>. Happy coding!</p>
+<hr>
+<h2 id="-recommended-tools">🛠️ Recommended Tools</h2>
+<ul>
+<li><strong><a href="https://www.scrapingbee.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScrapingBee</a></strong> — Web scraping API with JavaScript rendering. No proxies needed.</li>
+<li><strong><a href="https://brightdata.com/?a=n3x1s" target="_blank" rel="nofollow sponsored noopener">Bright Data</a></strong> — Premium proxy network for large-scale scraping.</li>
+<li><strong><a href="https://www.scraperapi.com?fpr=n3x1s" target="_blank" rel="nofollow sponsored noopener">ScraperAPI</a></strong> — Handle proxies, browsers, CAPTCHAs automatically.</li>
+</ul>
+<em>Need a custom scraper built for you? <a href="https://www.fiverr.com/maxklein251" target="_blank" rel="nofollow sponsored noopener">Hire N3X1S on Fiverr →</a></em>
+            </div>
+            
+            <div class="author-box">
+                <div class="author-avatar">🔮</div>
+                <div class="author-info">
+                    <h4>Written by N3X1S Intelligence</h4>
+                    <p itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Data extraction specialists with 8+ years of experience building production-grade scrapers, ETL pipelines, and automation systems. We've processed billions of data points for Fortune 500 companies.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>🚀 Need a Custom Scraper?</h3>
+                <p>Don't have time to build it yourself? We'll create a production-ready scraper tailored to your exact needs.</p>
+                <a href="https://www.fiverr.com/s/LdR6YN4" class="cta-button" target="_blank" rel="nofollow sponsored noopener">Get Your Custom Scraper →</a>
+            </div>
+            
+            <section class="related-articles"><h2>📚 Related Articles</h2><div class="related-grid">
+        <article class="related-card">
+            <a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">
+                <h3>Data Enrichment: How to Add Value to Raw Scraped Data</h3>
+                <p>Imagine you've spent hours scraping data from a website—product names, prices, and descriptions. But...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_data-pipeline-architecture-from-messy-csvs-to-clean-database.html">
+                <h3>Data Pipeline Architecture: From Messy CSVs to Clean Database</h3>
+                <p>Imagine this: You’ve just received a CSV file from a client that’s supposed to contain thousands of ...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article>
+        <article class="related-card">
+            <a href="20260302_how-to-build-an-etl-pipeline-with-python-and-mysql.html">
+                <h3>How to Build an ETL Pipeline with Python and MySQL</h3>
+                <p>In today’s data-driven world, extracting, transforming, and loading (ETL) data is a cornerstone of m...</p>
+                <span class="read-time">7 min read</span>
+            </a>
+        </article></div></section>
+            
+            <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage"><h2>❓ Frequently Asked Questions</h2>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is prerequisites?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers prerequisites in detail with code examples and best practices.</p>
+            </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 itemprop="name">What is setting up your project?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">This section covers setting up your project in detail with code examples and best practices.</p>
+            </div>
+        </div></section>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🔮 N3X1S Intelligence</h4>
+                <p style="color: var(--text-muted);">Expert web scraping tutorials, automation guides, and data extraction techniques.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="category-web-scraping.html">Web Scraping</a></li>
+                    <li><a href="category-data-engineering.html">Data Engineering</a></li>
+                    <li><a href="category-automation.html">Automation</a></li>
+                    <li><a href="category-apis.html">APIs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="https://www.fiverr.com/s/LdR6YN4" target="_blank" rel="noopener">Hire Us</a></li>
+                    <li><a href="https://github.com/maxkle1nz" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="sitemap.xml">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Popular Tutorials</h4>
+                <ul>
+                    <li><a href="20260302_building-a-job-scraper-indeed-linkedin-glassdoor.html">Building a Job Scraper: Indeed, Lin...</a></li><li><a href="20260302_building-a-price-tracker-with-python-and-beautifulsoup.html">Building a Price Tracker with Pytho...</a></li><li><a href="20260302_building-a-real-estate-price-tracker-with-python.html">Building a Real Estate Price Tracke...</a></li><li><a href="20260302_data-enrichment-how-to-add-value-to-raw-scraped-data.html">Data Enrichment: How to Add Value t...</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 N3X1S Intelligence. All rights reserved. Built with 🐍 Python.</p>
+        </div>
+    </footer>
+</body>
+</html>
